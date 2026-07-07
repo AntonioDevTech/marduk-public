@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  hello:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: apps/hello/go.mod
+
+      - name: Test demo app
+        working-directory: apps/hello
+        run: go test ./...
+
+      - name: Build demo container
+        run: docker build -t marduk-hello:ci apps/hello

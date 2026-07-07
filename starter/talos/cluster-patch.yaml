@@ -1,0 +1,15 @@
+cluster:
+  allowSchedulingOnControlPlanes: true
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true
+machine:
+  install:
+    disk: /dev/sda
+  features:
+    kubePrism:
+      enabled: true
+      port: 7445
+

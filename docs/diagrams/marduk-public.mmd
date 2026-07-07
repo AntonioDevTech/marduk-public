@@ -1,0 +1,43 @@
+flowchart TB
+  dev["Developer workstation"]
+
+  subgraph source["Private source control and registry"]
+    repo["Git repository"]
+    registry["OCI registry"]
+  end
+
+  subgraph ci["CI pipeline"]
+    build["Build image"]
+    sbom["Generate SBOM"]
+    scan["CVE gate"]
+    sign["Sign image"]
+  end
+
+  subgraph cluster["3-node Kubernetes cluster on one hypervisor"]
+    argo["GitOps reconciler"]
+    admit["Admission policy<br/>signed images only"]
+    eso["External Secrets"]
+    app["Demo app pod"]
+    netpol["Default-deny network policy"]
+  end
+
+  vault["Vault service"]
+  obs["Out-of-band observability"]
+  backup["Off-cluster backup target"]
+  edge["Egress-only public edge"]
+
+  dev -->|git push| repo
+  repo -->|pipeline trigger| build
+  build --> sbom --> scan --> sign
+  sign -->|push signed digest| registry
+  sign -->|write digest back| repo
+  repo -->|GitOps sync| argo
+  argo --> admit
+  admit -->|admit only trusted digest| app
+  app -->|pull image| registry
+  eso -->|materialize runtime secrets| app
+  eso --> vault
+  netpol --> app
+  cluster --> obs
+  vault --> backup
+  edge --> app

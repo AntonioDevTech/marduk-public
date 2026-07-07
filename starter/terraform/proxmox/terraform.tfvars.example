@@ -1,0 +1,16 @@
+proxmox_endpoint     = "https://proxmox.example.internal:8006"
+proxmox_insecure_tls = false
+node_name            = "proxmox-node"
+talos_image_file_id  = "local:iso/talos-nocloud-amd64.img"
+disk_datastore       = "local-lvm"
+bridge               = "vmbr0"
+vlan_id              = null
+gateway              = "203.0.113.1"
+dns_server           = "203.0.113.53"
+
+nodes = {
+  "platform-01" = { vm_id = 1001, address = "203.0.113.11/24" }
+  "platform-02" = { vm_id = 1002, address = "203.0.113.12/24" }
+  "platform-03" = { vm_id = 1003, address = "203.0.113.13/24" }
+}
+

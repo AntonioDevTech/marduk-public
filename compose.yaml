@@ -1,0 +1,7 @@
+services:
+  hello:
+    build:
+      context: ./apps/hello
+    ports:
+      - "8080:8080"
+
