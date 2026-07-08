@@ -59,9 +59,10 @@ Expected private deploy order:
   8. Perform the live OpenBao first-install ceremony and save custody shares offline.
   9. Apply the generated OpenBao bootstrap bundle.
   10. Create and privately save AppRole credential files.
-  11. Configure private auth, seed runtime secrets through OpenBao and External Secrets, then revoke root.
-  12. Verify post-root admin access with the saved admin AppRole file.
-  13. Prove firewall, DNS, public route, observability, backup, admission, failover, and DR gates.
+  11. Configure Kubernetes auth with private cluster trust material.
+  12. Seed runtime secrets through OpenBao and External Secrets, then revoke root.
+  13. Verify post-root admin access with the saved admin AppRole file.
+  14. Prove firewall, DNS, public route, observability, backup, admission, failover, and DR gates.
 
 Manual gates that stay human-owned:
   - OpenBao custody shares and any root-of-trust ceremony.
@@ -72,8 +73,8 @@ Manual gates that stay human-owned:
 
 Honest state:
   This public repo now validates config, renders starter Terraform inputs, and
-  proves OpenBao helper mechanics, AppRole credential file creation, and
-  post-root access against disposable OpenBao.
+  proves OpenBao helper mechanics, AppRole credential file creation, Kubernetes
+  auth config submission, and post-root access against disposable OpenBao.
   It is still not a full turnkey deployer until a clean-room Proxmox install is
   implemented and proven from user-supplied private inputs.
 EOF

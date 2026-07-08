@@ -71,8 +71,13 @@ This is the proof required before the public repo can honestly say
    Save all printed unseal shares to private custody before continuing. Do not
    paste them into chat, Git, issues, screenshots, or public logs.
 
-12. Configure Kubernetes auth with private cluster trust material, then save the
-    generated AppRole credential files to private custody.
+12. Save the generated AppRole credential files to private custody, then
+    configure Kubernetes auth with private cluster trust material:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh configure-kubernetes-auth ./marduk.env starter/security/openbao-kubernetes-auth.json
+   ```
+
 13. Seed registry, backup, edge, preview, and signing secrets.
 14. Revoke root and remove the init JSON:
 

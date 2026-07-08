@@ -52,10 +52,10 @@ passes the explicit confirmation flag documented in
 `starter/security/openbao-first-install.md`.
 
 After init and unseal, the helper can apply the generated non-secret bundle,
-write AppRole credential files, verify post-root access, and revoke root. The
-config still must not contain Kubernetes auth reviewer tokens, AppRole secret
-IDs, signing keys, registry passwords, DNS tokens, backup keys, or other secret
-values.
+write AppRole credential files, configure Kubernetes auth from a private mode-600
+file, verify post-root access, and revoke root. The config still must not
+contain Kubernetes auth reviewer tokens, AppRole secret IDs, signing keys,
+registry passwords, DNS tokens, backup keys, or other secret values.
 
 ## What Belongs In The Config
 
@@ -80,6 +80,7 @@ Never put these values in the public repo:
 - OpenBao unseal shares.
 - Root tokens.
 - AppRole secret IDs.
+- Kubernetes auth reviewer tokens or CA material.
 - Registry passwords.
 - Cloudflare tokens.
 - Signing keys or passwords.

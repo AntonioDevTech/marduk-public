@@ -46,6 +46,7 @@ Use this checklist when adapting MARDUK to your own lab.
 - [ ] Dry-run the OpenBao first-install ceremony.
 - [ ] Save new unseal shares to password manager plus paper/offline custody.
 - [ ] Generate AppRole credential files and save them to private custody.
+- [ ] Configure Kubernetes auth from a mode-600 private file.
 - [ ] Verify post-root admin access after root is revoked.
 - [ ] Store real secret values only in the vault.
 - [ ] Sync runtime secrets with External Secrets.

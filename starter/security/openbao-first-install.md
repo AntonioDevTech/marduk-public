@@ -74,8 +74,8 @@ payloads/approle-ci-signing.json
 
    This enables the KV mount, enables Kubernetes and AppRole auth, applies the
    generated policies, and creates the generated roles. It does not configure
-   Kubernetes auth with private cluster credentials, does not create AppRole
-   secret IDs, and does not seed real secret values.
+   Kubernetes auth with private cluster credentials, does not write AppRole
+   credential files, and does not seed real secret values.
 
 8. Write AppRole credential files and save them privately:
 
@@ -88,7 +88,14 @@ payloads/approle-ci-signing.json
    before root is revoked.
 
 9. Configure Kubernetes auth with a private token reviewer JWT, Kubernetes host,
-   and CA bundle from your cluster.
+   and CA bundle from your cluster:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh configure-kubernetes-auth ./marduk.env starter/security/openbao-kubernetes-auth.json
+   ```
+
+   The `openbao-kubernetes-auth.json` file is ignored by Git and must have mode
+   600. It contains private cluster trust material and must not be published.
 10. Verify the least-privilege policy shape:
    - External Secrets reads only runtime secret prefixes.
    - Snapshot job can only create raft snapshots.
@@ -129,5 +136,6 @@ These stay manual:
 
 Until this ceremony is implemented and tested in a sanitized operational package,
 this public repo is a starter, not a turnkey installer. The generated bundle and
-helper remove ambiguity from policy, role, AppRole credential, and post-root
-access mechanics, but they do not replace the live custody ceremony.
+helper remove ambiguity from policy, role, AppRole credential, Kubernetes auth
+config, and post-root access mechanics, but they do not replace the live custody
+ceremony.

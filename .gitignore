@@ -8,3 +8,4 @@ marduk.env
 starter/terraform/proxmox/terraform.tfvars
 starter/security/openbao-bootstrap/
 starter/security/openbao-approle-credentials/
+starter/security/openbao-kubernetes-auth.json

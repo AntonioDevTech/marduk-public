@@ -14,6 +14,7 @@ Usage:
   starter/scripts/openbao-first-install.sh unseal [marduk.env]
   starter/scripts/openbao-first-install.sh apply-bootstrap [marduk.env] [bundle-dir]
   starter/scripts/openbao-first-install.sh write-approle-credentials [marduk.env] [output-dir]
+  starter/scripts/openbao-first-install.sh configure-kubernetes-auth [marduk.env] [kubernetes-auth.json]
   starter/scripts/openbao-first-install.sh revoke-root [marduk.env]
   starter/scripts/openbao-first-install.sh verify-post-root [marduk.env] [admin-creds.json]
   starter/scripts/openbao-first-install.sh shred-init [marduk.env]
@@ -167,6 +168,24 @@ print(json.dumps({"type": sys.argv[1]}))
 PY
 }
 
+json_kubernetes_auth_payload() {
+  python3 - "$1" <<'PY'
+import json
+import sys
+
+d = json.load(open(sys.argv[1]))
+payload = {}
+for key in ("kubernetes_host", "kubernetes_ca_cert", "token_reviewer_jwt"):
+    value = d.get(key)
+    if not isinstance(value, str) or not value.strip():
+        raise SystemExit(f"missing required Kubernetes auth field: {key}")
+    payload[key] = value
+if "disable_local_ca_jwt" in d:
+    payload["disable_local_ca_jwt"] = bool(d["disable_local_ca_jwt"])
+print(json.dumps(payload))
+PY
+}
+
 json_approle_login_payload() {
   python3 - "$1" <<'PY'
 import json
@@ -255,11 +274,11 @@ Live order:
   5. Run apply-bootstrap to apply the generated non-secret mount, auth, policy,
      and role shape.
   6. Run write-approle-credentials and save the generated files privately.
-  7. Configure private Kubernetes auth and seed real secrets through private
-     files or stdin.
-  8. Verify ESO, backup, signing, and public-edge paths.
-  9. Run revoke-root after first backup and verification.
-  10. Run verify-post-root with the saved admin AppRole file.
+  7. Run configure-kubernetes-auth with private cluster trust material.
+  8. Seed real secrets through mode-600 files or stdin.
+  9. Verify ESO, backup, signing, and public-edge paths.
+  10. Run revoke-root after first backup and verification.
+  11. Run verify-post-root with the saved admin AppRole file.
 
 This dry run does not contact OpenBao and prints no secret values.
 EOF
@@ -398,6 +417,36 @@ PY
 OpenBao AppRole credentials: PASS
 output_dir=$output_dir files=2 mode=600 values_printed=false
 EOF
+    ;;
+
+  configure-kubernetes-auth)
+    preflight
+    auth_config="${3:-starter/security/openbao-kubernetes-auth.json}"
+    [ -f "$auth_config" ] || die "Kubernetes auth config file missing: $auth_config"
+    mode=$(stat -c '%a' "$auth_config" 2>/dev/null || echo unknown)
+    if [ "$mode" != "600" ]; then
+      die "Kubernetes auth config file must have mode 600, got: $mode"
+    fi
+    token=$(root_token)
+    payload=$(mktemp)
+    chmod 600 "$payload"
+    json_kubernetes_auth_payload "$auth_config" > "$payload"
+    bao_curl POST "$token" "auth/kubernetes/config" "$payload" >/dev/null
+    rm -f "$payload"
+    bao_curl GET "$token" "auth/kubernetes/config" \
+      | python3 -c '
+import json
+import sys
+
+d = json.load(sys.stdin).get("data", {})
+host = bool(d.get("kubernetes_host"))
+ca = bool(d.get("kubernetes_ca_cert"))
+if not host or not ca:
+    raise SystemExit("Kubernetes auth readback missing host or CA")
+print("OpenBao Kubernetes auth config: PASS")
+print("kubernetes_host_present=true kubernetes_ca_cert_present=true token_reviewer_jwt_submitted=true values_printed=false")
+'
+    unset token
     ;;
 
   revoke-root)

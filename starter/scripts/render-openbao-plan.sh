@@ -43,7 +43,7 @@ Expected private first-install order:
   6. Unseal with any 2 shares.
   7. Apply the rendered non-secret bundle with apply-bootstrap.
   8. Create AppRole credential files and privately save them.
-  9. Configure Kubernetes auth with private cluster trust material.
+  9. Configure Kubernetes auth with configure-kubernetes-auth and private cluster trust material.
   10. Enter real secret values through mode-600 files or stdin, never shell args.
   11. Verify External Secrets, signed-image admission, backup shipping, and public edge.
   12. Create the first off-cluster raft snapshot.
@@ -58,7 +58,7 @@ Manual gates that stay human-owned:
 
 Honest state:
   This public repo can render the non-secret OpenBao policy and role skeleton,
-  create AppRole credential files, and prove post-root helper mechanics against
-  disposable OpenBao. It does not yet prove full first install against a fresh
-  public cluster.
+  create AppRole credential files, submit Kubernetes auth config, and prove
+  post-root helper mechanics against disposable OpenBao. It does not yet prove
+  full first install against a fresh public cluster.
 EOF

@@ -86,9 +86,9 @@ To adapt it:
    OpenBao init. The live init command intentionally requires an explicit
    confirmation flag because it prints tier-0 unseal shares for you to save.
    The helper can also apply the generated non-secret bundle, write AppRole
-   credential files, revoke root, and verify post-root access. You still own
-   Kubernetes auth config, private custody for those credential files, and real
-   secret values.
+   credential files, configure Kubernetes auth from a private mode-600 file,
+   revoke root, and verify post-root access. You still own private custody for
+   those credential files and all real secret values.
 9. Generate your own Talos secrets. Never reuse anyone else's.
 10. Create your own registry, signing key, vault, and DNS records.
 11. Run a secret scanner and a private-value grep before publishing anything.

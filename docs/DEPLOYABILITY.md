@@ -31,8 +31,9 @@ auth, ESO, backup, and public-edge first-install proof.
 - Public-safe OpenBao first-install pattern, non-secret bootstrap bundle, and
   dry-run ceremony helper.
 - Disposable OpenBao proof that the helper can initialize, unseal, apply the
-  generated non-secret policies/roles, create AppRole credential files, revoke
-  root, verify post-root access, and remove the init JSON.
+  generated non-secret policies/roles, create AppRole credential files, submit
+  Kubernetes auth config from a private mode-600 file, revoke root, verify
+  post-root access, and remove the init JSON.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
 
@@ -43,8 +44,8 @@ auth, ESO, backup, and public-edge first-install proof.
 - Real Talos secrets and kubeconfig custody.
 - Private Git host or GitHub/GitLab equivalent.
 - Registry and signing identity.
-- OpenBao first-install custody, Kubernetes auth config, saved AppRole
-  credential custody, and initial secrets.
+- OpenBao first-install custody, saved AppRole credential custody, real
+  Kubernetes auth material, and initial secrets.
 - Backup target and snapshot shipping path.
 - External DNS/public edge model.
 - Out-of-band observability.
@@ -60,9 +61,9 @@ auth, ESO, backup, and public-edge first-install proof.
    config. DONE for starter inputs, not Terraform apply.
 4. Render OpenBao first-install policy and role payload bundle. DONE.
 5. Prove OpenBao helper mechanics against a disposable vault. DONE for
-   init/unseal/apply generated bundle/AppRole credential files/root
-   revoke/post-root access, not full Kubernetes ESO integration or real secret
-   seeding.
+   init/unseal/apply generated bundle/AppRole credential files/Kubernetes auth
+   config submission/root revoke/post-root access, not full Kubernetes ESO
+   integration or real secret seeding.
 6. Expand the public starter harness into real deploy orchestration.
 7. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.
