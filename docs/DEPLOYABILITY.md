@@ -8,8 +8,8 @@ It is not yet a turnkey public installer.
 
 The private MARDUK operational repo has a proven deploy wrapper. This public repo
 does not yet include a sanitized version of that wrapper. It does include
-public-safe first-install OpenBao helper mechanics, but not the full Kubernetes
-auth, ESO, backup, and public-edge first-install proof.
+public-safe first-install OpenBao helper mechanics, but not the full backup and
+public-edge first-install proof.
 
 ## What Works Today
 
@@ -34,8 +34,9 @@ auth, ESO, backup, and public-edge first-install proof.
   generated non-secret policies/roles, create AppRole credential files, submit
   Kubernetes auth config from a private mode-600 file, prove a real Kubernetes
   ServiceAccount login through kind, enforce policy scoping, install External
-  Secrets into kind, sync an OpenBao value into a Kubernetes Secret, revoke
-  root, verify post-root access, and remove the init JSON.
+  Secrets into kind, sync OpenBao values into Kubernetes Secrets, seed
+  public-safe registry and backup values through a mode-600 file, revoke root,
+  verify post-root access, and remove the init JSON.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
 
@@ -65,7 +66,8 @@ auth, ESO, backup, and public-edge first-install proof.
 5. Prove OpenBao helper mechanics against disposable resources. DONE for
    init/unseal/apply generated bundle/AppRole credential files/Kubernetes auth
    config submission/real ServiceAccount login/policy scoping/External Secrets
-   sync/root revoke/post-root access, not real operational secret seeding.
+   sync/public-safe registry and backup seed/root revoke/post-root access, not
+   real operator-owned secret values.
 6. Expand the public starter harness into real deploy orchestration.
 7. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.

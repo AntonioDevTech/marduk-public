@@ -94,21 +94,40 @@ This is the proof required before the public repo can honestly say
    make openbao-eso-sync-proof
    ```
 
-15. Seed registry, backup, edge, preview, and signing secrets.
-16. Revoke root and remove the init JSON:
+15. Optional local proof before touching real secrets: prove the public
+    `seed-runtime-secrets` helper can write public-safe registry and backup
+    values through a mode-600 seed file and then sync both through External
+    Secrets:
+
+   ```bash
+   make openbao-secret-seeding-proof
+   ```
+
+16. Seed registry, backup, edge, preview, and signing secrets privately:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh seed-runtime-secrets ./marduk.env starter/security/openbao-runtime-secrets.json
+   ```
+
+   The seed file must be mode 600. It must use only prefixes allowed by
+   `OPENBAO_RUNTIME_SECRET_PREFIXES`. Do not print its values.
+
+17. Verify the seeded secrets are consumed by their target controllers.
+
+18. Revoke root and remove the init JSON:
 
    ```bash
    starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
    ```
 
-17. Verify post-root access:
+19. Verify post-root access:
 
    ```bash
    starter/scripts/openbao-first-install.sh verify-post-root ./marduk.env starter/security/openbao-approle-credentials/admin.json
    ```
 
-18. Verify OpenBao still serves ESO.
-19. Prove GitOps sync, signed admission, public route, observability, backup,
+20. Verify OpenBao still serves ESO.
+21. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard

@@ -44,7 +44,7 @@ Expected private first-install order:
   7. Apply the rendered non-secret bundle with apply-bootstrap.
   8. Create AppRole credential files and privately save them.
   9. Configure Kubernetes auth with configure-kubernetes-auth and private cluster trust material.
-  10. Enter real secret values through mode-600 files or stdin, never shell args.
+  10. Seed real secret values through seed-runtime-secrets with a mode-600 JSON file.
   11. Verify External Secrets, signed-image admission, backup shipping, and public edge.
   12. Create the first off-cluster raft snapshot.
   13. Revoke root with revoke-root.
@@ -59,7 +59,8 @@ Manual gates that stay human-owned:
 Honest state:
   This public repo can render the non-secret OpenBao policy and role skeleton,
   create AppRole credential files, submit Kubernetes auth config, prove a real
-  Kubernetes ServiceAccount login, prove External Secrets sync, and prove
-  post-root helper mechanics against disposable OpenBao/kind resources. It does
-  not yet prove full first install against a fresh public Proxmox cluster.
+  Kubernetes ServiceAccount login, prove External Secrets sync, seed public-safe
+  registry and backup values, and prove post-root helper mechanics against
+  disposable OpenBao/kind resources. It does not yet prove full first install
+  against a fresh public Proxmox cluster.
 EOF

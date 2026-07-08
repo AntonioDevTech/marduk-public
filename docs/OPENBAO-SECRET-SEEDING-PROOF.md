@@ -1,26 +1,28 @@
-# OpenBao External Secrets Sync Proof
+# OpenBao Runtime Secret Seeding Proof
 
 Date: 2026-07-08
 
 ## Purpose
 
-This proof checks the next public first-install seam after Kubernetes auth login:
-External Secrets Operator can use OpenBao Kubernetes auth to materialize a
-Kubernetes Secret from a value stored in OpenBao.
+This proof checks the public first-install seam after External Secrets sync:
+the public helper can seed runtime secret paths from a mode-600 JSON file, then
+External Secrets can materialize those seeded values into Kubernetes Secrets.
+
+The proof uses public-safe fake values only.
 
 ## Public Helper Commit
 
 ```text
-commit: d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2
+commit: 82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978
 workflow: ci
-run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28964935158
+run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28966509399
 status: Success
 ```
 
 ## Command
 
 ```bash
-make openbao-eso-sync-proof
+make openbao-secret-seeding-proof
 ```
 
 The command requires Docker, kind, kubectl, Helm, curl, python3, and base64. It
@@ -29,7 +31,7 @@ creates only disposable local resources and removes them before exit.
 ## Safe Output
 
 ```text
-Starting disposable External Secrets and OpenBao sync proof.
+Starting disposable OpenBao secret seeding proof.
 No real MARDUK infrastructure or secrets are used.
 Disposable Kubernetes cluster: ready
 OpenBao disposable server: reachable
@@ -38,10 +40,10 @@ OpenBao disposable server: initialized and unsealed
 OpenBao bootstrap bundle: applied
 External Secrets Operator: installed
 OpenBao Kubernetes auth config: applied
-OpenBao proof secret: written
-External Secrets sync proof: PASS
-kind_cluster_created=true external_secrets_installed=true clustersecretstore_ready=true externalsecret_synced=true target_secret_verified=true
-unseal_shares_printed=false token_reviewer_jwt_printed=false service_account_jwt_printed=false vault_tokens_printed=false
+OpenBao public-safe seed file: applied
+Public-safe secret seeding proof: PASS
+kind_cluster_created=true external_secrets_installed=true clustersecretstore_ready=true seeded_prefixes=registry,backup externalsecrets_synced=true target_secrets_verified=true
+seed_values_printed=false unseal_shares_printed=false token_reviewer_jwt_printed=false service_account_jwt_printed=false vault_tokens_printed=false
 ```
 
 ## What Was Proven
@@ -53,18 +55,20 @@ unseal_shares_printed=false token_reviewer_jwt_printed=false service_account_jwt
 - External Secrets chart `2.7.0` installed successfully into kind.
 - OpenBao Kubernetes auth was configured with a real reviewer JWT and cluster CA
   from the disposable kind cluster.
-- A proof value was written to `marduk/data/registry/proof` in disposable
+- The `seed-runtime-secrets` helper accepted only a mode-600 seed file.
+- The helper validated seed paths against `OPENBAO_RUNTIME_SECRET_PREFIXES`.
+- Public-safe fake registry and backup values were written to disposable
   OpenBao.
 - A `ClusterSecretStore` became Ready.
-- An `ExternalSecret` became Ready.
-- The target Kubernetes Secret contained the expected value from OpenBao.
+- Two `ExternalSecret` resources became Ready.
+- The target Kubernetes Secrets contained the expected public-safe fake values.
 - The root token, kind cluster, OpenBao container, and temp storage were removed
   after the proof.
 
 ## Clean Clone Proof
 
 A fresh anonymous GitHub clone at commit
-`d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2` passed:
+`82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978` passed:
 
 - shell syntax for `deploy-marduk-public.sh` and all starter scripts
 - `make doctor`
@@ -82,14 +86,14 @@ A fresh anonymous GitHub clone at commit
 - `git diff --check`
 - gitleaks 8.28.0 with no leaks
 - private-value denylist scan with no hits
+- cleanup checks showing no leftover disposable kind cluster, OpenBao container,
+  or proof temp directory
 
 ## Still Not Proven
 
 This does not yet prove:
 
 - real operator-owned registry, backup, edge, preview, or signing secret values
-- public-safe registry and backup seeding is covered by
-  `make openbao-secret-seeding-proof`
 - first off-cluster backup in a public clean-room environment
 - full Terraform/Talos/GitOps deployment on a random Proxmox host
 - failover, disaster recovery, and public route checks on non-original hardware

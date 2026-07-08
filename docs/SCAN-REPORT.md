@@ -7,7 +7,7 @@ public starter harness, generated deploy plan, generated Terraform starter
 inputs, generated OpenBao first-install bootstrap bundle, and OpenBao
 first-install dry-run helper, AppRole credential file helper, Kubernetes auth
 config helper, Kubernetes login proof, External Secrets sync proof, and
-post-root access verifier.
+runtime secret seed helper, and post-root access verifier.
 
 Scope:
 
@@ -39,6 +39,9 @@ Automated checks run:
   payloads to `/tmp/marduk-openbao-bootstrap`.
 - `make openbao-first-install-dry-run`, result: PASS and prints the public-safe
   first-install ceremony without contacting OpenBao or printing secrets.
+- `make openbao-secret-seeding-proof`, result: PASS and proves public-safe
+  registry and backup seed values sync through disposable OpenBao, kind, and
+  External Secrets.
 - Negative OpenBao init-refusal check, result: PASS because
   `starter/scripts/openbao-first-install.sh init` refuses to run without the
   explicit `--i-understand-this-prints-tier0-shares` flag.
@@ -140,6 +143,12 @@ Automated checks run:
   to become Ready, verified the target Kubernetes Secret contained the expected
   value, revoked root, and removed the disposable cluster, container, and temp
   storage.
+- Disposable runtime secret seeding proof against `openbao/openbao:2.5.5`, kind,
+  and External Secrets chart 2.7.0, result: created a mode-600 seed file with
+  public-safe fake values, ran `seed-runtime-secrets`, wrote `registry/` and
+  `backup/` proof values to disposable OpenBao, synced both into Kubernetes
+  Secrets through External Secrets, verified the target values, revoked root,
+  and removed the disposable cluster, container, and temp storage.
 - Published GitHub OpenBao bootstrap-apply helper commit
   `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -233,6 +242,27 @@ Automated checks run:
   `make docker-build`, `make openbao-kubernetes-login-proof`,
   `make openbao-eso-sync-proof`, `git diff --check`, gitleaks, refined private
   denylist grep, and cleanup checks all passed.
+- Published GitHub OpenBao runtime secret seeding helper commit
+  `82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`,
+  `make openbao-eso-sync-proof`, `make openbao-secret-seeding-proof`,
+  `git diff --check`, standalone repo gitleaks, refined private denylist grep,
+  and cleanup checks all passed.
+- Public GitHub Actions for commit `82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28966509399`.
+- Anonymous clean clone proof for
+  `82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`,
+  `make openbao-eso-sync-proof`, `make openbao-secret-seeding-proof`,
+  `git diff --check`, gitleaks, refined private denylist grep, and cleanup
+  checks all passed.
 
 Manual boundary review:
 
@@ -258,9 +288,10 @@ Manual boundary review:
 - Disposable live-helper proof now covers init/unseal, generated policy and role
   apply, AppRole credential file creation, Kubernetes auth config submission,
   real Kubernetes ServiceAccount JWT login, policy scoping, External Secrets
-  sync, root revoke, and post-root admin access mechanics. It does not seed real
-  operational secrets, prove backup/public-edge paths, or replace the need for a
-  clean public Proxmox first-install proof.
+  sync, public-safe registry and backup seed, root revoke, and post-root admin
+  access mechanics. It does not publish real operator-owned secret values, prove
+  backup/public-edge paths, or replace the need for a clean public Proxmox
+  first-install proof.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 

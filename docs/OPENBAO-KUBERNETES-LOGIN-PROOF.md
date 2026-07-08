@@ -86,7 +86,9 @@ This proof by itself does not prove:
 
 - ESO controller sync; that is covered by the separate
   `make openbao-eso-sync-proof` command
-- real registry, backup, edge, preview, or signing secret seeding
+- public-safe registry and backup seed sync; that is covered by the separate
+  `make openbao-secret-seeding-proof` command
+- real operator-owned registry, backup, edge, preview, or signing secret values
 - first off-cluster backup in a public clean-room environment
 - full Terraform/Talos/GitOps deployment on a random Proxmox host
 - failover, disaster recovery, and public route checks on non-original hardware
