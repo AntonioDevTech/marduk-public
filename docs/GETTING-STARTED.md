@@ -79,11 +79,15 @@ To adapt it:
    ```bash
    ./deploy-marduk-public.sh openbao-plan ./marduk.env
    ./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+   ./deploy-marduk-public.sh openbao-first-install-dry-run ./marduk.env
    ```
 
-8. Generate your own Talos secrets. Never reuse anyone else's.
-9. Create your own registry, signing key, vault, and DNS records.
-10. Run a secret scanner and a private-value grep before publishing anything.
+8. Read `starter/security/openbao-first-install.md` before running any live
+   OpenBao init. The live init command intentionally requires an explicit
+   confirmation flag because it prints tier-0 unseal shares for you to save.
+9. Generate your own Talos secrets. Never reuse anyone else's.
+10. Create your own registry, signing key, vault, and DNS records.
+11. Run a secret scanner and a private-value grep before publishing anything.
 
 ## What You Should Not Copy Blindly
 
@@ -104,5 +108,5 @@ The private MARDUK estate has a proven wrapper that rebuilds from destroyed VMs
 to final PASS with explicit human gates.
 
 This public repo does not yet contain that full sanitized wrapper. Treat the
-`starter/` files as a blueprint until the public operational package is added
-and proven from a clean clone.
+`starter/` files and OpenBao dry-run helper as a blueprint until the public
+operational package is added and proven from a clean clone.

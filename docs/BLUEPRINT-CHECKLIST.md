@@ -43,6 +43,7 @@ Use this checklist when adapting MARDUK to your own lab.
 
 - [ ] Deploy a vault.
 - [ ] Render and review `starter/security/openbao-bootstrap`.
+- [ ] Dry-run the OpenBao first-install ceremony.
 - [ ] Save new unseal shares to password manager plus paper/offline custody.
 - [ ] Store real secret values only in the vault.
 - [ ] Sync runtime secrets with External Secrets.

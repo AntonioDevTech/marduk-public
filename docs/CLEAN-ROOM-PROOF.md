@@ -51,14 +51,27 @@ This is the proof required before the public repo can honestly say
    ```bash
    ./deploy-marduk-public.sh openbao-plan ./marduk.env
    ./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+   ./deploy-marduk-public.sh openbao-first-install-dry-run ./marduk.env
    ```
 
 8. Build the VM substrate with Terraform.
 9. Bootstrap Talos and Kubernetes with fresh Talos secrets.
 10. Seed Cilium and Argo CD.
-11. Run the live OpenBao first-install ceremony.
+11. Run the live OpenBao first-install ceremony in a private terminal:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh preflight ./marduk.env
+   starter/scripts/openbao-first-install.sh status ./marduk.env
+   starter/scripts/openbao-first-install.sh init ./marduk.env --i-understand-this-prints-tier0-shares
+   starter/scripts/openbao-first-install.sh unseal ./marduk.env
+   ```
+
+   Save all printed unseal shares to private custody before continuing. Do not
+   paste them into chat, Git, issues, screenshots, or public logs.
+
 12. Seed registry, backup, edge, preview, and signing secrets.
-13. Prove GitOps sync, signed admission, public route, observability, backup,
+13. Revoke root, shred the init JSON, and verify OpenBao still serves ESO.
+14. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard

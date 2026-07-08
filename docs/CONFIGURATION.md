@@ -40,10 +40,16 @@ same config:
 ```bash
 ./deploy-marduk-public.sh openbao-plan ./marduk.env
 ./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+./deploy-marduk-public.sh openbao-first-install-dry-run ./marduk.env
 ```
 
 The OpenBao bundle contains ACL policies and role payloads only. It must not
 contain unseal shares, root tokens, AppRole secret IDs, or secret values.
+
+The first-install dry run prints the intended ceremony order and does not
+contact OpenBao. The live helper refuses to initialize a vault unless a human
+passes the explicit confirmation flag documented in
+`starter/security/openbao-first-install.md`.
 
 ## What Belongs In The Config
 

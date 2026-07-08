@@ -40,5 +40,8 @@ jobs:
       - name: Render OpenBao bootstrap bundle
         run: make openbao-bootstrap
 
+      - name: Dry-run OpenBao first-install ceremony
+        run: make openbao-first-install-dry-run
+
       - name: Build demo container
         run: docker build -t marduk-hello:ci apps/hello

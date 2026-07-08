@@ -46,6 +46,7 @@ Talos VM substrate:
 Generated local artifacts:
   starter/scripts/render-terraform-tfvars.sh "$CONFIG" starter/terraform/proxmox/terraform.tfvars
   starter/scripts/render-openbao-bootstrap.sh "$CONFIG" starter/security/openbao-bootstrap
+  starter/scripts/openbao-first-install.sh dry-run "$CONFIG"
 
 Expected private deploy order:
   1. Validate local tools and this config.
@@ -54,9 +55,10 @@ Expected private deploy order:
   4. Run terraform init/plan/apply for the Proxmox Talos VM substrate.
   5. Generate fresh Talos secrets in private custody and bootstrap Kubernetes.
   6. Seed Cilium and Argo CD.
-  7. Perform the OpenBao first-install ceremony and save custody shares offline.
-  8. Seed runtime secrets through OpenBao and External Secrets.
-  9. Prove firewall, DNS, public route, observability, backup, admission, failover, and DR gates.
+  7. Dry-run the OpenBao first-install ceremony and review every human gate.
+  8. Perform the live OpenBao first-install ceremony and save custody shares offline.
+  9. Seed runtime secrets through OpenBao and External Secrets.
+  10. Prove firewall, DNS, public route, observability, backup, admission, failover, and DR gates.
 
 Manual gates that stay human-owned:
   - OpenBao custody shares and any root-of-trust ceremony.
@@ -66,7 +68,8 @@ Manual gates that stay human-owned:
   - Backup target trust.
 
 Honest state:
-  This public repo now validates config and renders starter Terraform inputs.
+  This public repo now validates config, renders starter Terraform inputs, and
+  dry-runs the OpenBao first-install ceremony.
   It is still not a full turnkey deployer until a clean-room Proxmox install is
   implemented and proven from user-supplied private inputs.
 EOF

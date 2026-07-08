@@ -13,6 +13,7 @@ Usage:
   ./deploy-marduk-public.sh render-terraform [./marduk.env] [output.tfvars]
   ./deploy-marduk-public.sh openbao-plan [./marduk.env]
   ./deploy-marduk-public.sh render-openbao [./marduk.env] [output-dir]
+  ./deploy-marduk-public.sh openbao-first-install-dry-run [./marduk.env]
   ./deploy-marduk-public.sh deploy ./marduk.env
 
 This public script is a starter harness. It validates tools and config shape,
@@ -82,6 +83,16 @@ case "$cmd" in
     starter/scripts/render-openbao-bootstrap.sh "$config" "$output"
     ;;
 
+  openbao-first-install-dry-run)
+    config="${2:-starter/config/marduk.env.example}"
+    if [ "$config" = "starter/config/marduk.env.example" ]; then
+      starter/scripts/doctor.sh "$config" --allow-placeholders
+    else
+      starter/scripts/doctor.sh "$config"
+    fi
+    starter/scripts/openbao-first-install.sh dry-run "$config"
+    ;;
+
   deploy)
     config="${2:-}"
     if [ -z "$config" ]; then
@@ -94,6 +105,7 @@ case "$cmd" in
     "$0" render-terraform "$config" starter/terraform/proxmox/terraform.tfvars
     "$0" openbao-plan "$config"
     "$0" render-openbao "$config" starter/security/openbao-bootstrap
+    "$0" openbao-first-install-dry-run "$config"
     cat <<'EOF'
 
 PAUSED: public turnkey deploy is not implemented yet.

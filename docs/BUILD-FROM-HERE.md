@@ -15,6 +15,7 @@ make starter-doctor
 ./deploy-marduk-public.sh render-terraform starter/config/marduk.env.example -
 ./deploy-marduk-public.sh openbao-plan
 ./deploy-marduk-public.sh render-openbao starter/config/marduk.env.example /tmp/marduk-openbao-bootstrap
+./deploy-marduk-public.sh openbao-first-install-dry-run
 make docker-build
 make run-docker
 ```
@@ -38,15 +39,16 @@ Recommended order:
 5. Run `./deploy-marduk-public.sh plan ./marduk.env`.
 6. Render `starter/terraform/proxmox/terraform.tfvars` from `marduk.env`.
 7. Render `starter/security/openbao-bootstrap` from `marduk.env`.
-8. Run Terraform to create the VMs.
-9. Generate Talos machine configs from your own secrets.
-10. Bootstrap Kubernetes.
-11. Install Cilium and Argo CD.
-12. Point Argo CD at your private operational repo.
-13. Add registry, signing, vault, admission policy, observability, and backups.
-14. Use `docs/EXTERNAL-GATES.md` to prove human-owned trust gates.
-15. Use `docs/FAILOVER-DR-MATRIX.md` to prove recovery claims.
-16. Write evidence for each claim before you make it publicly.
+8. Dry-run the OpenBao first-install ceremony and review every human gate.
+9. Run Terraform to create the VMs.
+10. Generate Talos machine configs from your own secrets.
+11. Bootstrap Kubernetes.
+12. Install Cilium and Argo CD.
+13. Point Argo CD at your private operational repo.
+14. Add registry, signing, vault, admission policy, observability, and backups.
+15. Use `docs/EXTERNAL-GATES.md` to prove human-owned trust gates.
+16. Use `docs/FAILOVER-DR-MATRIX.md` to prove recovery claims.
+17. Write evidence for each claim before you make it publicly.
 
 ## What Is Still Missing For Turnkey Public Deploy
 
@@ -62,7 +64,8 @@ Before this repo can honestly say "clone and deploy," it needs:
    `render-openbao`; full deploy orchestration is still pending.
 2. A live-tested first-install OpenBao path for users with no existing snapshot
    or custody. The public starter can render the non-secret policy and role
-   bundle now; the live ceremony still needs clean-room proof.
+   bundle and dry-run the ceremony now; the live ceremony still needs
+   clean-room proof.
 3. A documented external-gate matrix for firewall, DNS, public edge, backups, and
    observability.
 4. A clean-room proof from an anonymous clone and documented inputs.

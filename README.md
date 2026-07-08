@@ -58,7 +58,7 @@ and enough architecture to build your own version without exposing mine.
 | Node kill under load preserves the demo app | Proven privately |
 | Clean private rebuild under 30 minutes | Proven privately |
 | Random-user public clone deploys the full platform | Not proven yet |
-| Fresh first install with no existing vault snapshot | Not packaged yet |
+| Fresh first install with no existing vault snapshot | Dry-run helper packaged, not live-proven publicly |
 
 Latest honest rebuild wording:
 
@@ -129,6 +129,7 @@ make starter-doctor
 ./deploy-marduk-public.sh render-terraform starter/config/marduk.env.example -
 ./deploy-marduk-public.sh openbao-plan
 ./deploy-marduk-public.sh render-openbao starter/config/marduk.env.example /tmp/marduk-openbao-bootstrap
+./deploy-marduk-public.sh openbao-first-install-dry-run
 ```
 
 `make test` uses local Go when it is installed. If Go is missing but Docker is
@@ -177,7 +178,7 @@ The starter includes:
 - Talos cluster and node patch examples.
 - Argo CD app-of-apps bootstrap example.
 - Kubernetes demo app manifests.
-- Security notes plus an OpenBao first-install policy and role bundle renderer.
+- Security notes plus OpenBao first-install policy, role, and ceremony dry-run helpers.
 
 You still must supply your own private values: network plan, endpoints, DNS,
 registry, vault, signing identity, and recovery process.
@@ -194,6 +195,7 @@ The public harness shows the current command surface:
 ./deploy-marduk-public.sh render-terraform ./marduk.env starter/terraform/proxmox/terraform.tfvars
 ./deploy-marduk-public.sh openbao-plan ./marduk.env
 ./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+./deploy-marduk-public.sh openbao-first-install-dry-run ./marduk.env
 ```
 
 ## What Is Not Included

@@ -16,7 +16,8 @@ OpenBao ceremony.
 - Local demo app source with `make test` support through either Go or Docker.
 - Public config contract and starter doctor check.
 - Public starter harness with `doctor`, `verify-config`, `plan`, and
-  `render-terraform`, `openbao-plan`, and `render-openbao`.
+  `render-terraform`, `openbao-plan`, `render-openbao`, and
+  `openbao-first-install-dry-run`.
 - Generated starter `terraform.tfvars` from a private `marduk.env` shape.
 - Generated OpenBao first-install ACL policy and role payload bundle from a
   private `marduk.env` shape.
@@ -26,7 +27,8 @@ OpenBao ceremony.
 - Sanitized Kubernetes starter manifests.
 - Public-safe architecture and evidence summaries.
 - Public-safe external gate and failover/DR proof matrices.
-- Public-safe OpenBao first-install pattern and non-secret bootstrap bundle.
+- Public-safe OpenBao first-install pattern, non-secret bootstrap bundle, and
+  dry-run ceremony helper.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
 
@@ -52,7 +54,7 @@ OpenBao ceremony.
 3. Render concrete deploy-plan and Terraform starter inputs from user-supplied
    config. DONE for starter inputs, not Terraform apply.
 4. Render OpenBao first-install policy and role payload bundle. DONE for
-   non-secret bundle, not live vault ceremony.
+   non-secret bundle and dry-run ceremony helper, not live vault ceremony.
 5. Expand the public starter harness into real deploy orchestration.
 6. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.
