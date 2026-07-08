@@ -112,6 +112,24 @@ Automated checks run:
   four ACL policies, four roles, ran `revoke-root`, confirmed root lookup
   returned HTTP 403, removed the init JSON, shredded temp custody files, and
   removed the disposable container/storage.
+- Published GitHub OpenBao bootstrap-apply helper commit
+  `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  OpenBao init-refusal negative check, `make docker-build`, standalone repo
+  gitleaks, refined private denylist grep, and container `/healthz` HTTP 200
+  all passed.
+- Public GitHub Actions for commit `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28938776164`.
+- Anonymous clean clone proof for
+  `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  OpenBao init-refusal negative check, `make docker-build`, container
+  `/healthz` HTTP 200, gitleaks, and refined private denylist grep all passed.
 
 Manual boundary review:
 
