@@ -58,7 +58,7 @@ and enough architecture to build your own version without exposing mine.
 | Node kill under load preserves the demo app | Proven privately |
 | Clean private rebuild under 30 minutes | Proven privately |
 | Random-user public clone deploys the full platform | Not proven yet |
-| Fresh first install with no existing vault snapshot | Helper mechanics, AppRole credential files, Kubernetes auth config submission, and post-root access proven against disposable OpenBao, not full public cluster |
+| Fresh first install with no existing vault snapshot | Helper mechanics, AppRole credential files, Kubernetes auth config submission, real ServiceAccount login, policy scoping, and post-root access proven against disposable OpenBao/kind resources, not full public cluster |
 
 Latest honest rebuild wording:
 
@@ -134,6 +134,15 @@ make starter-doctor
 
 `make test` uses local Go when it is installed. If Go is missing but Docker is
 available, it runs the same test inside the pinned Go container image.
+
+If Docker, kind, and kubectl are available, this optional proof creates a
+disposable kind cluster plus disposable OpenBao and proves a real Kubernetes
+service account can log in through OpenBao Kubernetes auth while staying inside
+its allowed policy:
+
+```bash
+make openbao-kubernetes-login-proof
+```
 
 ```bash
 cd apps/hello

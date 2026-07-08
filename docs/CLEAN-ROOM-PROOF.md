@@ -78,21 +78,29 @@ This is the proof required before the public repo can honestly say
    starter/scripts/openbao-first-install.sh configure-kubernetes-auth ./marduk.env starter/security/openbao-kubernetes-auth.json
    ```
 
-13. Seed registry, backup, edge, preview, and signing secrets.
-14. Revoke root and remove the init JSON:
+13. Optional local proof before touching a real cluster: with Docker, kind, and
+    kubectl installed, prove the public helper's Kubernetes auth shape against
+    disposable resources:
+
+   ```bash
+   make openbao-kubernetes-login-proof
+   ```
+
+14. Seed registry, backup, edge, preview, and signing secrets.
+15. Revoke root and remove the init JSON:
 
    ```bash
    starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
    ```
 
-15. Verify post-root access:
+16. Verify post-root access:
 
    ```bash
    starter/scripts/openbao-first-install.sh verify-post-root ./marduk.env starter/security/openbao-approle-credentials/admin.json
    ```
 
-16. Verify OpenBao still serves ESO.
-17. Prove GitOps sync, signed admission, public route, observability, backup,
+17. Verify OpenBao still serves ESO.
+18. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard

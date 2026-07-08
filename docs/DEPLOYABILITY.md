@@ -32,7 +32,8 @@ auth, ESO, backup, and public-edge first-install proof.
   dry-run ceremony helper.
 - Disposable OpenBao proof that the helper can initialize, unseal, apply the
   generated non-secret policies/roles, create AppRole credential files, submit
-  Kubernetes auth config from a private mode-600 file, revoke root, verify
+  Kubernetes auth config from a private mode-600 file, prove a real Kubernetes
+  ServiceAccount login through kind, enforce policy scoping, revoke root, verify
   post-root access, and remove the init JSON.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
@@ -60,10 +61,10 @@ auth, ESO, backup, and public-edge first-install proof.
 3. Render concrete deploy-plan and Terraform starter inputs from user-supplied
    config. DONE for starter inputs, not Terraform apply.
 4. Render OpenBao first-install policy and role payload bundle. DONE.
-5. Prove OpenBao helper mechanics against a disposable vault. DONE for
+5. Prove OpenBao helper mechanics against disposable resources. DONE for
    init/unseal/apply generated bundle/AppRole credential files/Kubernetes auth
-   config submission/root revoke/post-root access, not full Kubernetes ESO
-   integration or real secret seeding.
+   config submission/real ServiceAccount login/policy scoping/root revoke/
+   post-root access, not full ESO sync or real secret seeding.
 6. Expand the public starter harness into real deploy orchestration.
 7. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.

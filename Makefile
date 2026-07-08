@@ -1,6 +1,6 @@
 GO_DOCKER_IMAGE ?= golang:1.26-alpine
 
-.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan starter-tfvars openbao-plan openbao-bootstrap openbao-first-install-dry-run
+.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan starter-tfvars openbao-plan openbao-bootstrap openbao-first-install-dry-run openbao-kubernetes-login-proof
 
 doctor:
 	@if command -v go >/dev/null; then \
@@ -55,3 +55,6 @@ openbao-bootstrap:
 
 openbao-first-install-dry-run:
 	./deploy-marduk-public.sh openbao-first-install-dry-run
+
+openbao-kubernetes-login-proof:
+	starter/scripts/openbao-kubernetes-login-proof.sh

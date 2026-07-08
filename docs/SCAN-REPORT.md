@@ -6,7 +6,7 @@ first-install starter outline, Docker fallback test path, starter config doctor,
 public starter harness, generated deploy plan, generated Terraform starter
 inputs, generated OpenBao first-install bootstrap bundle, and OpenBao
 first-install dry-run helper, AppRole credential file helper, Kubernetes auth
-config helper, and post-root access verifier.
+config helper, Kubernetes login proof, and post-root access verifier.
 
 Scope:
 
@@ -125,6 +125,13 @@ Automated checks run:
   throwaway reviewer JWT and generated CA content, submitted it through
   `configure-kubernetes-auth`, verified OpenBao readback contained host and CA,
   printed only booleans, then revoked root and verified post-root admin access.
+- Disposable OpenBao Kubernetes-login proof against `openbao/openbao:2.5.5` and
+  kind, result: created a disposable kind cluster, created reviewer and
+  external-secrets service accounts, configured OpenBao Kubernetes auth with a
+  real reviewer JWT and cluster CA, logged in with a real external-secrets
+  ServiceAccount JWT, read an allowed `registry/` proof secret, confirmed the
+  same token received HTTP 403 on the denied `ci/cosign` path, revoked tokens,
+  and removed the disposable cluster, container, and temp storage.
 - Published GitHub OpenBao bootstrap-apply helper commit
   `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -205,10 +212,10 @@ Manual boundary review:
   unless a human passes the explicit custody-warning flag.
 - Disposable live-helper proof now covers init/unseal, generated policy and role
   apply, AppRole credential file creation, Kubernetes auth config submission,
-  root revoke, and post-root admin access mechanics. It does not prove a real
-  Kubernetes ServiceAccount JWT login, seed real secrets, prove ESO sync, prove
-  backup/public-edge paths, or replace the need for a clean public Proxmox
-  first-install proof.
+  real Kubernetes ServiceAccount JWT login, policy scoping, root revoke, and
+  post-root admin access mechanics. It does not seed real secrets, prove ESO
+  sync, prove backup/public-edge paths, or replace the need for a clean public
+  Proxmox first-install proof.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 

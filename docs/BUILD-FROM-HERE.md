@@ -65,9 +65,10 @@ Before this repo can honestly say "clone and deploy," it needs:
 2. A live-tested first-install OpenBao path for users with no existing snapshot
    or custody. The public starter can render the non-secret policy and role
    bundle, dry-run the ceremony, create AppRole credential files, submit
-   Kubernetes auth config from a private file, revoke root, and prove post-root
-   helper mechanics against disposable OpenBao now; real ESO sync, real secret
-   seeding, backup, and clean public Proxmox proof are still pending.
+   Kubernetes auth config from a private file, prove a real ServiceAccount login
+   through disposable kind/OpenBao resources, revoke root, and prove post-root
+   helper mechanics now; real ESO sync, real secret seeding, backup, and clean
+   public Proxmox proof are still pending.
 3. A documented external-gate matrix for firewall, DNS, public edge, backups, and
    observability.
 4. A clean-room proof from an anonymous clone and documented inputs.

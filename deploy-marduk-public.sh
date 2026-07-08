@@ -14,6 +14,7 @@ Usage:
   ./deploy-marduk-public.sh openbao-plan [./marduk.env]
   ./deploy-marduk-public.sh render-openbao [./marduk.env] [output-dir]
   ./deploy-marduk-public.sh openbao-first-install-dry-run [./marduk.env]
+  ./deploy-marduk-public.sh openbao-kubernetes-login-proof
   ./deploy-marduk-public.sh deploy ./marduk.env
 
 This public script is a starter harness. It validates tools and config shape,
@@ -91,6 +92,10 @@ case "$cmd" in
       starter/scripts/doctor.sh "$config"
     fi
     starter/scripts/openbao-first-install.sh dry-run "$config"
+    ;;
+
+  openbao-kubernetes-login-proof)
+    starter/scripts/openbao-kubernetes-login-proof.sh
     ;;
 
   deploy)
