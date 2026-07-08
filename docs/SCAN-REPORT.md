@@ -3,7 +3,8 @@
 Date: 2026-07-08
 Update: refreshed after the Phase 11 deployability status update, OpenBao
 first-install starter outline, Docker fallback test path, starter config doctor,
-and public starter harness.
+public starter harness, generated deploy plan, and generated Terraform starter
+inputs.
 
 Scope:
 
@@ -26,13 +27,21 @@ Automated checks run:
 - `make test`, result: PASS through `golang:1.26-alpine`.
 - `make starter-doctor`, result: PASS for the public example config with
   placeholders explicitly allowed.
+- `make public-plan`, result: PASS and renders a config-derived staged deploy
+  plan.
+- `make starter-tfvars`, result: PASS and renders starter Terraform variables.
 - Negative starter-doctor check, result: PASS because the example config is
   rejected without `--allow-placeholders`.
+- Real-looking private config proof in `/tmp`, result: PASS for
+  `verify-config`, `plan`, `render-terraform`, `terraform fmt -check` on the
+  generated tfvars, and expected `deploy` pause.
 - `make docker-build`, result: PASS.
 - Local container health probe, result: `/healthz` returned HTTP 200.
 - `./deploy-marduk-public.sh doctor`, result: PASS.
 - `./deploy-marduk-public.sh plan`, result: PASS and prints the staged public
   deploy path.
+- `./deploy-marduk-public.sh render-terraform`, result: PASS and prints HCL
+  starter variables from the example config.
 - `./deploy-marduk-public.sh deploy`, result: expected pause because public
   turnkey deploy is not implemented yet.
 - Published GitHub clean clone proof at
@@ -40,6 +49,14 @@ Automated checks run:
   `make test`, `make starter-doctor`, `./deploy-marduk-public.sh plan`,
   `make docker-build`, and container `/healthz` HTTP 200 all passed.
 - Public GitHub Actions for the same commit, result: completed success.
+- Published GitHub generated-plan proof at
+  `ad072ed22853b667ebc4d2b155382d43b56de84d`, result: `make doctor`,
+  `make test`, `make starter-doctor`, `make public-plan`,
+  `make starter-tfvars`, `make docker-build`, clean-clone gitleaks, private
+  denylist grep, and container `/healthz` HTTP 200 all passed.
+- Public GitHub Actions for commit `ad072ed22853b667ebc4d2b155382d43b56de84d`,
+  result: completed success in 47s,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28935126147`.
 
 Manual boundary review:
 
@@ -55,6 +72,8 @@ Manual boundary review:
   AppRole values, or secret values are included.
 - Public config material is sourceable example data only; real topology and
   secret values remain private user inputs.
+- Public generated Terraform variables are starter outputs only; real generated
+  `terraform.tfvars` is ignored and belongs in a private operational repo.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 
