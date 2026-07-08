@@ -15,7 +15,7 @@ The proof uses public-safe fake values only.
 ```text
 commit: 82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978
 workflow: ci
-run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28966509399
+run: public GitHub Actions run 28966509399
 status: Success
 ```
 

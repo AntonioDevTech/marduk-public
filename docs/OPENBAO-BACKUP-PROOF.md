@@ -13,7 +13,7 @@ and ship it to a disposable SSH receiver protected by a forced command.
 ```text
 commit: a490685679a002438269558fd1f8eef61af66f27
 workflow: ci
-run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28967552490
+run: public GitHub Actions run 28967552490
 status: Success
 ```
 

@@ -14,7 +14,7 @@ with an honest real-infrastructure boundary.
 ```text
 commit: 70d15e65550d1c06138a45e1705f530c41e11351
 workflow: ci
-run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28969268556
+run: public GitHub Actions run 28969268556
 status: Success
 ```
 

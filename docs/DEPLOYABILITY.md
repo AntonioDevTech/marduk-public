@@ -84,7 +84,7 @@ edge route proof, but not a real public DNS or Cloudflare ownership proof.
 9. Expand the public starter harness into real infrastructure orchestration.
 10. Add a live-tested real first-install OpenBao path for users with no existing
    vault snapshot.
-11. Run an independent Proxmox proof on non-Antonio infrastructure if available.
+11. Run a second Proxmox proof on independent infrastructure if available.
 12. Summarize failover and disaster-recovery claims with public-safe evidence.
 13. Re-run secret scans and private-value denylist scans on the final public repo.
 

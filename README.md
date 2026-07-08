@@ -1,5 +1,40 @@
 # MARDUK
 
+## LinkedIn Carousel Evidence Map
+
+This repository is the public-safe version of MARDUK.
+
+The carousel/post summarizes the architecture and proof model without exposing
+private operational details. The public repo intentionally excludes private
+topology, internal hostnames, IP addresses, logs, credential paths, recovery
+runbooks, and real environment configuration.
+
+The claims in the carousel map to the public evidence and documentation in this
+repo:
+
+| Carousel claim | Evidence location |
+| --- | --- |
+| Git is the write path | Architecture docs / GitOps evidence |
+| CI produces evidence instead of direct deployment | CI workflow docs / build pipeline docs |
+| Signed-image admission is enforced | Supply-chain policy docs / admission evidence |
+| Unsigned, wrong-key, or tampered images are denied | Admission policy evidence |
+| Secrets stay out of Git | Security boundaries / OpenBao / External Secrets docs |
+| Runtime secrets are materialized through scoped sync | External Secrets proof docs |
+| Recovery is timed, not assumed | Rebuild status / recovery evidence |
+| Observability lives outside the failure domain | SLO / alerting evidence |
+| One physical host equals one fate domain | Honesty clause / public boundary docs |
+| Public claims survive redaction | Public safety / scan report / claim register |
+
+### What this repo is not
+
+This public repo is not a turnkey installer for my private operational
+environment.
+
+It does not claim multi-host HA, zero-risk operation, production cloud
+replacement, or unrestricted autonomous operation.
+
+It is a sanitized proof package for platform engineering controls.
+
 MARDUK is a sanitized public portfolio export of a private Internal Developer
 Platform lab.
 

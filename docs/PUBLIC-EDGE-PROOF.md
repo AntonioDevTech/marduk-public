@@ -14,7 +14,7 @@ hostnames.
 ```text
 commit: bc694d5e708b1282aefd4ba06b5c57139a3ca55f
 workflow: ci
-run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28968458395
+run: public GitHub Actions run 28968458395
 status: Success
 ```
 

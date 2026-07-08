@@ -14,7 +14,7 @@ OpenBao and can read only the policy path it is allowed to read.
 ```text
 commit: ccc399ae3f8bbf4f285d9177ae9e9e9d4e613006
 workflow: ci
-run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28963090512
+run: public GitHub Actions run 28963090512
 status: Success
 ```
 

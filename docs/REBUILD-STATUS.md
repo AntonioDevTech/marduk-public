@@ -31,7 +31,7 @@ deploy the whole platform unchanged."
 | First timed rebuild attempt | Rebuilt and green | 37m37s | Found and fixed a real Argo network-policy ordering bug |
 | Clean rerun after that fix | Rebuilt and green | 33m45s | Found and fixed the staged default-deny anchor bug |
 | Codex-driven Phase 11 wrapper proof | Rebuilt and green | 9m38s from safe prep start | Proved the fixed private wrapper end to end |
-| Antonio manual Phase 11 wrapper proof | Rebuilt and green | 8m50s from safe prep start | Proved the operator path manually |
+| Operator manual Phase 11 wrapper proof | Rebuilt and green | 8m50s from safe prep start | Proved the operator path manually |
 | Private proof after public ladder | Rebuilt and green | 8m46s destroy-to-PASS | Proved the current wrapper after public packaging work |
 | Failover and DR proof | Platform stayed green after recovery | Event proof, not rebuild timing | Proved node recovery and OpenBao canary restore |
 

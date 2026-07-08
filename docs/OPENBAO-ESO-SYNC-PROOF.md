@@ -13,7 +13,7 @@ Kubernetes Secret from a value stored in OpenBao.
 ```text
 commit: d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2
 workflow: ci
-run: https://github.com/AntonioDevTech/marduk-public/actions/runs/28964935158
+run: public GitHub Actions run 28964935158
 status: Success
 ```
 

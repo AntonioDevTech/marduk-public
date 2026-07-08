@@ -86,7 +86,7 @@ Automated checks run:
   denylist grep, and container `/healthz` HTTP 200 all passed.
 - Public GitHub Actions for commit `ad072ed22853b667ebc4d2b155382d43b56de84d`,
   result: completed success in 47s,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28935126147`.
+  `public GitHub Actions run 28935126147`.
 - Published GitHub OpenBao-bundle proof at
   `bc285ddfa1b481c8de787bcfc187e451052cd688`, result: `make doctor`,
   `make test`, `make starter-doctor`, `make public-plan`,
@@ -95,7 +95,7 @@ Automated checks run:
   container `/healthz` HTTP 200 all passed.
 - Public GitHub Actions for commit `bc285ddfa1b481c8de787bcfc187e451052cd688`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28937020279`.
+  `public GitHub Actions run 28937020279`.
 - Published GitHub OpenBao first-install dry-run proof at
   `3447c596c2e5b302bd20c01a62dd2467b091f68f`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -106,7 +106,7 @@ Automated checks run:
   all passed.
 - Public GitHub Actions for commit `3447c596c2e5b302bd20c01a62dd2467b091f68f`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28937684741`.
+  `public GitHub Actions run 28937684741`.
 - Anonymous clean clone proof for
   `3447c596c2e5b302bd20c01a62dd2467b091f68f`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -185,7 +185,7 @@ Automated checks run:
   all passed.
 - Public GitHub Actions for commit `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28938776164`.
+  `public GitHub Actions run 28938776164`.
 - Anonymous clean clone proof for
   `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -203,7 +203,7 @@ Automated checks run:
   and disposable OpenBao post-root proof all passed.
 - Public GitHub Actions for commit `e21e1dd86afa0d27b64545d0c8c70d70ed7d6b6f`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28960714242`.
+  `public GitHub Actions run 28960714242`.
 - Anonymous clean clone proof for
   `e21e1dd86afa0d27b64545d0c8c70d70ed7d6b6f`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -222,7 +222,7 @@ Automated checks run:
   and disposable OpenBao Kubernetes-auth proof all passed.
 - Public GitHub Actions for commit `44dc22580d9b809d31b9082aeec30141733afc8a`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28961357865`.
+  `public GitHub Actions run 28961357865`.
 - Anonymous clean clone proof for
   `44dc22580d9b809d31b9082aeec30141733afc8a`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -241,7 +241,7 @@ Automated checks run:
   passed.
 - Public GitHub Actions for commit `ccc399ae3f8bbf4f285d9177ae9e9e9d4e613006`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28963090512`.
+  `public GitHub Actions run 28963090512`.
 - Anonymous clean clone proof for
   `ccc399ae3f8bbf4f285d9177ae9e9e9d4e613006`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -259,7 +259,7 @@ Automated checks run:
   refined private denylist grep, and cleanup checks all passed.
 - Public GitHub Actions for commit `d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28964935158`.
+  `public GitHub Actions run 28964935158`.
 - Anonymous clean clone proof for
   `d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -279,7 +279,7 @@ Automated checks run:
   and cleanup checks all passed.
 - Public GitHub Actions for commit `82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28966509399`.
+  `public GitHub Actions run 28966509399`.
 - Anonymous clean clone proof for
   `82d400dbf1fb36b55ef69a10b7d7c4cdca3f2978`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -300,7 +300,7 @@ Automated checks run:
   refined private denylist grep, and cleanup checks all passed.
 - Public GitHub Actions for commit `a490685679a002438269558fd1f8eef61af66f27`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28967552490`.
+  `public GitHub Actions run 28967552490`.
 - Anonymous clean clone proof for
   `a490685679a002438269558fd1f8eef61af66f27`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -322,7 +322,7 @@ Automated checks run:
   all passed.
 - Public GitHub Actions for commit `bc694d5e708b1282aefd4ba06b5c57139a3ca55f`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28968458395`.
+  `public GitHub Actions run 28968458395`.
 - Anonymous clean clone proof for
   `bc694d5e708b1282aefd4ba06b5c57139a3ca55f`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -338,7 +338,7 @@ Automated checks run:
   gitleaks, refined private denylist grep, and cleanup checks all passed.
 - Public GitHub Actions for commit `70d15e65550d1c06138a45e1705f530c41e11351`,
   result: completed success,
-  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28969268556`.
+  `public GitHub Actions run 28969268556`.
 - Anonymous clean clone proof for
   `70d15e65550d1c06138a45e1705f530c41e11351`, result:
   `./deploy-marduk-public.sh public-proof`, `git diff --check`, gitleaks,
