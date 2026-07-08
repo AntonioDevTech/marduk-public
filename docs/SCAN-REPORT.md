@@ -35,6 +35,11 @@ Automated checks run:
   deploy path.
 - `./deploy-marduk-public.sh deploy`, result: expected pause because public
   turnkey deploy is not implemented yet.
+- Published GitHub clean clone proof at
+  `211c859efe7494bedf80f13022896fab319c1253`, result: `make doctor`,
+  `make test`, `make starter-doctor`, `./deploy-marduk-public.sh plan`,
+  `make docker-build`, and container `/healthz` HTTP 200 all passed.
+- Public GitHub Actions for the same commit, result: completed success.
 
 Manual boundary review:
 
@@ -51,6 +56,7 @@ Manual boundary review:
 - Public config material is sourceable example data only; real topology and
   secret values remain private user inputs.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
+- Clean clone proof covers the public starter only, not full Proxmox deployment.
 
 Known safe generic values:
 

@@ -23,6 +23,8 @@ OpenBao ceremony.
 - Public-safe architecture and evidence summaries.
 - Public-safe external gate and failover/DR proof matrices.
 - Public-safe OpenBao first-install pattern.
+- Clean anonymous clone of the public repo passes starter checks and local
+  container health proof.
 
 ## What A User Must Still Build Privately
 
@@ -41,9 +43,10 @@ OpenBao ceremony.
 
 1. Publish a sanitized operational package with estate-specific values moved to
    documented example config files. The first public config contract now exists.
-2. Expand the public starter harness into real deploy orchestration.
-3. Add a first-install OpenBao path for users with no existing vault snapshot.
-4. Run a clean-room clone proof with only documented inputs.
+2. Prove public starter checks from a clean anonymous clone. DONE for local
+   starter checks, not full Proxmox deploy.
+3. Expand the public starter harness into real deploy orchestration.
+4. Add a first-install OpenBao path for users with no existing vault snapshot.
 5. Run an independent Proxmox proof on non-Antonio infrastructure if available.
 6. Summarize failover and disaster-recovery claims with public-safe evidence.
 7. Re-run secret scans and private-value denylist scans on the final public repo.
