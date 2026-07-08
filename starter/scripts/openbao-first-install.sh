@@ -15,6 +15,7 @@ Usage:
   starter/scripts/openbao-first-install.sh apply-bootstrap [marduk.env] [bundle-dir]
   starter/scripts/openbao-first-install.sh write-approle-credentials [marduk.env] [output-dir]
   starter/scripts/openbao-first-install.sh configure-kubernetes-auth [marduk.env] [kubernetes-auth.json]
+  starter/scripts/openbao-first-install.sh seed-runtime-secrets [marduk.env] [runtime-secrets.json]
   starter/scripts/openbao-first-install.sh revoke-root [marduk.env]
   starter/scripts/openbao-first-install.sh verify-post-root [marduk.env] [admin-creds.json]
   starter/scripts/openbao-first-install.sh shred-init [marduk.env]
@@ -275,7 +276,7 @@ Live order:
      and role shape.
   6. Run write-approle-credentials and save the generated files privately.
   7. Run configure-kubernetes-auth with private cluster trust material.
-  8. Seed real secrets through mode-600 files or stdin.
+  8. Seed real secrets through a mode-600 JSON file.
   9. Verify ESO, backup, signing, and public-edge paths.
   10. Run revoke-root after first backup and verification.
   11. Run verify-post-root with the saved admin AppRole file.
@@ -447,6 +448,91 @@ print("OpenBao Kubernetes auth config: PASS")
 print("kubernetes_host_present=true kubernetes_ca_cert_present=true token_reviewer_jwt_submitted=true values_printed=false")
 '
     unset token
+    ;;
+
+  seed-runtime-secrets)
+    preflight
+    seed_file="${3:-starter/security/openbao-runtime-secrets.json}"
+    [ -f "$seed_file" ] || die "runtime secret seed file missing: $seed_file"
+    mode=$(stat -c '%a' "$seed_file" 2>/dev/null || echo unknown)
+    if [ "$mode" != "600" ]; then
+      die "runtime secret seed file must have mode 600, got: $mode"
+    fi
+    token=$(root_token)
+    tmp_seed=$(mktemp -d)
+    cleanup_seed_payloads() {
+      if [ -n "${tmp_seed:-}" ] && [ -d "$tmp_seed" ]; then
+        if command -v shred >/dev/null 2>&1; then
+          find "$tmp_seed" -type f -exec shred -u {} + 2>/dev/null || true
+        else
+          find "$tmp_seed" -type f -delete 2>/dev/null || true
+        fi
+        rmdir "$tmp_seed" 2>/dev/null || true
+      fi
+    }
+    trap cleanup_seed_payloads EXIT INT TERM
+    python3 - "$seed_file" "$tmp_seed" "$OPENBAO_RUNTIME_SECRET_PREFIXES" <<'PY'
+import json
+import os
+import sys
+
+seed_file, output_dir, prefixes_csv = sys.argv[1:4]
+allowed = [p.strip().strip("/") for p in prefixes_csv.split(",") if p.strip()]
+if not allowed:
+    raise SystemExit("OPENBAO_RUNTIME_SECRET_PREFIXES is empty")
+
+doc = json.load(open(seed_file))
+secrets = doc.get("secrets")
+if not isinstance(secrets, list) or not secrets:
+    raise SystemExit("seed file must contain a non-empty secrets list")
+
+manifest_path = os.path.join(output_dir, "manifest.tsv")
+seen = []
+with open(manifest_path, "w") as manifest:
+    for i, item in enumerate(secrets, 1):
+        if not isinstance(item, dict):
+            raise SystemExit(f"secret #{i} must be an object")
+        path = item.get("path", "")
+        data = item.get("data")
+        if not isinstance(path, str) or not path.strip():
+            raise SystemExit(f"secret #{i} missing path")
+        clean = path.strip().strip("/")
+        parts = clean.split("/")
+        if any(part in ("", ".", "..") for part in parts):
+            raise SystemExit(f"secret #{i} has unsafe path")
+        prefix = parts[0]
+        if prefix not in allowed:
+            raise SystemExit(f"secret #{i} uses prefix {prefix!r}, allowed prefixes are {','.join(allowed)}")
+        if not isinstance(data, dict) or not data:
+            raise SystemExit(f"secret #{i} data must be a non-empty object")
+        for key, value in data.items():
+            if not isinstance(key, str) or not key:
+                raise SystemExit(f"secret #{i} contains an invalid key")
+            if not isinstance(value, str) or value == "":
+                raise SystemExit(f"secret #{i} key {key!r} must be a non-empty string")
+        payload_path = os.path.join(output_dir, f"secret-{i}.json")
+        with open(payload_path, "w") as payload:
+            json.dump({"data": data}, payload)
+            payload.write("\n")
+        os.chmod(payload_path, 0o600)
+        manifest.write(f"{clean}\t{payload_path}\t{prefix}\n")
+        seen.append(prefix)
+
+with open(os.path.join(output_dir, "summary"), "w") as summary:
+    summary.write(f"secret_count={len(secrets)}\n")
+    summary.write("prefixes=" + ",".join(sorted(set(seen))) + "\n")
+PY
+    while IFS="$(printf '\t')" read -r secret_path payload_file _prefix; do
+      bao_curl POST "$token" "$OPENBAO_KV_MOUNT/data/$secret_path" "$payload_file" >/dev/null
+    done < "$tmp_seed/manifest.tsv"
+    secret_count=$(sed -n 's/^secret_count=//p' "$tmp_seed/summary")
+    prefixes=$(sed -n 's/^prefixes=//p' "$tmp_seed/summary")
+    cleanup_seed_payloads
+    unset token
+    cat <<EOF
+OpenBao runtime secret seed: PASS
+secret_count=$secret_count prefixes=$prefixes values_printed=false
+EOF
     ;;
 
   revoke-root)

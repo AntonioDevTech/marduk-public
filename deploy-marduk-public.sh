@@ -16,6 +16,7 @@ Usage:
   ./deploy-marduk-public.sh openbao-first-install-dry-run [./marduk.env]
   ./deploy-marduk-public.sh openbao-kubernetes-login-proof
   ./deploy-marduk-public.sh openbao-eso-sync-proof
+  ./deploy-marduk-public.sh openbao-secret-seeding-proof
   ./deploy-marduk-public.sh deploy ./marduk.env
 
 This public script is a starter harness. It validates tools and config shape,
@@ -101,6 +102,10 @@ case "$cmd" in
 
   openbao-eso-sync-proof)
     starter/scripts/openbao-eso-sync-proof.sh
+    ;;
+
+  openbao-secret-seeding-proof)
+    starter/scripts/openbao-secret-seeding-proof.sh
     ;;
 
   deploy)
