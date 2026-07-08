@@ -104,6 +104,7 @@ docs/BLUEPRINT-CHECKLIST.md     Adaptation checklist
 docs/EVIDENCE-SUMMARY.md        Claims and evidence types, without private data
 docs/REBUILD-STATUS.md          Honest rebuild status
 docs/LINKEDIN-DEBUT.md          Safe launch copy and screenshot rules
+docs/OPENBAO-KUBERNETES-LOGIN-PROOF.md  Disposable K8s auth login proof
 docs/PUBLIC-SAFETY.md           What was removed and why
 docs/SCAN-REPORT.md             Public export scan result
 docs/diagrams/marduk-public.mmd Sanitized Mermaid architecture

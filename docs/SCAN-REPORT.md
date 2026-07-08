@@ -188,6 +188,24 @@ Automated checks run:
   OpenBao init-refusal negative check, `make docker-build`, container
   `/healthz` HTTP 200, gitleaks, refined private denylist grep, and disposable
   OpenBao Kubernetes-auth proof all passed.
+- Published GitHub OpenBao Kubernetes-login helper commit
+  `ccc399ae3f8bbf4f285d9177ae9e9e9d4e613006`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`, `git diff --check`,
+  standalone repo gitleaks, refined private denylist grep, and cleanup checks all
+  passed.
+- Public GitHub Actions for commit `ccc399ae3f8bbf4f285d9177ae9e9e9d4e613006`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28963090512`.
+- Anonymous clean clone proof for
+  `ccc399ae3f8bbf4f285d9177ae9e9e9d4e613006`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`, `git diff --check`,
+  gitleaks, refined private denylist grep, and cleanup checks all passed.
 
 Manual boundary review:
 
