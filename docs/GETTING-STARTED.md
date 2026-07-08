@@ -74,9 +74,16 @@ To adapt it:
    ./deploy-marduk-public.sh plan ./marduk.env
    ```
 
-7. Generate your own Talos secrets. Never reuse anyone else's.
-8. Create your own registry, signing key, vault, and DNS records.
-9. Run a secret scanner and a private-value grep before publishing anything.
+7. Render the OpenBao first-install policy and role bundle:
+
+   ```bash
+   ./deploy-marduk-public.sh openbao-plan ./marduk.env
+   ./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+   ```
+
+8. Generate your own Talos secrets. Never reuse anyone else's.
+9. Create your own registry, signing key, vault, and DNS records.
+10. Run a secret scanner and a private-value grep before publishing anything.
 
 ## What You Should Not Copy Blindly
 

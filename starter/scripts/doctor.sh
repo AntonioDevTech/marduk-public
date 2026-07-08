@@ -52,6 +52,7 @@ optional_cmd() {
 }
 
 need_cmd sh
+need_cmd awk
 need_cmd grep
 need_cmd sed
 optional_cmd terraform
@@ -91,6 +92,16 @@ REGISTRY_HOSTNAME
 PUBLIC_DOMAIN
 BACKUP_TARGET_HOST
 OBSERVABILITY_ENDPOINT
+OPENBAO_ADDR
+OPENBAO_KV_MOUNT
+OPENBAO_EXTERNAL_SECRETS_NAMESPACE
+OPENBAO_EXTERNAL_SECRETS_SERVICE_ACCOUNT
+OPENBAO_SNAPSHOT_NAMESPACE
+OPENBAO_SNAPSHOT_SERVICE_ACCOUNT
+OPENBAO_ADMIN_ROLE
+OPENBAO_CI_SIGNING_ROLE
+OPENBAO_CI_SIGNING_SECRET_PATH
+OPENBAO_RUNTIME_SECRET_PREFIXES
 "
 
 placeholder_value() {
@@ -175,11 +186,29 @@ check_name() {
   esac
 }
 
+check_path() {
+  name="$1"
+  value="$2"
+  case "$value" in
+    /*|*/|*//*|*[!A-Za-z0-9._/-]*)
+      die "$name must be a relative OpenBao path using letters, numbers, dot, underscore, dash, or slash"
+      ;;
+  esac
+}
+
 case "$PROXMOX_ENDPOINT" in
   https://*)
     ;;
   *)
     die "PROXMOX_ENDPOINT must start with https://"
+    ;;
+esac
+
+case "$OPENBAO_ADDR" in
+  http://*|https://*)
+    ;;
+  *)
+    die "OPENBAO_ADDR must start with http:// or https://"
     ;;
 esac
 
@@ -198,6 +227,18 @@ check_name MARDUK_CLUSTER_NAME "$MARDUK_CLUSTER_NAME"
 check_name MARDUK_NODE1_NAME "$MARDUK_NODE1_NAME"
 check_name MARDUK_NODE2_NAME "$MARDUK_NODE2_NAME"
 check_name MARDUK_NODE3_NAME "$MARDUK_NODE3_NAME"
+check_name OPENBAO_KV_MOUNT "$OPENBAO_KV_MOUNT"
+check_name OPENBAO_EXTERNAL_SECRETS_NAMESPACE "$OPENBAO_EXTERNAL_SECRETS_NAMESPACE"
+check_name OPENBAO_EXTERNAL_SECRETS_SERVICE_ACCOUNT "$OPENBAO_EXTERNAL_SECRETS_SERVICE_ACCOUNT"
+check_name OPENBAO_SNAPSHOT_NAMESPACE "$OPENBAO_SNAPSHOT_NAMESPACE"
+check_name OPENBAO_SNAPSHOT_SERVICE_ACCOUNT "$OPENBAO_SNAPSHOT_SERVICE_ACCOUNT"
+check_name OPENBAO_ADMIN_ROLE "$OPENBAO_ADMIN_ROLE"
+check_name OPENBAO_CI_SIGNING_ROLE "$OPENBAO_CI_SIGNING_ROLE"
+check_path OPENBAO_CI_SIGNING_SECRET_PATH "$OPENBAO_CI_SIGNING_SECRET_PATH"
+
+for prefix in $(printf '%s' "$OPENBAO_RUNTIME_SECRET_PREFIXES" | tr ',' ' '); do
+  check_name OPENBAO_RUNTIME_SECRET_PREFIX "$prefix"
+done
 
 case "$MARDUK_VLAN_ID" in
   none)

@@ -127,6 +127,8 @@ make test
 make starter-doctor
 ./deploy-marduk-public.sh plan
 ./deploy-marduk-public.sh render-terraform starter/config/marduk.env.example -
+./deploy-marduk-public.sh openbao-plan
+./deploy-marduk-public.sh render-openbao starter/config/marduk.env.example /tmp/marduk-openbao-bootstrap
 ```
 
 `make test` uses local Go when it is installed. If Go is missing but Docker is
@@ -175,7 +177,7 @@ The starter includes:
 - Talos cluster and node patch examples.
 - Argo CD app-of-apps bootstrap example.
 - Kubernetes demo app manifests.
-- Security notes for signing, vault-backed secrets, and network policy.
+- Security notes plus an OpenBao first-install policy and role bundle renderer.
 
 You still must supply your own private values: network plan, endpoints, DNS,
 registry, vault, signing identity, and recovery process.
@@ -190,6 +192,8 @@ The public harness shows the current command surface:
 ./deploy-marduk-public.sh verify-config ./marduk.env
 ./deploy-marduk-public.sh plan ./marduk.env
 ./deploy-marduk-public.sh render-terraform ./marduk.env starter/terraform/proxmox/terraform.tfvars
+./deploy-marduk-public.sh openbao-plan ./marduk.env
+./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
 ```
 
 ## What Is Not Included

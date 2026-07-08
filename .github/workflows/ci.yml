@@ -34,5 +34,11 @@ jobs:
       - name: Render Terraform tfvars starter
         run: make starter-tfvars
 
+      - name: Render OpenBao first-install plan
+        run: make openbao-plan
+
+      - name: Render OpenBao bootstrap bundle
+        run: make openbao-bootstrap
+
       - name: Build demo container
         run: docker build -t marduk-hello:ci apps/hello

@@ -1,6 +1,6 @@
 GO_DOCKER_IMAGE ?= golang:1.26-alpine
 
-.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan starter-tfvars
+.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan starter-tfvars openbao-plan openbao-bootstrap
 
 doctor:
 	@if command -v go >/dev/null; then \
@@ -43,3 +43,12 @@ public-plan:
 
 starter-tfvars:
 	./deploy-marduk-public.sh render-terraform starter/config/marduk.env.example -
+
+openbao-plan:
+	./deploy-marduk-public.sh openbao-plan
+
+openbao-bootstrap:
+	rm -rf /tmp/marduk-openbao-bootstrap
+	./deploy-marduk-public.sh render-openbao starter/config/marduk.env.example /tmp/marduk-openbao-bootstrap
+	test -f /tmp/marduk-openbao-bootstrap/policies/eso-ro.hcl
+	test -f /tmp/marduk-openbao-bootstrap/payloads/kubernetes-role-eso.json

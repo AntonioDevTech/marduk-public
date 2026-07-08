@@ -46,12 +46,19 @@ This is the proof required before the public repo can honestly say
    starter/scripts/render-terraform-tfvars.sh ./marduk.env starter/terraform/proxmox/terraform.tfvars
    ```
 
-7. Build the VM substrate with Terraform.
-8. Bootstrap Talos and Kubernetes with fresh Talos secrets.
-9. Seed Cilium and Argo CD.
-10. Run the OpenBao first-install ceremony.
-11. Seed registry, backup, edge, preview, and signing secrets.
-12. Prove GitOps sync, signed admission, public route, observability, backup,
+7. Render the OpenBao first-install bundle:
+
+   ```bash
+   ./deploy-marduk-public.sh openbao-plan ./marduk.env
+   ./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+   ```
+
+8. Build the VM substrate with Terraform.
+9. Bootstrap Talos and Kubernetes with fresh Talos secrets.
+10. Seed Cilium and Argo CD.
+11. Run the live OpenBao first-install ceremony.
+12. Seed registry, backup, edge, preview, and signing secrets.
+13. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard

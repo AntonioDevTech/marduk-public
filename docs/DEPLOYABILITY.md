@@ -16,15 +16,17 @@ OpenBao ceremony.
 - Local demo app source with `make test` support through either Go or Docker.
 - Public config contract and starter doctor check.
 - Public starter harness with `doctor`, `verify-config`, `plan`, and
-  `render-terraform`.
+  `render-terraform`, `openbao-plan`, and `render-openbao`.
 - Generated starter `terraform.tfvars` from a private `marduk.env` shape.
+- Generated OpenBao first-install ACL policy and role payload bundle from a
+  private `marduk.env` shape.
 - Public CI for the demo app.
 - Sanitized Terraform starter for three Proxmox/Talos VMs.
 - Sanitized Talos patch examples.
 - Sanitized Kubernetes starter manifests.
 - Public-safe architecture and evidence summaries.
 - Public-safe external gate and failover/DR proof matrices.
-- Public-safe OpenBao first-install pattern.
+- Public-safe OpenBao first-install pattern and non-secret bootstrap bundle.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
 
@@ -49,11 +51,14 @@ OpenBao ceremony.
    starter checks, not full Proxmox deploy.
 3. Render concrete deploy-plan and Terraform starter inputs from user-supplied
    config. DONE for starter inputs, not Terraform apply.
-4. Expand the public starter harness into real deploy orchestration.
-5. Add a first-install OpenBao path for users with no existing vault snapshot.
-6. Run an independent Proxmox proof on non-Antonio infrastructure if available.
-7. Summarize failover and disaster-recovery claims with public-safe evidence.
-8. Re-run secret scans and private-value denylist scans on the final public repo.
+4. Render OpenBao first-install policy and role payload bundle. DONE for
+   non-secret bundle, not live vault ceremony.
+5. Expand the public starter harness into real deploy orchestration.
+6. Add a live-tested first-install OpenBao path for users with no existing vault
+   snapshot.
+7. Run an independent Proxmox proof on non-Antonio infrastructure if available.
+8. Summarize failover and disaster-recovery claims with public-safe evidence.
+9. Re-run secret scans and private-value denylist scans on the final public repo.
 
 Until those pass, the honest claim is:
 

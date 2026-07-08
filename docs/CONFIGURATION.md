@@ -34,6 +34,17 @@ starter/scripts/render-terraform-tfvars.sh ./marduk.env starter/terraform/proxmo
 `terraform.tfvars` contains real topology once generated. Keep it in your
 private operational repo and do not publish it.
 
+Render the OpenBao first-install plan and non-secret bootstrap bundle from the
+same config:
+
+```bash
+./deploy-marduk-public.sh openbao-plan ./marduk.env
+./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+```
+
+The OpenBao bundle contains ACL policies and role payloads only. It must not
+contain unseal shares, root tokens, AppRole secret IDs, or secret values.
+
 ## What Belongs In The Config
 
 - Proxmox endpoint, node, storage, and bridge names.
@@ -45,6 +56,8 @@ private operational repo and do not publish it.
 - Public domain.
 - Backup target host.
 - Observability endpoint.
+- OpenBao address, KV mount, service-account names, role names, runtime secret
+  prefixes, and signing-key path names.
 
 ## What Does Not Belong In The Config
 

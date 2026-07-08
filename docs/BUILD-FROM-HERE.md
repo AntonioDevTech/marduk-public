@@ -13,6 +13,8 @@ make test
 make starter-doctor
 ./deploy-marduk-public.sh plan
 ./deploy-marduk-public.sh render-terraform starter/config/marduk.env.example -
+./deploy-marduk-public.sh openbao-plan
+./deploy-marduk-public.sh render-openbao starter/config/marduk.env.example /tmp/marduk-openbao-bootstrap
 make docker-build
 make run-docker
 ```
@@ -35,15 +37,16 @@ Recommended order:
 4. Run `starter/scripts/doctor.sh ./marduk.env`.
 5. Run `./deploy-marduk-public.sh plan ./marduk.env`.
 6. Render `starter/terraform/proxmox/terraform.tfvars` from `marduk.env`.
-7. Run Terraform to create the VMs.
-8. Generate Talos machine configs from your own secrets.
-9. Bootstrap Kubernetes.
-10. Install Cilium and Argo CD.
-11. Point Argo CD at your private operational repo.
-12. Add registry, signing, vault, admission policy, observability, and backups.
-13. Use `docs/EXTERNAL-GATES.md` to prove human-owned trust gates.
-14. Use `docs/FAILOVER-DR-MATRIX.md` to prove recovery claims.
-15. Write evidence for each claim before you make it publicly.
+7. Render `starter/security/openbao-bootstrap` from `marduk.env`.
+8. Run Terraform to create the VMs.
+9. Generate Talos machine configs from your own secrets.
+10. Bootstrap Kubernetes.
+11. Install Cilium and Argo CD.
+12. Point Argo CD at your private operational repo.
+13. Add registry, signing, vault, admission policy, observability, and backups.
+14. Use `docs/EXTERNAL-GATES.md` to prove human-owned trust gates.
+15. Use `docs/FAILOVER-DR-MATRIX.md` to prove recovery claims.
+16. Write evidence for each claim before you make it publicly.
 
 ## What Is Still Missing For Turnkey Public Deploy
 
@@ -55,9 +58,11 @@ Before this repo can honestly say "clone and deploy," it needs:
 
 1. A sanitized deploy wrapper with all estate-specific values moved into example
    config files. The public starter harness now exposes `doctor`,
-   `verify-config`, `plan`, and `render-terraform`; full deploy orchestration is
-   still pending.
-2. A first-install OpenBao path for users with no existing snapshot or custody.
+   `verify-config`, `plan`, `render-terraform`, `openbao-plan`, and
+   `render-openbao`; full deploy orchestration is still pending.
+2. A live-tested first-install OpenBao path for users with no existing snapshot
+   or custody. The public starter can render the non-secret policy and role
+   bundle now; the live ceremony still needs clean-room proof.
 3. A documented external-gate matrix for firewall, DNS, public edge, backups, and
    observability.
 4. A clean-room proof from an anonymous clone and documented inputs.

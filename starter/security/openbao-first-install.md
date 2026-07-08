@@ -13,6 +13,26 @@ the first backup.
 
 ## First-Install Order
 
+Generate the non-secret policy and role skeleton first:
+
+```bash
+./deploy-marduk-public.sh openbao-plan ./marduk.env
+./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
+```
+
+The generated bundle contains:
+
+```text
+policies/eso-ro.hcl
+policies/raft-snapshot-ro.hcl
+policies/ci-cosign-ro.hcl
+policies/admin.hcl
+payloads/kubernetes-role-eso.json
+payloads/kubernetes-role-raft-snapshot.json
+payloads/approle-admin.json
+payloads/approle-ci-signing.json
+```
+
 1. Deploy OpenBao sealed and uninitialized.
 2. Initialize with 3 Shamir shares and threshold 2.
 3. Save all shares to your password manager plus paper/offline custody.
@@ -49,4 +69,6 @@ These stay manual:
 ## Honest Deployability Note
 
 Until this ceremony is implemented and tested in a sanitized operational package,
-this public repo is a starter, not a turnkey installer.
+this public repo is a starter, not a turnkey installer. The generated bundle is
+progress: it removes ambiguity from policy and role shape, but it does not
+replace the live custody ceremony.
