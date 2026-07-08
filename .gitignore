@@ -7,3 +7,4 @@ coverage/
 marduk.env
 starter/terraform/proxmox/terraform.tfvars
 starter/security/openbao-bootstrap/
+starter/security/openbao-approle-credentials/

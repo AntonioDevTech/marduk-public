@@ -132,10 +132,12 @@ payloads/approle-ci-signing.json
 6. Configure Kubernetes auth with a private token reviewer JWT and CA bundle.
 7. Apply these policies.
 8. Create these roles.
-9. Seed real secret values through mode-600 files or stdin.
-10. Verify every ExternalSecret and workload consumer.
-11. Create and verify the first off-cluster raft snapshot.
-12. Revoke root and shred temporary init material.
+9. Create AppRole credential files and save them privately.
+10. Seed real secret values through mode-600 files or stdin.
+11. Verify every ExternalSecret and workload consumer.
+12. Create and verify the first off-cluster raft snapshot.
+13. Revoke root and shred temporary init material.
+14. Verify post-root admin access with the saved admin AppRole file.
 
 ## Safety
 

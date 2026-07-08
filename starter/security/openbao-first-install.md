@@ -77,9 +77,18 @@ payloads/approle-ci-signing.json
    Kubernetes auth with private cluster credentials, does not create AppRole
    secret IDs, and does not seed real secret values.
 
-8. Configure Kubernetes auth with a private token reviewer JWT, Kubernetes host,
+8. Write AppRole credential files and save them privately:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh write-approle-credentials ./marduk.env starter/security/openbao-approle-credentials
+   ```
+
+   The output directory is ignored by Git. The command prints file paths and
+   status only, not role IDs or secret IDs. Save those files to private custody
+   before root is revoked.
+
+9. Configure Kubernetes auth with a private token reviewer JWT, Kubernetes host,
    and CA bundle from your cluster.
-9. Create and privately save the required AppRole secret IDs.
 10. Verify the least-privilege policy shape:
    - External Secrets reads only runtime secret prefixes.
    - Snapshot job can only create raft snapshots.
@@ -100,6 +109,12 @@ payloads/approle-ci-signing.json
    starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
    ```
 
+15. Verify post-root admin access with a throwaway secret round trip:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh verify-post-root ./marduk.env starter/security/openbao-approle-credentials/admin.json
+   ```
+
 ## Human Gates
 
 These stay manual:
@@ -113,6 +128,6 @@ These stay manual:
 ## Honest Deployability Note
 
 Until this ceremony is implemented and tested in a sanitized operational package,
-this public repo is a starter, not a turnkey installer. The generated bundle is
-progress: it removes ambiguity from policy and role shape, but it does not
-replace the live custody ceremony.
+this public repo is a starter, not a turnkey installer. The generated bundle and
+helper remove ambiguity from policy, role, AppRole credential, and post-root
+access mechanics, but they do not replace the live custody ceremony.

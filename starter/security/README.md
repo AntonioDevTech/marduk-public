@@ -20,7 +20,8 @@ Kubernetes Secret objects that workloads need.
 
 See `openbao-first-install.md` for the first-install custody pattern. A rebuild
 can restore a snapshot, but a brand-new user must first create the vault custody
-set, policies, roles, seed secrets, revoke root, and create the first backup.
+set, policies, roles, AppRole credential custody, seed secrets, revoke root,
+verify post-root access, and create the first backup.
 
 ## Network Policy
 

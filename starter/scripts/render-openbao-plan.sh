@@ -42,12 +42,13 @@ Expected private first-install order:
   5. Save all shares to password manager plus paper/offline custody.
   6. Unseal with any 2 shares.
   7. Apply the rendered non-secret bundle with apply-bootstrap.
-  8. Configure Kubernetes auth with private cluster trust material.
-  9. Create and privately save AppRole secret IDs.
+  8. Create AppRole credential files and privately save them.
+  9. Configure Kubernetes auth with private cluster trust material.
   10. Enter real secret values through mode-600 files or stdin, never shell args.
   11. Verify External Secrets, signed-image admission, backup shipping, and public edge.
   12. Create the first off-cluster raft snapshot.
   13. Revoke root with revoke-root.
+  14. Verify post-root admin access with verify-post-root.
 
 Manual gates that stay human-owned:
   - Save unseal shares.
@@ -56,7 +57,8 @@ Manual gates that stay human-owned:
   - Confirm the first backup exists outside the cluster fate domain.
 
 Honest state:
-  This public repo can render the non-secret OpenBao policy and role skeleton
-  and prove helper mechanics against disposable OpenBao. It does not yet prove
-  full first install against a fresh public cluster.
+  This public repo can render the non-secret OpenBao policy and role skeleton,
+  create AppRole credential files, and prove post-root helper mechanics against
+  disposable OpenBao. It does not yet prove full first install against a fresh
+  public cluster.
 EOF

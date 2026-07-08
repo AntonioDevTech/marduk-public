@@ -5,7 +5,8 @@ Update: refreshed after the Phase 11 deployability status update, OpenBao
 first-install starter outline, Docker fallback test path, starter config doctor,
 public starter harness, generated deploy plan, generated Terraform starter
 inputs, generated OpenBao first-install bootstrap bundle, and OpenBao
-first-install dry-run helper.
+first-install dry-run helper, AppRole credential file helper, and post-root
+access verifier.
 
 Scope:
 
@@ -112,6 +113,13 @@ Automated checks run:
   four ACL policies, four roles, ran `revoke-root`, confirmed root lookup
   returned HTTP 403, removed the init JSON, shredded temp custody files, and
   removed the disposable container/storage.
+- Disposable OpenBao post-root proof against `openbao/openbao:2.5.5`, result:
+  rendered the non-secret bundle, initialized and unsealed a fresh local vault,
+  ran `apply-bootstrap`, created two AppRole credential files with mode 600
+  without printing role IDs or secret IDs, ran `revoke-root`, verified root
+  lookup returned HTTP 403, logged in through the saved admin AppRole file, wrote,
+  read, and deleted a throwaway KV secret, revoked the transient AppRole token,
+  removed the init JSON, and removed disposable storage.
 - Published GitHub OpenBao bootstrap-apply helper commit
   `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -152,10 +160,11 @@ Manual boundary review:
   registry passwords, DNS tokens, and backup keys stay private.
 - Public OpenBao first-install helper dry-runs safely and refuses live init
   unless a human passes the explicit custody-warning flag.
-- Disposable live-helper proof covered init/unseal/shred mechanics only. It did
-  not seed real secrets, create durable AppRole secret IDs, configure Kubernetes
-  auth with real cluster trust material, or replace the need for a clean public
-  Proxmox first-install proof.
+- Disposable live-helper proof now covers init/unseal, generated policy and role
+  apply, AppRole credential file creation, root revoke, and post-root admin
+  access mechanics. It does not seed real secrets, configure Kubernetes auth with
+  real cluster trust material, prove ESO sync, prove backup/public-edge paths, or
+  replace the need for a clean public Proxmox first-install proof.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 

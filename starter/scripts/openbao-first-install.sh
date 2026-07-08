@@ -13,7 +13,9 @@ Usage:
   starter/scripts/openbao-first-install.sh init [marduk.env] --i-understand-this-prints-tier0-shares
   starter/scripts/openbao-first-install.sh unseal [marduk.env]
   starter/scripts/openbao-first-install.sh apply-bootstrap [marduk.env] [bundle-dir]
+  starter/scripts/openbao-first-install.sh write-approle-credentials [marduk.env] [output-dir]
   starter/scripts/openbao-first-install.sh revoke-root [marduk.env]
+  starter/scripts/openbao-first-install.sh verify-post-root [marduk.env] [admin-creds.json]
   starter/scripts/openbao-first-install.sh shred-init [marduk.env]
 
 This helper is for a brand-new OpenBao with no existing snapshot. It never
@@ -74,10 +76,10 @@ INIT_JSON="${OPENBAO_INIT_JSON:-$HOME/.openbao/marduk-first-init.json}"
 
 preflight() {
   need_cmd curl
-    need_cmd python3
-    need_cmd chmod
-    need_cmd mkdir
-    need_cmd stty
+  need_cmd python3
+  need_cmd chmod
+  need_cmd mkdir
+  need_cmd stty
   case "$OPENBAO_ADDR" in
     http://*|https://*)
       ;;
@@ -165,6 +167,33 @@ print(json.dumps({"type": sys.argv[1]}))
 PY
 }
 
+json_approle_login_payload() {
+  python3 - "$1" <<'PY'
+import json
+import sys
+
+d = json.load(open(sys.argv[1]))
+print(json.dumps({"role_id": d["role_id"], "secret_id": d["secret_id"]}))
+PY
+}
+
+json_throwaway_secret_payload() {
+  python3 - <<'PY'
+import json
+
+print(json.dumps({"data": {"proof": "throwaway-post-root-access"}}))
+PY
+}
+
+approle_login_token() {
+  creds="$1"
+  payload=$(mktemp)
+  json_approle_login_payload "$creds" > "$payload"
+  curl -fsS -X POST "$OPENBAO_ADDR/v1/auth/approle/login" --data @"$payload" \
+    | python3 -c 'import json,sys; print(json.load(sys.stdin)["auth"]["client_token"])'
+  rm -f "$payload"
+}
+
 ensure_mount() {
   token="$1"
   mount="$2"
@@ -225,9 +254,12 @@ Live order:
   4. Run unseal and enter any 2 saved shares.
   5. Run apply-bootstrap to apply the generated non-secret mount, auth, policy,
      and role shape.
-  6. Configure private Kubernetes auth, create AppRole secret IDs, and seed real
-     secrets through private files or stdin.
-  7. Run revoke-root after first backup and verification.
+  6. Run write-approle-credentials and save the generated files privately.
+  7. Configure private Kubernetes auth and seed real secrets through private
+     files or stdin.
+  8. Verify ESO, backup, signing, and public-edge paths.
+  9. Run revoke-root after first backup and verification.
+  10. Run verify-post-root with the saved admin AppRole file.
 
 This dry run does not contact OpenBao and prints no secret values.
 EOF
@@ -335,6 +367,39 @@ kubernetes_auth_configured=false
 EOF
     ;;
 
+  write-approle-credentials)
+    preflight
+    output_dir="${3:-starter/security/openbao-approle-credentials}"
+    mkdir -p "$output_dir"
+    chmod 700 "$output_dir"
+    token=$(root_token)
+    for role in "$OPENBAO_ADMIN_ROLE" "$OPENBAO_CI_SIGNING_ROLE"; do
+      role_id_json=$(mktemp)
+      secret_id_json=$(mktemp)
+      bao_curl GET "$token" "auth/approle/role/$role/role-id" > "$role_id_json"
+      bao_curl POST "$token" "auth/approle/role/$role/secret-id" > "$secret_id_json"
+      python3 - "$role" "$role_id_json" "$secret_id_json" "$output_dir/$role.json" <<'PY'
+import json
+import os
+import sys
+
+role, role_id_path, secret_id_path, output_path = sys.argv[1:5]
+role_id = json.load(open(role_id_path))["data"]["role_id"]
+secret_id = json.load(open(secret_id_path))["data"]["secret_id"]
+with open(output_path, "w") as f:
+    json.dump({"role": role, "role_id": role_id, "secret_id": secret_id}, f, indent=2)
+    f.write("\n")
+os.chmod(output_path, 0o600)
+PY
+      rm -f "$role_id_json" "$secret_id_json"
+    done
+    unset token
+    cat <<EOF
+OpenBao AppRole credentials: PASS
+output_dir=$output_dir files=2 mode=600 values_printed=false
+EOF
+    ;;
+
   revoke-root)
     preflight
     token=$(root_token)
@@ -354,6 +419,31 @@ EOF
     fi
     rm -f /tmp/marduk-openbao-http.out
     echo "OpenBao root revoke: PASS revoke_http=$code lookup_after=$after init_json_removed=true"
+    ;;
+
+  verify-post-root)
+    preflight
+    admin_creds="${3:-starter/security/openbao-approle-credentials/$OPENBAO_ADMIN_ROLE.json}"
+    [ -f "$admin_creds" ] || die "admin credential file missing: $admin_creds"
+    mode=$(stat -c '%a' "$admin_creds" 2>/dev/null || echo unknown)
+    if [ "$mode" != "600" ]; then
+      die "admin credential file must have mode 600, got: $mode"
+    fi
+    token=$(approle_login_token "$admin_creds")
+    payload=$(mktemp)
+    json_throwaway_secret_payload > "$payload"
+    bao_curl POST "$token" "$OPENBAO_KV_MOUNT/data/proof/post-root" "$payload" >/dev/null
+    rm -f "$payload"
+    bao_curl GET "$token" "$OPENBAO_KV_MOUNT/data/proof/post-root" \
+      | python3 -c 'import json,sys; d=json.load(sys.stdin); raise SystemExit(0 if d["data"]["data"].get("proof") == "throwaway-post-root-access" else 1)'
+    bao_curl DELETE "$token" "$OPENBAO_KV_MOUNT/metadata/proof/post-root" >/dev/null
+    code=$(bao_http_code POST "$token" "auth/token/revoke-self")
+    unset token
+    rm -f /tmp/marduk-openbao-http.out
+    if [ "$code" != "204" ]; then
+      die "post-root token revoke failed: revoke_http=$code"
+    fi
+    echo "OpenBao post-root verify: PASS admin_approle_login=true throwaway_secret_roundtrip=true token_revoked=true values_printed=false"
     ;;
 
   shred-init)
