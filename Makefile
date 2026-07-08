@@ -1,6 +1,6 @@
 GO_DOCKER_IMAGE ?= golang:1.26-alpine
 
-.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan starter-tfvars openbao-plan openbao-bootstrap openbao-first-install-dry-run openbao-kubernetes-login-proof openbao-eso-sync-proof openbao-secret-seeding-proof
+.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan starter-tfvars openbao-plan openbao-bootstrap openbao-first-install-dry-run openbao-kubernetes-login-proof openbao-eso-sync-proof openbao-secret-seeding-proof openbao-backup-proof
 
 doctor:
 	@if command -v go >/dev/null; then \
@@ -64,3 +64,6 @@ openbao-eso-sync-proof:
 
 openbao-secret-seeding-proof:
 	starter/scripts/openbao-secret-seeding-proof.sh
+
+openbao-backup-proof:
+	starter/scripts/openbao-backup-proof.sh
