@@ -10,9 +10,20 @@ values, and those should live in your own private operational repo.
 
 ```text
 terraform/proxmox/  VM layer template for three Talos nodes
+config/             Sourceable public config contract
+scripts/            Config doctor and generated artifact helpers
 talos/              Talos patch examples
 kubernetes/         GitOps bootstrap and demo workload examples
 security/           Policy and secret-management notes
+```
+
+## First Commands In A Private Copy
+
+```bash
+cp starter/config/marduk.env.example marduk.env
+starter/scripts/doctor.sh ./marduk.env
+starter/scripts/render-terraform-tfvars.sh ./marduk.env starter/terraform/proxmox/terraform.tfvars
+./deploy-marduk-public.sh plan ./marduk.env
 ```
 
 ## Safety Rule

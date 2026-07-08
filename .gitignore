@@ -4,3 +4,5 @@ Thumbs.db
 *.tmp
 dist/
 coverage/
+marduk.env
+starter/terraform/proxmox/terraform.tfvars

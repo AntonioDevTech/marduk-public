@@ -9,12 +9,14 @@ usage() {
 Usage:
   ./deploy-marduk-public.sh doctor
   ./deploy-marduk-public.sh verify-config ./marduk.env
-  ./deploy-marduk-public.sh plan
-  ./deploy-marduk-public.sh deploy
+  ./deploy-marduk-public.sh plan [./marduk.env]
+  ./deploy-marduk-public.sh render-terraform [./marduk.env] [output.tfvars]
+  ./deploy-marduk-public.sh deploy ./marduk.env
 
 This public script is a starter harness. It validates tools and config shape,
-prints the deploy plan, and refuses to claim a full deploy until the public
-operational package is implemented and clean-room proven.
+renders starter Terraform inputs, prints the deploy plan, and refuses to claim a
+full deploy until the public operational package is implemented and clean-room
+proven.
 EOF
 }
 
@@ -37,48 +39,43 @@ case "$cmd" in
     ;;
 
   plan)
-    cat <<'EOF'
-MARDUK public deploy plan
+    config="${2:-starter/config/marduk.env.example}"
+    if [ "$config" = "starter/config/marduk.env.example" ]; then
+      starter/scripts/doctor.sh "$config" --allow-placeholders
+    else
+      starter/scripts/doctor.sh "$config"
+    fi
+    starter/scripts/render-plan.sh "$config"
+    ;;
 
-Automated in this public starter today:
-  1. Check local app tooling.
-  2. Test the demo app with local Go or Docker fallback.
-  3. Validate the public starter config shape.
-  4. Build the demo app container.
-
-Still manual or future-package work:
-  1. Copy starter/ into a private operational repo.
-  2. Fill marduk.env with private topology values.
-  3. Run Terraform for your Proxmox substrate.
-  4. Generate fresh Talos secrets and bootstrap Kubernetes.
-  5. Seed Cilium and Argo CD.
-  6. Perform the OpenBao first-install ceremony.
-  7. Seed real runtime secrets through your vault.
-  8. Prove external gates, observability, backups, admission, and recovery.
-
-Manual gates that must remain human-owned:
-  - OpenBao custody shares.
-  - Signing key custody.
-  - Firewall and DNS ownership.
-  - External account tokens.
-  - Backup target trust.
-
-Honest state:
-  This public repo is a starter harness, not a full turnkey deployer yet.
-EOF
+  render-terraform)
+    config="${2:-starter/config/marduk.env.example}"
+    output="${3:--}"
+    if [ "$config" = "starter/config/marduk.env.example" ]; then
+      starter/scripts/doctor.sh "$config" --allow-placeholders
+    else
+      starter/scripts/doctor.sh "$config"
+    fi
+    starter/scripts/render-terraform-tfvars.sh "$config" "$output"
     ;;
 
   deploy)
+    config="${2:-}"
+    if [ -z "$config" ]; then
+      echo "ERROR: deploy requires a real private marduk.env path" >&2
+      exit 2
+    fi
     "$0" doctor
-    "$0" plan
+    "$0" verify-config "$config"
+    "$0" plan "$config"
+    "$0" render-terraform "$config" starter/terraform/proxmox/terraform.tfvars
     cat <<'EOF'
 
 PAUSED: public turnkey deploy is not implemented yet.
 
 Next required engineering step:
-  Add a sanitized operational deploy wrapper that consumes marduk.env and drives
-  Terraform, Talos, GitOps, OpenBao first install, and verification through
-  explicit human gates.
+  Add the clean-room-proven commands that drive Terraform, Talos, GitOps,
+  OpenBao first install, and verification through explicit human gates.
 EOF
     exit 2
     ;;

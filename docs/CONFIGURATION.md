@@ -25,11 +25,21 @@ Your private config should validate without placeholders:
 starter/scripts/doctor.sh ./marduk.env
 ```
 
+Render the Terraform starter variables from the same config:
+
+```bash
+starter/scripts/render-terraform-tfvars.sh ./marduk.env starter/terraform/proxmox/terraform.tfvars
+```
+
+`terraform.tfvars` contains real topology once generated. Keep it in your
+private operational repo and do not publish it.
+
 ## What Belongs In The Config
 
 - Proxmox endpoint, node, storage, and bridge names.
+- Proxmox TLS mode and Talos image file ID.
 - VM IDs and node IPs.
-- Kubernetes VIP, gateway, and DNS values.
+- Kubernetes VIP, CIDR prefix, gateway, and DNS values.
 - GitOps repo URL.
 - Registry hostname.
 - Public domain.

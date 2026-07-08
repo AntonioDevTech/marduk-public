@@ -11,10 +11,11 @@ Use this checklist when adapting MARDUK to your own lab.
 - [ ] Create a private operational repository.
 - [ ] Copy `starter/config/marduk.env.example` to a private `marduk.env`.
 - [ ] Run `starter/scripts/doctor.sh ./marduk.env`.
+- [ ] Run `./deploy-marduk-public.sh plan ./marduk.env`.
 
 ## Infrastructure
 
-- [ ] Fill in Terraform variables.
+- [ ] Render `starter/terraform/proxmox/terraform.tfvars` from `marduk.env`.
 - [ ] Run `terraform fmt`.
 - [ ] Run `terraform plan`.
 - [ ] Build the VM layer.

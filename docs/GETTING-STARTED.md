@@ -62,9 +62,21 @@ To adapt it:
 2. Replace every `example.*` value with your own values.
 3. Copy `starter/config/marduk.env.example` to `marduk.env`.
 4. Run `starter/scripts/doctor.sh ./marduk.env`.
-5. Generate your own Talos secrets. Never reuse anyone else's.
-6. Create your own registry, signing key, vault, and DNS records.
-7. Run a secret scanner and a private-value grep before publishing anything.
+5. Render the concrete starter Terraform inputs:
+
+   ```bash
+   starter/scripts/render-terraform-tfvars.sh ./marduk.env starter/terraform/proxmox/terraform.tfvars
+   ```
+
+6. Review the generated deploy plan:
+
+   ```bash
+   ./deploy-marduk-public.sh plan ./marduk.env
+   ```
+
+7. Generate your own Talos secrets. Never reuse anyone else's.
+8. Create your own registry, signing key, vault, and DNS records.
+9. Run a secret scanner and a private-value grep before publishing anything.
 
 ## What You Should Not Copy Blindly
 

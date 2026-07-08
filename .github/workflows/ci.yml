@@ -28,5 +28,11 @@ jobs:
       - name: Validate starter config shape
         run: make starter-doctor
 
+      - name: Render public deploy plan
+        run: make public-plan
+
+      - name: Render Terraform tfvars starter
+        run: make starter-tfvars
+
       - name: Build demo container
         run: docker build -t marduk-hello:ci apps/hello

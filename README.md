@@ -126,6 +126,7 @@ make doctor
 make test
 make starter-doctor
 ./deploy-marduk-public.sh plan
+./deploy-marduk-public.sh render-terraform starter/config/marduk.env.example -
 ```
 
 `make test` uses local Go when it is installed. If Go is missing but Docker is
@@ -187,7 +188,8 @@ The public harness shows the current command surface:
 ```bash
 ./deploy-marduk-public.sh doctor
 ./deploy-marduk-public.sh verify-config ./marduk.env
-./deploy-marduk-public.sh plan
+./deploy-marduk-public.sh plan ./marduk.env
+./deploy-marduk-public.sh render-terraform ./marduk.env starter/terraform/proxmox/terraform.tfvars
 ```
 
 ## What Is Not Included

@@ -1,6 +1,6 @@
 GO_DOCKER_IMAGE ?= golang:1.26-alpine
 
-.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan
+.PHONY: doctor test test-local test-docker run run-docker docker-build starter-doctor public-plan starter-tfvars
 
 doctor:
 	@if command -v go >/dev/null; then \
@@ -40,3 +40,6 @@ starter-doctor:
 
 public-plan:
 	./deploy-marduk-public.sh plan
+
+starter-tfvars:
+	./deploy-marduk-public.sh render-terraform starter/config/marduk.env.example -
