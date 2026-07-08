@@ -56,14 +56,15 @@ and enough architecture to build your own version without exposing mine.
 | Git drift is reverted by GitOps | Proven privately |
 | SLO and disk alerts fire for real | Proven privately |
 | Node kill under load preserves the demo app | Proven privately |
-| Clean rebuild under 30 minutes | Not proven yet |
+| Clean private rebuild under 30 minutes | Proven privately |
+| Random-user public clone deploys the full platform | Not proven yet |
+| Fresh first install with no existing vault snapshot | Not packaged yet |
 
 Latest honest rebuild wording:
 
-> The platform has been rebuilt from destroyed VMs and recovered to green. The
-> latest timed rerun took 33m45s because it exposed a real rebuild-only
-> network-policy staging bug, now fixed. The clean under-30-minute claim is still
-> not proven.
+> The private MARDUK estate has been rebuilt from destroyed VMs to final verified
+> green in under 10 minutes, with explicit human custody and external-trust gates.
+> This public repo is currently a sanitized starter, not yet a turnkey installer.
 
 ## Architecture At A Glance
 
@@ -93,6 +94,7 @@ LICENSE                         MIT license for the sanitized export
 docs/ARCHITECTURE-SANITIZED.md  Public architecture summary
 docs/GETTING-STARTED.md         How to run and adapt the starter
 docs/BUILD-FROM-HERE.md         Build path from local app to platform
+docs/DEPLOYABILITY.md           What is and is not turnkey today
 docs/BLUEPRINT-CHECKLIST.md     Adaptation checklist
 docs/EVIDENCE-SUMMARY.md        Claims and evidence types, without private data
 docs/REBUILD-STATUS.md          Honest rebuild status
@@ -111,6 +113,12 @@ source, build, scan, sign, push, digest write-back, GitOps deploy, admission
 verify, and health probe.
 
 ## Run The Demo App Locally
+
+First check local prerequisites:
+
+```bash
+make doctor
+```
 
 ```bash
 cd apps/hello
@@ -157,6 +165,9 @@ The starter includes:
 You still must supply your own private values: network plan, endpoints, DNS,
 registry, vault, signing identity, and recovery process.
 
+Today this repo helps you build your own version. It does not yet include the
+sanitized equivalent of the private one-command deploy wrapper.
+
 ## What Is Not Included
 
 This public export deliberately excludes:
@@ -164,6 +175,7 @@ This public export deliberately excludes:
 - Private Git history.
 - Terraform state and operational infrastructure manifests.
 - Kubernetes manifests from the private estate.
+- The private deploy wrapper and recovery runbooks.
 - Real domains, hostnames, usernames, IP ranges, service ports, and device names.
 - Credential identifiers, token names, key fingerprints, secret paths, and
   custody locations.

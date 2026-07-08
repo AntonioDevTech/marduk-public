@@ -15,10 +15,10 @@ The part I am proud of is not that it runs. The part I am proud of is that the
 claims are evidenced: unsigned images are denied, drift snaps back to Git, alerts
 actually fire, vault restore was drilled, and a node kill under load was tested.
 
-Current honest rebuild status: the platform has been rebuilt from destroyed VMs
-and returned to green. The latest timed rerun was 33m45s because it exposed a
-real rebuild-only network-policy bug, now fixed. I am not claiming under 30
-minutes until a clean rerun proves it.
+Current honest rebuild status: the private platform has been rebuilt from
+destroyed VMs to final verified green in under 10 minutes, with explicit human
+custody and external-trust gates. The public repo is a sanitized starter, not a
+turnkey installer yet.
 
 This public repo is a sanitized portfolio export. The operational repo stays
 private because it contains real topology and recovery details.
@@ -36,7 +36,8 @@ private because it contains real topology and recovery details.
 ## Phrases To Avoid
 
 - "Production HA"
-- "Under 30-minute rebuild" until a clean run proves it
+- "Anyone can clone this and deploy the full platform" until the public
+  clean-room proof exists
 - "Zero risk"
 - "Public repo contains the real infra"
 - Any wording that implies multiple physical failure domains

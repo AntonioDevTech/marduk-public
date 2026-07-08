@@ -5,6 +5,15 @@ platform without private estate details.
 
 ## Quick Local Demo
 
+Check prerequisites first:
+
+```bash
+make doctor
+```
+
+That checks for Go and warns if Docker is missing. Go is required for
+`make test` and `make run`; Docker is required for `make docker-build`.
+
 Run the demo service:
 
 ```bash
@@ -56,3 +65,12 @@ The templates are intentionally conservative. You must still choose:
 - Your DNS and public edge model.
 
 MARDUK is a pattern, not a magic script.
+
+## Current Deployability Status
+
+The private MARDUK estate has a proven wrapper that rebuilds from destroyed VMs
+to final PASS with explicit human gates.
+
+This public repo does not yet contain that full sanitized wrapper. Treat the
+`starter/` files as a blueprint until the public operational package is added
+and proven from a clean clone.

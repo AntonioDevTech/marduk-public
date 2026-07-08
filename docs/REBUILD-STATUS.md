@@ -2,10 +2,14 @@
 
 ## Short Answer
 
-MARDUK is ready to say: "I can rebuild this platform from destroyed VMs and bring
-it back to green."
+MARDUK is ready to say: "I can rebuild the private platform from destroyed VMs
+and bring it back to green."
 
-MARDUK is not ready to say: "I have proven the rebuild is under 30 minutes."
+MARDUK is also ready to say: "The private wrapper has rebuilt the platform in
+under 10 minutes with explicit human custody gates."
+
+MARDUK is not ready to say: "A random Proxmox user can clone this public repo and
+deploy the whole platform unchanged."
 
 ## What Has Been Demonstrated
 
@@ -23,19 +27,19 @@ MARDUK is not ready to say: "I have proven the rebuild is under 30 minutes."
 |-----|--------|--------|-----------------------|
 | First timed rebuild attempt | Rebuilt and green | 37m37s | Found and fixed a real Argo network-policy ordering bug |
 | Clean rerun after that fix | Rebuilt and green | 33m45s | Found and fixed the staged default-deny anchor bug |
+| Codex-driven Phase 11 wrapper proof | Rebuilt and green | 9m38s from safe prep start | Proved the fixed private wrapper end to end |
+| Antonio manual Phase 11 wrapper proof | Rebuilt and green | 8m50s from safe prep start | Proved the operator path manually |
 
-The next valid under-30 proof must start after the latest network-policy fix and
-finish without mid-run code changes or break-glass recovery.
+The private-estate under-30 proof is now satisfied by the Phase 11 wrapper
+proofs. The public deployability proof is separate and still pending.
 
 ## Public Wording
 
 Use this:
 
-> The platform has been rebuilt from destroyed VMs and recovered to green. The
-> latest timed rerun took 33m45s because it exposed a real rebuild-only
-> network-policy staging bug, now fixed. The clean under-30-minute claim is still
-> not proven.
+> The private MARDUK estate now rebuilds from destroyed VMs to verified green in
+> under 10 minutes, with explicit human custody and external-trust gates.
 
 Do not use this yet:
 
-> MARDUK rebuilds in under 30 minutes.
+> Anyone can clone this public repo and deploy the full platform unchanged.

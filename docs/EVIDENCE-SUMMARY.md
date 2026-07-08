@@ -19,6 +19,7 @@ operator-grade logs and artifacts.
 | Network policy enforces default-deny | Audit-first rollout, would-drop review, then enforced tests |
 | SLO alerts fire for real | Burn-rate and capacity alert tests with resolution proof |
 | Node loss is survivable for the demo app | Load test during node kill, with SLO impact recorded |
+| Private wrapper rebuilds under 10 minutes | Destroyed-VM rebuild transcripts with final verifier output |
 | Pull-request previews work | Labelled PR creates a public preview and closes cleanly |
 | Local AI review comments on PRs | Advisory review posted from a local model |
 
@@ -26,12 +27,15 @@ operator-grade logs and artifacts.
 
 - Multi-hypervisor high availability.
 - Disaster survival across independent power, disk, or site failures.
-- A clean under-30-minute rebuild.
-- That the public export is enough to operate the private estate.
+- That the public export is enough to operate the private estate unchanged.
+- That a random Proxmox user can deploy the full platform from this public repo
+  without a future sanitized operational package.
 
 ## Rebuild Evidence Status
 
-The platform has been rebuilt from destroyed VMs and recovered to green twice.
-The latest timed rerun took 33m45s because it exposed a rebuild-only
-network-policy staging bug. That bug is fixed, but one more clean rerun is
-needed before claiming under 30 minutes.
+The private platform has been rebuilt from destroyed VMs and recovered to green
+multiple times. The final Phase 11 wrapper proofs completed in under 10 minutes
+from safe prep start and finished with strict platform verification.
+
+Separate status: the public repo is cloneable and safe, but it is still a
+starter. A clean-room public deploy proof is not complete.

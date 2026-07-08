@@ -11,4 +11,3 @@ machine:
             gateway: 203.0.113.1
         vip:
           ip: 203.0.113.10
-

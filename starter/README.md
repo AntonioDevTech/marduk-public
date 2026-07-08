@@ -19,4 +19,3 @@ security/           Policy and secret-management notes
 
 Do not put real secrets, private IPs, private hostnames, or recovery notes in a
 public repo. Keep those in a private operational repo.
-

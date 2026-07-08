@@ -13,4 +13,3 @@ nodes = {
   "platform-02" = { vm_id = 1002, address = "203.0.113.12/24" }
   "platform-03" = { vm_id = 1003, address = "203.0.113.13/24" }
 }
-

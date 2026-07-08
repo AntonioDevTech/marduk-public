@@ -52,4 +52,3 @@ Use this checklist when adapting MARDUK to your own lab.
 - [ ] Test pod kill.
 - [ ] Test node kill.
 - [ ] Record what failed and what you fixed.
-

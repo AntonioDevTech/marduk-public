@@ -52,4 +52,3 @@ variable "nodes" {
     address = string
   }))
 }
-

@@ -22,4 +22,3 @@ terraform plan
 ```
 
 Do not commit your real `terraform.tfvars`.
-

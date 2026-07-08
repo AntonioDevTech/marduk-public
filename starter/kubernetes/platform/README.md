@@ -15,4 +15,3 @@ Add platform applications in GitOps sync waves:
 
 Keep the private operational manifests in a private repo. Public examples should
 use placeholders only.
-
