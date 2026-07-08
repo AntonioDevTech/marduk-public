@@ -3,8 +3,8 @@
 This directory is the public-safe starting point for building a MARDUK-like
 platform in your own private repo.
 
-It is not a turnkey installer. Real infrastructure needs real private values,
-and those values belong in your private operational repo.
+It is not a full Proxmox installer by itself. Real infrastructure needs real
+private values, and those values belong in your private operational repo.
 
 ## ICM Shape
 

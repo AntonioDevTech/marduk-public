@@ -1,7 +1,7 @@
 # Clean-Room Proof Plan
 
-This is the proof required before the public repo can honestly say
-"clone and deploy."
+This is the proof required before the public repo can honestly say a fresh user
+can clone it and fully install MARDUK on Proxmox.
 
 ## Starting State
 
@@ -158,6 +158,6 @@ This is the proof required before the public repo can honestly say
 
 ## Passing Standard
 
-The public repo can claim turnkey deploy only after this entire path passes from
-a clean clone using documented inputs, with no private values copied from the
-original MARDUK estate.
+The public repo can claim full public Proxmox install readiness only after this
+entire path passes from a clean clone using documented inputs, with no private
+values copied from the original MARDUK estate.

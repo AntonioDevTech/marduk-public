@@ -4,7 +4,7 @@
 
 This repository is public, cloneable, and useful as a starter.
 
-It is not yet a turnkey public installer.
+It is not yet a full public Proxmox installer.
 
 The private MARDUK operational repo has a proven deploy wrapper. This public repo
 includes a public-safe proof wrapper, but not a real infrastructure deploy
@@ -58,7 +58,7 @@ edge route proof, but not a real public DNS or Cloudflare ownership proof.
 - Out-of-band observability.
 - Firewall rules and packet proofs.
 
-## Proof Ladder Before "Clone And Deploy"
+## Checks Before A Full Public Proxmox Install
 
 1. Publish a sanitized operational package with estate-specific values moved to
    documented example config files. The first public config contract now exists.
@@ -92,5 +92,6 @@ Until those pass, the honest claim is:
 
 ```text
 MARDUK is a public starter and a private proven implementation.
-It is not yet a public turnkey installer.
+A full public Proxmox install still requires private config, user-owned secrets,
+DNS/firewall setup, and second-hardware proof.
 ```

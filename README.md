@@ -16,7 +16,7 @@ box is still one fate domain.
 
 Not yet.
 
-You can clone this public repo and run a real public-safe proof ladder:
+You can clone this public repo and run a real public-safe local proof command:
 
 ```bash
 ./deploy-marduk-public.sh public-proof
@@ -28,8 +28,9 @@ disposable backup, and proves local edge routing. It does not create real
 Proxmox VMs, take over your DNS, configure your firewall, or ask for secrets.
 
 The private MARDUK estate has been rebuilt from destroyed VMs to final verified
-green in under 10 minutes with explicit human custody gates. A public turnkey
-claim still needs a second, unrelated Proxmox proof with user-owned inputs.
+green in under 10 minutes with explicit human custody gates. A full public
+Proxmox install still needs private config, user-owned secrets, DNS/firewall
+setup, and a second, unrelated Proxmox proof with user-owned inputs.
 
 ## Why This Exists
 
@@ -74,7 +75,7 @@ proofs without private topology or secret metadata.
 | Git drift is reverted by GitOps | Proven privately |
 | SLO and disk alerts fire for real | Proven privately |
 | Node kill under load preserves the demo route | Proven privately |
-| Public clean clone runs local proof ladder | Proven by `public-proof` |
+| Public clean clone runs local proof command | Proven by `public-proof` |
 | Public first-install OpenBao mechanics | Proven with disposable resources |
 | Public ESO sync and secret seeding | Proven with disposable resources |
 | Public backup ship path | Proven with disposable resources |
@@ -84,8 +85,9 @@ proofs without private topology or secret metadata.
 Honest public wording:
 
 > The private MARDUK estate is reproducible from code with explicit human custody
-> and external-trust gates. This public repo is a sanitized starter with a
-> clean-clone proof ladder, not yet a turnkey Proxmox installer.
+> and external-trust gates. This public repo is safe to share and includes a
+> local proof command, but a full Proxmox install still requires a private config
+> file, user-owned secrets, DNS/firewall setup, and a second-hardware proof.
 
 ## Architecture At A Glance
 
@@ -116,7 +118,7 @@ Makefile                            Local proof helpers
 compose.yaml                        Local container demo
 docs/ARCHITECTURE-SANITIZED.md      Public architecture summary
 docs/CONFIGURATION.md               Public config contract
-docs/CLEAN-ROOM-PROOF.md            Proof ladder before turnkey claims
+docs/CLEAN-ROOM-PROOF.md            Checks required before full-install claims
 docs/DEPLOYABILITY.md               What is and is not deployable today
 docs/EXTERNAL-GATES.md              Human-owned trust gates
 docs/FAILOVER-DR-MATRIX.md          Recovery claim matrix
@@ -128,7 +130,7 @@ starter/                            Sanitized Terraform, Talos, Kubernetes, secu
 
 ## Quickstart
 
-Run the complete public-safe proof ladder:
+Run the complete public-safe local proof command:
 
 ```bash
 make doctor

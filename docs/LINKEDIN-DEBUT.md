@@ -18,7 +18,7 @@ actually fire, vault restore was drilled, and a node kill under load was tested.
 Current honest rebuild status: the private platform has been rebuilt from
 destroyed VMs to final verified green in under 10 minutes, with explicit human
 custody and external-trust gates. The public repo is a sanitized starter, not a
-turnkey installer yet.
+full public Proxmox installer yet.
 
 This public repo is a sanitized portfolio export. The operational repo stays
 private because it contains real topology and recovery details.

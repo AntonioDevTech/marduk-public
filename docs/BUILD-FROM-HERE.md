@@ -53,14 +53,15 @@ Recommended order:
 16. Use `docs/FAILOVER-DR-MATRIX.md` to prove recovery claims.
 17. Write evidence for each claim before you make it publicly.
 
-## What Is Still Missing For Turnkey Public Deploy
+## What Is Still Missing For A Full Public Proxmox Install
 
 The private MARDUK estate has a one-command wrapper that orchestrates Terraform,
 Talos, GitOps, OpenBao restore, external gate checks, and final verification.
 This public repo has a public-safe wrapper for disposable proofs, not the full
 sanitized infrastructure deploy wrapper.
 
-Before this repo can honestly say "clone and deploy," it needs:
+Before this repo can honestly say "clone and fully install on Proxmox," it
+needs:
 
 1. Real infrastructure orchestration with all estate-specific values moved into
    documented config files. The public harness exposes `doctor`,

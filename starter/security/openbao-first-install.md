@@ -135,7 +135,7 @@ These stay manual:
 ## Honest Deployability Note
 
 Until this ceremony is implemented and tested in a sanitized operational package,
-this public repo is a starter, not a turnkey installer. The generated bundle and
+this public repo is a starter, not a full Proxmox installer. The generated bundle and
 helper remove ambiguity from policy, role, AppRole credential, Kubernetes auth
 config, and post-root access mechanics, but they do not replace the live custody
 ceremony.
