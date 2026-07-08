@@ -138,6 +138,25 @@ Automated checks run:
   `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
   OpenBao init-refusal negative check, `make docker-build`, container
   `/healthz` HTTP 200, gitleaks, and refined private denylist grep all passed.
+- Published GitHub OpenBao post-root helper commit
+  `e21e1dd86afa0d27b64545d0c8c70d70ed7d6b6f`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  OpenBao init-refusal negative check, `make docker-build`, container
+  `/healthz` HTTP 200, standalone repo gitleaks, refined private denylist grep,
+  and disposable OpenBao post-root proof all passed.
+- Public GitHub Actions for commit `e21e1dd86afa0d27b64545d0c8c70d70ed7d6b6f`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28960714242`.
+- Anonymous clean clone proof for
+  `e21e1dd86afa0d27b64545d0c8c70d70ed7d6b6f`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  OpenBao init-refusal negative check, `make docker-build`, container
+  `/healthz` HTTP 200, gitleaks, refined private denylist grep, and disposable
+  OpenBao post-root proof all passed.
 
 Manual boundary review:
 
