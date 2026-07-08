@@ -19,6 +19,7 @@ Usage:
   ./deploy-marduk-public.sh openbao-secret-seeding-proof
   ./deploy-marduk-public.sh openbao-backup-proof
   ./deploy-marduk-public.sh public-edge-proof
+  ./deploy-marduk-public.sh public-proof [./marduk.env]
   ./deploy-marduk-public.sh deploy ./marduk.env
 
 This public script is a starter harness. It validates tools and config shape,
@@ -118,6 +119,42 @@ case "$cmd" in
     starter/scripts/public-edge-proof.sh
     ;;
 
+  public-proof)
+    config="${2:-starter/config/marduk.env.example}"
+    tmpdir=$(mktemp -d "${TMPDIR:-/tmp}/marduk-public-proof.XXXXXX")
+    cleanup_public_proof() {
+      rm -rf "$tmpdir"
+    }
+    trap cleanup_public_proof EXIT INT TERM
+    if [ "$config" = "starter/config/marduk.env.example" ]; then
+      starter/scripts/doctor.sh "$config" --allow-placeholders
+    else
+      starter/scripts/doctor.sh "$config"
+    fi
+    "$0" doctor
+    "$0" plan "$config"
+    "$0" render-terraform "$config" "$tmpdir/terraform.tfvars"
+    "$0" openbao-plan "$config"
+    "$0" render-openbao "$config" "$tmpdir/openbao-bootstrap"
+    "$0" openbao-first-install-dry-run "$config"
+    make docker-build
+    "$0" openbao-kubernetes-login-proof
+    "$0" openbao-eso-sync-proof
+    "$0" openbao-secret-seeding-proof
+    "$0" openbao-backup-proof
+    "$0" public-edge-proof
+    cat <<'EOF'
+
+MARDUK public proof: PASS
+
+Honest boundary:
+  The public starter, config rendering, OpenBao helper mechanics, ESO sync,
+  runtime seeding, backup shipping, and local edge route proof all passed.
+  This is still not a real Proxmox/Talos/GitOps deployment until a user supplies
+  private infrastructure inputs and runs the real infrastructure stages.
+EOF
+    ;;
+
   deploy)
     config="${2:-}"
     if [ -z "$config" ]; then
@@ -138,6 +175,9 @@ PAUSED: public turnkey deploy is not implemented yet.
 Next required engineering step:
   Add the clean-room-proven commands that drive Terraform, Talos, GitOps,
   OpenBao first install, and verification through explicit human gates.
+
+Public-safe proof command available now:
+  ./deploy-marduk-public.sh public-proof
 EOF
     exit 2
     ;;
