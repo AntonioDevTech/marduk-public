@@ -75,7 +75,8 @@ Honest state:
   This public repo now validates config, renders starter Terraform inputs, and
   proves OpenBao helper mechanics, AppRole credential file creation, Kubernetes
   auth config submission, real Kubernetes ServiceAccount login, policy scoping,
-  and post-root access against disposable OpenBao/kind resources.
+  External Secrets sync, and post-root access against disposable OpenBao/kind
+  resources.
   It is still not a full turnkey deployer until a clean-room Proxmox install is
   implemented and proven from user-supplied private inputs.
 EOF

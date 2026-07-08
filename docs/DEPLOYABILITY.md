@@ -33,8 +33,9 @@ auth, ESO, backup, and public-edge first-install proof.
 - Disposable OpenBao proof that the helper can initialize, unseal, apply the
   generated non-secret policies/roles, create AppRole credential files, submit
   Kubernetes auth config from a private mode-600 file, prove a real Kubernetes
-  ServiceAccount login through kind, enforce policy scoping, revoke root, verify
-  post-root access, and remove the init JSON.
+  ServiceAccount login through kind, enforce policy scoping, install External
+  Secrets into kind, sync an OpenBao value into a Kubernetes Secret, revoke
+  root, verify post-root access, and remove the init JSON.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
 
@@ -63,8 +64,8 @@ auth, ESO, backup, and public-edge first-install proof.
 4. Render OpenBao first-install policy and role payload bundle. DONE.
 5. Prove OpenBao helper mechanics against disposable resources. DONE for
    init/unseal/apply generated bundle/AppRole credential files/Kubernetes auth
-   config submission/real ServiceAccount login/policy scoping/root revoke/
-   post-root access, not full ESO sync or real secret seeding.
+   config submission/real ServiceAccount login/policy scoping/External Secrets
+   sync/root revoke/post-root access, not real operational secret seeding.
 6. Expand the public starter harness into real deploy orchestration.
 7. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.

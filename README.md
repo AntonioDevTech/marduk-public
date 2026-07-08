@@ -145,6 +145,14 @@ its allowed policy:
 make openbao-kubernetes-login-proof
 ```
 
+If Helm is also available, this optional proof installs External Secrets into a
+disposable kind cluster and proves it materializes a Kubernetes Secret from
+disposable OpenBao:
+
+```bash
+make openbao-eso-sync-proof
+```
+
 ```bash
 cd apps/hello
 go run .

@@ -66,9 +66,10 @@ Before this repo can honestly say "clone and deploy," it needs:
    or custody. The public starter can render the non-secret policy and role
    bundle, dry-run the ceremony, create AppRole credential files, submit
    Kubernetes auth config from a private file, prove a real ServiceAccount login
-   through disposable kind/OpenBao resources, revoke root, and prove post-root
-   helper mechanics now; real ESO sync, real secret seeding, backup, and clean
-   public Proxmox proof are still pending.
+   through disposable kind/OpenBao resources, prove External Secrets can sync an
+   OpenBao value into a Kubernetes Secret, revoke root, and prove post-root
+   helper mechanics now; real secret seeding, backup, and clean public Proxmox
+   proof are still pending.
 3. A documented external-gate matrix for firewall, DNS, public edge, backups, and
    observability.
 4. A clean-room proof from an anonymous clone and documented inputs.

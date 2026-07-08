@@ -59,7 +59,7 @@ Manual gates that stay human-owned:
 Honest state:
   This public repo can render the non-secret OpenBao policy and role skeleton,
   create AppRole credential files, submit Kubernetes auth config, prove a real
-  Kubernetes ServiceAccount login, and prove post-root helper mechanics against
-  disposable OpenBao/kind resources. It does not yet prove full first install
-  against a fresh public Proxmox cluster.
+  Kubernetes ServiceAccount login, prove External Secrets sync, and prove
+  post-root helper mechanics against disposable OpenBao/kind resources. It does
+  not yet prove full first install against a fresh public Proxmox cluster.
 EOF

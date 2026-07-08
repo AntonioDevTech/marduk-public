@@ -82,9 +82,10 @@ A fresh anonymous GitHub clone at commit
 
 ## Still Not Proven
 
-This does not yet prove:
+This proof by itself does not prove:
 
-- ESO controller sync against a real cluster install
+- ESO controller sync; that is covered by the separate
+  `make openbao-eso-sync-proof` command
 - real registry, backup, edge, preview, or signing secret seeding
 - first off-cluster backup in a public clean-room environment
 - full Terraform/Talos/GitOps deployment on a random Proxmox host

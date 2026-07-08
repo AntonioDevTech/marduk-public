@@ -86,21 +86,29 @@ This is the proof required before the public repo can honestly say
    make openbao-kubernetes-login-proof
    ```
 
-14. Seed registry, backup, edge, preview, and signing secrets.
-15. Revoke root and remove the init JSON:
+14. Optional local proof before touching real secrets: with Docker, kind,
+    kubectl, and Helm installed, prove External Secrets can sync an OpenBao value
+    into a Kubernetes Secret:
+
+   ```bash
+   make openbao-eso-sync-proof
+   ```
+
+15. Seed registry, backup, edge, preview, and signing secrets.
+16. Revoke root and remove the init JSON:
 
    ```bash
    starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
    ```
 
-16. Verify post-root access:
+17. Verify post-root access:
 
    ```bash
    starter/scripts/openbao-first-install.sh verify-post-root ./marduk.env starter/security/openbao-approle-credentials/admin.json
    ```
 
-17. Verify OpenBao still serves ESO.
-18. Prove GitOps sync, signed admission, public route, observability, backup,
+18. Verify OpenBao still serves ESO.
+19. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard
