@@ -11,8 +11,17 @@ Check prerequisites first:
 make doctor
 ```
 
-That checks for Go and warns if Docker is missing. Go is required for
-`make test` and `make run`; Docker is required for `make docker-build`.
+That checks for Go or Docker. Local Go is enough for `make test` and `make run`.
+If Go is missing but Docker is available, `make test` runs inside the pinned Go
+container image. Docker is also required for `make docker-build` and
+`make run-docker`.
+
+Run the test:
+
+```bash
+make test
+make starter-doctor
+```
 
 Run the demo service:
 
@@ -24,7 +33,7 @@ Or build it as a container:
 
 ```bash
 make docker-build
-docker run --rm -p 8080:8080 marduk-hello:local
+make run-docker
 ```
 
 Then check:
@@ -40,6 +49,8 @@ The `starter/` directory is the reusable blueprint:
 
 ```text
 starter/terraform/proxmox/    Three-node Proxmox/Talos VM template
+starter/config/               Public config example
+starter/scripts/              Public doctor checks
 starter/talos/                Talos cluster and node patch examples
 starter/kubernetes/           GitOps bootstrap and demo app examples
 starter/security/             Admission, secret, and policy notes
@@ -49,9 +60,11 @@ To adapt it:
 
 1. Copy `starter/` into your own private operational repo.
 2. Replace every `example.*` value with your own values.
-3. Generate your own Talos secrets. Never reuse anyone else's.
-4. Create your own registry, signing key, vault, and DNS records.
-5. Run a secret scanner and a private-value grep before publishing anything.
+3. Copy `starter/config/marduk.env.example` to `marduk.env`.
+4. Run `starter/scripts/doctor.sh ./marduk.env`.
+5. Generate your own Talos secrets. Never reuse anyone else's.
+6. Create your own registry, signing key, vault, and DNS records.
+7. Run a secret scanner and a private-value grep before publishing anything.
 
 ## What You Should Not Copy Blindly
 

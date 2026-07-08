@@ -13,12 +13,15 @@ OpenBao ceremony.
 ## What Works Today
 
 - Anonymous GitHub clone.
-- Local demo app source.
+- Local demo app source with `make test` support through either Go or Docker.
+- Public config contract and starter doctor check.
+- Public starter harness with `doctor`, `verify-config`, and `plan`.
 - Public CI for the demo app.
 - Sanitized Terraform starter for three Proxmox/Talos VMs.
 - Sanitized Talos patch examples.
 - Sanitized Kubernetes starter manifests.
 - Public-safe architecture and evidence summaries.
+- Public-safe external gate and failover/DR proof matrices.
 - Public-safe OpenBao first-install pattern.
 
 ## What A User Must Still Build Privately
@@ -37,12 +40,13 @@ OpenBao ceremony.
 ## Proof Ladder Before "Clone And Deploy"
 
 1. Publish a sanitized operational package with estate-specific values moved to
-   documented example config files.
-2. Add a first-install OpenBao path for users with no existing vault snapshot.
-3. Run a clean-room clone proof with only documented inputs.
-4. Run an independent Proxmox proof on non-Antonio infrastructure if available.
-5. Summarize failover and disaster-recovery claims with public-safe evidence.
-6. Re-run secret scans and private-value denylist scans on the final public repo.
+   documented example config files. The first public config contract now exists.
+2. Expand the public starter harness into real deploy orchestration.
+3. Add a first-install OpenBao path for users with no existing vault snapshot.
+4. Run a clean-room clone proof with only documented inputs.
+5. Run an independent Proxmox proof on non-Antonio infrastructure if available.
+6. Summarize failover and disaster-recovery claims with public-safe evidence.
+7. Re-run secret scans and private-value denylist scans on the final public repo.
 
 Until those pass, the honest claim is:
 

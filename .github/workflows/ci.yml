@@ -25,5 +25,8 @@ jobs:
         working-directory: apps/hello
         run: go test ./...
 
+      - name: Validate starter config shape
+        run: make starter-doctor
+
       - name: Build demo container
         run: docker build -t marduk-hello:ci apps/hello

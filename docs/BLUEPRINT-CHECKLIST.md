@@ -9,6 +9,8 @@ Use this checklist when adapting MARDUK to your own lab.
 - [ ] Pick the Kubernetes node count and sizing.
 - [ ] Pin Talos and Kubernetes versions.
 - [ ] Create a private operational repository.
+- [ ] Copy `starter/config/marduk.env.example` to a private `marduk.env`.
+- [ ] Run `starter/scripts/doctor.sh ./marduk.env`.
 
 ## Infrastructure
 

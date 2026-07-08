@@ -90,8 +90,13 @@ For the fuller sanitized diagram, see
 
 ```text
 apps/hello/                     Tiny demo service used as a supply-chain carrier
+deploy-marduk-public.sh         Public starter harness and honest pause point
 LICENSE                         MIT license for the sanitized export
 docs/ARCHITECTURE-SANITIZED.md  Public architecture summary
+docs/CONFIGURATION.md           Public config contract
+docs/CLEAN-ROOM-PROOF.md        Proof ladder before turnkey claims
+docs/EXTERNAL-GATES.md          Human-owned trust gates and proof pattern
+docs/FAILOVER-DR-MATRIX.md      Public-safe recovery claim matrix
 docs/GETTING-STARTED.md         How to run and adapt the starter
 docs/BUILD-FROM-HERE.md         Build path from local app to platform
 docs/DEPLOYABILITY.md           What is and is not turnkey today
@@ -118,7 +123,13 @@ First check local prerequisites:
 
 ```bash
 make doctor
+make test
+make starter-doctor
+./deploy-marduk-public.sh plan
 ```
+
+`make test` uses local Go when it is installed. If Go is missing but Docker is
+available, it runs the same test inside the pinned Go container image.
 
 ```bash
 cd apps/hello
@@ -135,9 +146,8 @@ http://127.0.0.1:8080/healthz
 Or build the container:
 
 ```bash
-cd apps/hello
-docker build -t marduk-hello:local .
-docker run --rm -p 8080:8080 marduk-hello:local
+make docker-build
+make run-docker
 ```
 
 ## Build Your Own Version From Here
@@ -150,6 +160,10 @@ cp -R starter my-marduk-ops
 
 Then read:
 
+- [`docs/CONFIGURATION.md`](docs/CONFIGURATION.md)
+- [`docs/CLEAN-ROOM-PROOF.md`](docs/CLEAN-ROOM-PROOF.md)
+- [`docs/EXTERNAL-GATES.md`](docs/EXTERNAL-GATES.md)
+- [`docs/FAILOVER-DR-MATRIX.md`](docs/FAILOVER-DR-MATRIX.md)
 - [`docs/GETTING-STARTED.md`](docs/GETTING-STARTED.md)
 - [`docs/BUILD-FROM-HERE.md`](docs/BUILD-FROM-HERE.md)
 - [`docs/BLUEPRINT-CHECKLIST.md`](docs/BLUEPRINT-CHECKLIST.md)
@@ -167,6 +181,14 @@ registry, vault, signing identity, and recovery process.
 
 Today this repo helps you build your own version. It does not yet include the
 sanitized equivalent of the private one-command deploy wrapper.
+
+The public harness shows the current command surface:
+
+```bash
+./deploy-marduk-public.sh doctor
+./deploy-marduk-public.sh verify-config ./marduk.env
+./deploy-marduk-public.sh plan
+```
 
 ## What Is Not Included
 

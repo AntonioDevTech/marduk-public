@@ -1,8 +1,9 @@
 # Public Export Scan Report
 
 Date: 2026-07-08
-Update: refreshed after the Phase 11 deployability status update and OpenBao
-first-install starter outline.
+Update: refreshed after the Phase 11 deployability status update, OpenBao
+first-install starter outline, Docker fallback test path, starter config doctor,
+and public starter harness.
 
 Scope:
 
@@ -20,8 +21,20 @@ Automated checks run:
   `example.com/marduk/hello` are expected and public-safe.
 - Private-key and common token-prefix grep, result: no hits.
 - `git diff --check`, result: clean.
-- `make doctor`, result: correctly reports that Go is missing in the local WSL
-  shell. Public CI remains the test path until Go is installed locally.
+- `make doctor`, result: PASS with Docker fallback because local Go is not
+  installed in the WSL shell.
+- `make test`, result: PASS through `golang:1.26-alpine`.
+- `make starter-doctor`, result: PASS for the public example config with
+  placeholders explicitly allowed.
+- Negative starter-doctor check, result: PASS because the example config is
+  rejected without `--allow-placeholders`.
+- `make docker-build`, result: PASS.
+- Local container health probe, result: `/healthz` returned HTTP 200.
+- `./deploy-marduk-public.sh doctor`, result: PASS.
+- `./deploy-marduk-public.sh plan`, result: PASS and prints the staged public
+  deploy path.
+- `./deploy-marduk-public.sh deploy`, result: expected pause because public
+  turnkey deploy is not implemented yet.
 
 Manual boundary review:
 
@@ -35,6 +48,9 @@ Manual boundary review:
 - Public docs now state that this repo is a starter, not a turnkey installer.
 - Public OpenBao material is an outline only; no live paths, shares, root token,
   AppRole values, or secret values are included.
+- Public config material is sourceable example data only; real topology and
+  secret values remain private user inputs.
+- Public deploy harness is non-destructive and refuses to claim full deploy.
 
 Known safe generic values:
 

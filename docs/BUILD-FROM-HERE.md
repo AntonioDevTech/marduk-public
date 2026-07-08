@@ -10,9 +10,14 @@ This public repo is designed to be useful in two ways:
 ```bash
 make doctor
 make test
+make starter-doctor
+./deploy-marduk-public.sh plan
 make docker-build
-docker run --rm -p 8080:8080 marduk-hello:local
+make run-docker
 ```
+
+`make test` uses local Go when available and falls back to Docker when Go is not
+installed.
 
 ## Platform Build Path
 
@@ -23,15 +28,19 @@ published yet.
 Recommended order:
 
 1. Prepare a private operational repo from `starter/`.
-2. Fill in Terraform variables for your Proxmox endpoint, storage, bridge, and
+2. Copy `starter/config/marduk.env.example` to `marduk.env`.
+3. Fill in Terraform variables for your Proxmox endpoint, storage, bridge, and
    node IP plan.
-3. Run Terraform to create the VMs.
-4. Generate Talos machine configs from your own secrets.
-5. Bootstrap Kubernetes.
-6. Install Cilium and Argo CD.
-7. Point Argo CD at your private operational repo.
-8. Add registry, signing, vault, admission policy, observability, and backups.
-9. Write evidence for each claim before you make it publicly.
+4. Run `starter/scripts/doctor.sh ./marduk.env`.
+5. Run Terraform to create the VMs.
+6. Generate Talos machine configs from your own secrets.
+7. Bootstrap Kubernetes.
+8. Install Cilium and Argo CD.
+9. Point Argo CD at your private operational repo.
+10. Add registry, signing, vault, admission policy, observability, and backups.
+11. Use `docs/EXTERNAL-GATES.md` to prove human-owned trust gates.
+12. Use `docs/FAILOVER-DR-MATRIX.md` to prove recovery claims.
+13. Write evidence for each claim before you make it publicly.
 
 ## What Is Still Missing For Turnkey Public Deploy
 
@@ -42,7 +51,8 @@ This public repo does not yet include a sanitized equivalent.
 Before this repo can honestly say "clone and deploy," it needs:
 
 1. A sanitized deploy wrapper with all estate-specific values moved into example
-   config files.
+   config files. The public starter harness now exposes `doctor`,
+   `verify-config`, and `plan`; full deploy orchestration is still pending.
 2. A first-install OpenBao path for users with no existing snapshot or custody.
 3. A documented external-gate matrix for firewall, DNS, public edge, backups, and
    observability.
