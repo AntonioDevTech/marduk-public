@@ -18,6 +18,7 @@ Usage:
   ./deploy-marduk-public.sh openbao-eso-sync-proof
   ./deploy-marduk-public.sh openbao-secret-seeding-proof
   ./deploy-marduk-public.sh openbao-backup-proof
+  ./deploy-marduk-public.sh public-edge-proof
   ./deploy-marduk-public.sh deploy ./marduk.env
 
 This public script is a starter harness. It validates tools and config shape,
@@ -111,6 +112,10 @@ case "$cmd" in
 
   openbao-backup-proof)
     starter/scripts/openbao-backup-proof.sh
+    ;;
+
+  public-edge-proof)
+    starter/scripts/public-edge-proof.sh
     ;;
 
   deploy)
