@@ -100,6 +100,12 @@ Automated checks run:
   `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
   OpenBao init-refusal negative check, `make docker-build`, container
   `/healthz` HTTP 200, gitleaks, and refined private denylist grep all passed.
+- Disposable OpenBao live-helper proof against `openbao/openbao:2.5.5`, result:
+  `starter/scripts/openbao-first-install.sh preflight`, `status`, guarded
+  `init`, `unseal`, final `status`, and `shred-init` all passed against a fresh
+  local file-storage vault on a temporary Docker port. Init output and unseal
+  input were redirected to private temp files, never printed, and shredded.
+  The disposable vault container and root-owned temp storage were removed.
 
 Manual boundary review:
 
@@ -122,6 +128,9 @@ Manual boundary review:
   registry passwords, DNS tokens, and backup keys stay private.
 - Public OpenBao first-install helper dry-runs safely and refuses live init
   unless a human passes the explicit custody-warning flag.
+- Disposable live-helper proof covered init/unseal/shred mechanics only. It did
+  not seed real secrets, create durable AppRole credentials, or replace the
+  need for a clean public Proxmox first-install proof.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 
