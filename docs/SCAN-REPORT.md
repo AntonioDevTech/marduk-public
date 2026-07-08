@@ -4,7 +4,8 @@ Date: 2026-07-08
 Update: refreshed after the Phase 11 deployability status update, OpenBao
 first-install starter outline, Docker fallback test path, starter config doctor,
 public starter harness, generated deploy plan, generated Terraform starter
-inputs, and generated OpenBao first-install bootstrap bundle.
+inputs, generated OpenBao first-install bootstrap bundle, and OpenBao
+first-install dry-run helper.
 
 Scope:
 
@@ -34,6 +35,11 @@ Automated checks run:
   plan.
 - `make openbao-bootstrap`, result: PASS and renders ACL policies plus role
   payloads to `/tmp/marduk-openbao-bootstrap`.
+- `make openbao-first-install-dry-run`, result: PASS and prints the public-safe
+  first-install ceremony without contacting OpenBao or printing secrets.
+- Negative OpenBao init-refusal check, result: PASS because
+  `starter/scripts/openbao-first-install.sh init` refuses to run without the
+  explicit `--i-understand-this-prints-tier0-shares` flag.
 - Negative starter-doctor check, result: PASS because the example config is
   rejected without `--allow-placeholders`.
 - Real-looking private config proof in `/tmp`, result: PASS for
@@ -51,6 +57,7 @@ Automated checks run:
   first-install custody gate plan.
 - `./deploy-marduk-public.sh render-openbao`, result: PASS and writes
   non-secret OpenBao policy and role payload files.
+- `./deploy-marduk-public.sh openbao-first-install-dry-run`, result: PASS.
 - `./deploy-marduk-public.sh deploy`, result: expected pause because public
   turnkey deploy is not implemented yet.
 - Published GitHub clean clone proof at
@@ -75,6 +82,24 @@ Automated checks run:
 - Public GitHub Actions for commit `bc285ddfa1b481c8de787bcfc187e451052cd688`,
   result: completed success,
   `https://github.com/AntonioDevTech/marduk-public/actions/runs/28937020279`.
+- Published GitHub OpenBao first-install dry-run proof at
+  `3447c596c2e5b302bd20c01a62dd2467b091f68f`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  OpenBao init-refusal negative check, `make docker-build`, standalone repo
+  gitleaks, refined private denylist grep, and container `/healthz` HTTP 200
+  all passed.
+- Public GitHub Actions for commit `3447c596c2e5b302bd20c01a62dd2467b091f68f`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28937684741`.
+- Anonymous clean clone proof for
+  `3447c596c2e5b302bd20c01a62dd2467b091f68f`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  OpenBao init-refusal negative check, `make docker-build`, container
+  `/healthz` HTTP 200, gitleaks, and refined private denylist grep all passed.
 
 Manual boundary review:
 
@@ -95,6 +120,8 @@ Manual boundary review:
 - Public generated OpenBao bootstrap files contain ACL policies and role
   payloads only; real shares, root tokens, AppRole secret IDs, signing keys,
   registry passwords, DNS tokens, and backup keys stay private.
+- Public OpenBao first-install helper dry-runs safely and refuses live init
+  unless a human passes the explicit custody-warning flag.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 
