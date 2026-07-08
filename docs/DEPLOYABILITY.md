@@ -23,6 +23,7 @@ but not a real public DNS or Cloudflare ownership proof.
 - Generated OpenBao first-install ACL policy and role payload bundle from a
   private `marduk.env` shape.
 - Public CI for the demo app.
+- Public-safe one-command proof wrapper: `./deploy-marduk-public.sh public-proof`.
 - Sanitized Terraform starter for three Proxmox/Talos VMs.
 - Sanitized Talos patch examples.
 - Sanitized Kubernetes starter manifests.
@@ -76,12 +77,16 @@ but not a real public DNS or Cloudflare ownership proof.
    negative proof.
 7. Prove a public-clean edge route shape. DONE for disposable local edge proxy,
    expected host HTTP 200, healthz body `ok`, and unknown host HTTP 404.
-8. Expand the public starter harness into real deploy orchestration.
-9. Add a live-tested first-install OpenBao path for users with no existing vault
+8. Add sanitized deploy-wrapper parity for public-safe local proof. DONE for
+   `./deploy-marduk-public.sh public-proof`, which runs config rendering,
+   starter checks, OpenBao/Kubernetes/ESO/runtime seed/backup/edge disposable
+   proofs, then prints the honest real-infrastructure boundary.
+9. Expand the public starter harness into real infrastructure orchestration.
+10. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.
-10. Run an independent Proxmox proof on non-Antonio infrastructure if available.
-11. Summarize failover and disaster-recovery claims with public-safe evidence.
-12. Re-run secret scans and private-value denylist scans on the final public repo.
+11. Run an independent Proxmox proof on non-Antonio infrastructure if available.
+12. Summarize failover and disaster-recovery claims with public-safe evidence.
+13. Re-run secret scans and private-value denylist scans on the final public repo.
 
 Until those pass, the honest claim is:
 

@@ -110,6 +110,7 @@ docs/OPENBAO-ESO-SYNC-PROOF.md  Disposable External Secrets sync proof
 docs/OPENBAO-SECRET-SEEDING-PROOF.md  Disposable runtime secret seeding proof
 docs/OPENBAO-BACKUP-PROOF.md  Disposable raft snapshot shipping proof
 docs/PUBLIC-EDGE-PROOF.md     Disposable local public-edge route proof
+docs/PUBLIC-WRAPPER-PROOF.md  One-command public-safe wrapper proof
 docs/PUBLIC-SAFETY.md           What was removed and why
 docs/SCAN-REPORT.md             Public export scan result
 docs/diagrams/marduk-public.mmd Sanitized Mermaid architecture
@@ -182,6 +183,12 @@ verifies an unknown hostname returns 404:
 make public-edge-proof
 ```
 
+To run the current public-safe proof ladder as one command:
+
+```bash
+./deploy-marduk-public.sh public-proof
+```
+
 ```bash
 cd apps/hello
 go run .
@@ -245,6 +252,7 @@ The public harness shows the current command surface:
 ./deploy-marduk-public.sh openbao-plan ./marduk.env
 ./deploy-marduk-public.sh render-openbao ./marduk.env starter/security/openbao-bootstrap
 ./deploy-marduk-public.sh openbao-first-install-dry-run ./marduk.env
+./deploy-marduk-public.sh public-proof
 ```
 
 ## What Is Not Included

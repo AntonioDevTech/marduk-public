@@ -18,6 +18,7 @@ make starter-doctor
 ./deploy-marduk-public.sh openbao-first-install-dry-run
 make openbao-backup-proof
 make public-edge-proof
+./deploy-marduk-public.sh public-proof
 make docker-build
 make run-docker
 ```
@@ -62,8 +63,9 @@ Before this repo can honestly say "clone and deploy," it needs:
 
 1. A sanitized deploy wrapper with all estate-specific values moved into example
    config files. The public starter harness now exposes `doctor`,
-   `verify-config`, `plan`, `render-terraform`, `openbao-plan`, and
-   `render-openbao`; full deploy orchestration is still pending.
+   `verify-config`, `plan`, `render-terraform`, `openbao-plan`,
+   `render-openbao`, and `public-proof`; real infrastructure orchestration is
+   still pending.
 2. A live-tested first-install OpenBao path for users with no existing snapshot
    or custody. The public starter can render the non-secret policy and role
    bundle, dry-run the ceremony, create AppRole credential files, submit
