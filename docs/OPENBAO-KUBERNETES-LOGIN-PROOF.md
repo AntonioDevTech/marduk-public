@@ -89,6 +89,8 @@ This proof by itself does not prove:
 - public-safe registry and backup seed sync; that is covered by the separate
   `make openbao-secret-seeding-proof` command
 - real operator-owned registry, backup, edge, preview, or signing secret values
-- first off-cluster backup in a public clean-room environment
+- public-clean backup shipping; that is covered by the separate
+  `make openbao-backup-proof` command
+- a user-owned real backup host, firewall rule, host key, or retention policy
 - full Terraform/Talos/GitOps deployment on a random Proxmox host
 - failover, disaster recovery, and public route checks on non-original hardware

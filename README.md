@@ -58,7 +58,7 @@ and enough architecture to build your own version without exposing mine.
 | Node kill under load preserves the demo app | Proven privately |
 | Clean private rebuild under 30 minutes | Proven privately |
 | Random-user public clone deploys the full platform | Not proven yet |
-| Fresh first install with no existing vault snapshot | Helper mechanics, AppRole credential files, Kubernetes auth config submission, real ServiceAccount login, policy scoping, public-safe registry/backup secret seeding, and post-root access proven against disposable OpenBao/kind resources, not full public cluster |
+| Fresh first install with no existing vault snapshot | Helper mechanics, AppRole credential files, Kubernetes auth config submission, real ServiceAccount login, policy scoping, public-safe registry/backup secret seeding, raft snapshot backup shipping, and post-root access proven against disposable resources, not full public cluster |
 
 Latest honest rebuild wording:
 
@@ -107,6 +107,7 @@ docs/LINKEDIN-DEBUT.md          Safe launch copy and screenshot rules
 docs/OPENBAO-KUBERNETES-LOGIN-PROOF.md  Disposable K8s auth login proof
 docs/OPENBAO-ESO-SYNC-PROOF.md  Disposable External Secrets sync proof
 docs/OPENBAO-SECRET-SEEDING-PROOF.md  Disposable runtime secret seeding proof
+docs/OPENBAO-BACKUP-PROOF.md  Disposable raft snapshot shipping proof
 docs/PUBLIC-SAFETY.md           What was removed and why
 docs/SCAN-REPORT.md             Public export scan result
 docs/diagrams/marduk-public.mmd Sanitized Mermaid architecture
@@ -161,6 +162,14 @@ OpenBao, and proves External Secrets materializes both Kubernetes Secrets:
 
 ```bash
 make openbao-secret-seeding-proof
+```
+
+This optional proof creates a disposable raft-backed OpenBao server, saves a real
+raft snapshot, ships it to a disposable SSH backup receiver with a forced
+command, checks the hash, and proves arbitrary SSH commands do not run:
+
+```bash
+make openbao-backup-proof
 ```
 
 ```bash

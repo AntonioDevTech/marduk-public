@@ -61,6 +61,7 @@ Honest state:
   create AppRole credential files, submit Kubernetes auth config, prove a real
   Kubernetes ServiceAccount login, prove External Secrets sync, seed public-safe
   registry and backup values, and prove post-root helper mechanics against
-  disposable OpenBao/kind resources. It does not yet prove full first install
-  against a fresh public Proxmox cluster.
+  disposable OpenBao/kind resources. It also proves disposable raft snapshot
+  shipping through a forced-command SSH receiver. It does not yet prove full
+  first install against a fresh public Proxmox cluster.
 EOF

@@ -7,7 +7,8 @@ public starter harness, generated deploy plan, generated Terraform starter
 inputs, generated OpenBao first-install bootstrap bundle, and OpenBao
 first-install dry-run helper, AppRole credential file helper, Kubernetes auth
 config helper, Kubernetes login proof, External Secrets sync proof, and
-runtime secret seed helper, and post-root access verifier.
+runtime secret seed helper, public-clean backup proof, and post-root access
+verifier.
 
 Scope:
 
@@ -42,6 +43,9 @@ Automated checks run:
 - `make openbao-secret-seeding-proof`, result: PASS and proves public-safe
   registry and backup seed values sync through disposable OpenBao, kind, and
   External Secrets.
+- `make openbao-backup-proof`, result: PASS and proves a real disposable OpenBao
+  raft snapshot ships to a disposable forced-command SSH receiver with a matching
+  sha256.
 - Negative OpenBao init-refusal check, result: PASS because
   `starter/scripts/openbao-first-install.sh init` refuses to run without the
   explicit `--i-understand-this-prints-tier0-shares` flag.
@@ -149,6 +153,13 @@ Automated checks run:
   `backup/` proof values to disposable OpenBao, synced both into Kubernetes
   Secrets through External Secrets, verified the target values, revoked root,
   and removed the disposable cluster, container, and temp storage.
+- Disposable OpenBao backup proof against `openbao/openbao:2.5.5`, result:
+  started a raft-backed disposable OpenBao, initialized/unsealed it without
+  printing shares, waited for active-leader health, saved a real raft snapshot,
+  built a disposable `alpine:3.22` SSH receiver with a forced `recv-snapshot`
+  command, shipped the snapshot over SSH, verified remote byte count and sha256
+  matched, proved arbitrary SSH command output did not run, revoked root, and
+  removed the disposable containers, image, key, and temp storage.
 - Published GitHub OpenBao bootstrap-apply helper commit
   `ecf3ca1cac2dbb15c0c09a7b27d79dfe2bad0889`, result: shell syntax,
   `make doctor`, Docker-backed `make test`, `make starter-doctor`,
@@ -263,6 +274,27 @@ Automated checks run:
   `make openbao-eso-sync-proof`, `make openbao-secret-seeding-proof`,
   `git diff --check`, gitleaks, refined private denylist grep, and cleanup
   checks all passed.
+- Published GitHub OpenBao backup helper commit
+  `a490685679a002438269558fd1f8eef61af66f27`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`,
+  `make openbao-eso-sync-proof`, `make openbao-secret-seeding-proof`,
+  `make openbao-backup-proof`, `git diff --check`, standalone repo gitleaks,
+  refined private denylist grep, and cleanup checks all passed.
+- Public GitHub Actions for commit `a490685679a002438269558fd1f8eef61af66f27`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28967552490`.
+- Anonymous clean clone proof for
+  `a490685679a002438269558fd1f8eef61af66f27`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`,
+  `make openbao-eso-sync-proof`, `make openbao-secret-seeding-proof`,
+  `make openbao-backup-proof`, `git diff --check`, gitleaks, refined private
+  denylist grep, and cleanup checks all passed.
 
 Manual boundary review:
 
@@ -289,9 +321,10 @@ Manual boundary review:
   apply, AppRole credential file creation, Kubernetes auth config submission,
   real Kubernetes ServiceAccount JWT login, policy scoping, External Secrets
   sync, public-safe registry and backup seed, root revoke, and post-root admin
-  access mechanics. It does not publish real operator-owned secret values, prove
-  backup/public-edge paths, or replace the need for a clean public Proxmox
-  first-install proof.
+  access mechanics. It also proves disposable raft snapshot shipping through a
+  forced-command SSH receiver. It does not publish real operator-owned secret
+  values, prove a user-owned backup target, prove public-edge paths, or replace
+  the need for a clean public Proxmox first-install proof.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 

@@ -114,20 +114,30 @@ This is the proof required before the public repo can honestly say
 
 17. Verify the seeded secrets are consumed by their target controllers.
 
-18. Revoke root and remove the init JSON:
+18. Optional local proof before touching a real backup target: prove a
+    disposable raft snapshot can be shipped to a forced-command SSH receiver:
+
+   ```bash
+   make openbao-backup-proof
+   ```
+
+19. Prove your real backup target and snapshot shipping path with your private
+    host keys, user, forced command, and firewall rule.
+
+20. Revoke root and remove the init JSON:
 
    ```bash
    starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
    ```
 
-19. Verify post-root access:
+21. Verify post-root access:
 
    ```bash
    starter/scripts/openbao-first-install.sh verify-post-root ./marduk.env starter/security/openbao-approle-credentials/admin.json
    ```
 
-20. Verify OpenBao still serves ESO.
-21. Prove GitOps sync, signed admission, public route, observability, backup,
+22. Verify OpenBao still serves ESO.
+23. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard

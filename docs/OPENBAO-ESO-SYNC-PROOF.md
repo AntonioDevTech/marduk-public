@@ -90,6 +90,8 @@ This does not yet prove:
 - real operator-owned registry, backup, edge, preview, or signing secret values
 - public-safe registry and backup seeding is covered by
   `make openbao-secret-seeding-proof`
-- first off-cluster backup in a public clean-room environment
+- public-clean backup shipping; that is covered by the separate
+  `make openbao-backup-proof` command
+- a user-owned real backup host, firewall rule, host key, or retention policy
 - full Terraform/Talos/GitOps deployment on a random Proxmox host
 - failover, disaster recovery, and public route checks on non-original hardware

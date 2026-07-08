@@ -83,6 +83,7 @@ A fresh anonymous GitHub clone at commit
 - `make openbao-kubernetes-login-proof`
 - `make openbao-eso-sync-proof`
 - `make openbao-secret-seeding-proof`
+- `make openbao-backup-proof`
 - `git diff --check`
 - gitleaks 8.28.0 with no leaks
 - private-value denylist scan with no hits
@@ -94,6 +95,8 @@ A fresh anonymous GitHub clone at commit
 This does not yet prove:
 
 - real operator-owned registry, backup, edge, preview, or signing secret values
-- first off-cluster backup in a public clean-room environment
+- public-clean backup shipping is covered by the separate
+  `make openbao-backup-proof` command
+- a user-owned real backup host, firewall rule, host key, or retention policy
 - full Terraform/Talos/GitOps deployment on a random Proxmox host
 - failover, disaster recovery, and public route checks on non-original hardware

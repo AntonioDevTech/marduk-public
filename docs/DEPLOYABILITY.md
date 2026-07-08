@@ -8,8 +8,8 @@ It is not yet a turnkey public installer.
 
 The private MARDUK operational repo has a proven deploy wrapper. This public repo
 does not yet include a sanitized version of that wrapper. It does include
-public-safe first-install OpenBao helper mechanics, but not the full backup and
-public-edge first-install proof.
+public-safe first-install OpenBao helper mechanics, but not the full public-edge
+first-install proof.
 
 ## What Works Today
 
@@ -36,6 +36,7 @@ public-edge first-install proof.
   ServiceAccount login through kind, enforce policy scoping, install External
   Secrets into kind, sync OpenBao values into Kubernetes Secrets, seed
   public-safe registry and backup values through a mode-600 file, revoke root,
+  ship a real raft snapshot to a disposable forced-command backup receiver,
   verify post-root access, and remove the init JSON.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
@@ -68,12 +69,15 @@ public-edge first-install proof.
    config submission/real ServiceAccount login/policy scoping/External Secrets
    sync/public-safe registry and backup seed/root revoke/post-root access, not
    real operator-owned secret values.
-6. Expand the public starter harness into real deploy orchestration.
-7. Add a live-tested first-install OpenBao path for users with no existing vault
+6. Prove a public-clean OpenBao backup path. DONE for disposable raft snapshot
+   creation, SSH forced-command shipping, hash match, and arbitrary-command
+   negative proof.
+7. Expand the public starter harness into real deploy orchestration.
+8. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.
-8. Run an independent Proxmox proof on non-Antonio infrastructure if available.
-9. Summarize failover and disaster-recovery claims with public-safe evidence.
-10. Re-run secret scans and private-value denylist scans on the final public repo.
+9. Run an independent Proxmox proof on non-Antonio infrastructure if available.
+10. Summarize failover and disaster-recovery claims with public-safe evidence.
+11. Re-run secret scans and private-value denylist scans on the final public repo.
 
 Until those pass, the honest claim is:
 
