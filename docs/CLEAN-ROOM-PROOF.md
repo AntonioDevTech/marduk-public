@@ -124,20 +124,30 @@ This is the proof required before the public repo can honestly say
 19. Prove your real backup target and snapshot shipping path with your private
     host keys, user, forced command, and firewall rule.
 
-20. Revoke root and remove the init JSON:
+20. Optional local proof before touching real DNS or Cloudflare: prove the demo
+    app routes through a disposable edge proxy by hostname:
+
+   ```bash
+   make public-edge-proof
+   ```
+
+21. Prove your real DNS, public-edge account, tunnel, token scope, and public
+    route with your private domain.
+
+22. Revoke root and remove the init JSON:
 
    ```bash
    starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
    ```
 
-21. Verify post-root access:
+23. Verify post-root access:
 
    ```bash
    starter/scripts/openbao-first-install.sh verify-post-root ./marduk.env starter/security/openbao-approle-credentials/admin.json
    ```
 
-22. Verify OpenBao still serves ESO.
-23. Prove GitOps sync, signed admission, public route, observability, backup,
+24. Verify OpenBao still serves ESO.
+25. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard

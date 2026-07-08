@@ -59,6 +59,7 @@ and enough architecture to build your own version without exposing mine.
 | Clean private rebuild under 30 minutes | Proven privately |
 | Random-user public clone deploys the full platform | Not proven yet |
 | Fresh first install with no existing vault snapshot | Helper mechanics, AppRole credential files, Kubernetes auth config submission, real ServiceAccount login, policy scoping, public-safe registry/backup secret seeding, raft snapshot backup shipping, and post-root access proven against disposable resources, not full public cluster |
+| Public edge route shape | Proven with a disposable local edge proxy and demo app, not a real Cloudflare account |
 
 Latest honest rebuild wording:
 
@@ -108,6 +109,7 @@ docs/OPENBAO-KUBERNETES-LOGIN-PROOF.md  Disposable K8s auth login proof
 docs/OPENBAO-ESO-SYNC-PROOF.md  Disposable External Secrets sync proof
 docs/OPENBAO-SECRET-SEEDING-PROOF.md  Disposable runtime secret seeding proof
 docs/OPENBAO-BACKUP-PROOF.md  Disposable raft snapshot shipping proof
+docs/PUBLIC-EDGE-PROOF.md     Disposable local public-edge route proof
 docs/PUBLIC-SAFETY.md           What was removed and why
 docs/SCAN-REPORT.md             Public export scan result
 docs/diagrams/marduk-public.mmd Sanitized Mermaid architecture
@@ -170,6 +172,14 @@ command, checks the hash, and proves arbitrary SSH commands do not run:
 
 ```bash
 make openbao-backup-proof
+```
+
+This optional proof builds the demo app, places it behind a disposable pinned
+Nginx edge proxy, verifies the expected public hostname routes to the app, and
+verifies an unknown hostname returns 404:
+
+```bash
+make public-edge-proof
 ```
 
 ```bash

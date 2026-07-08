@@ -62,6 +62,7 @@ Honest state:
   Kubernetes ServiceAccount login, prove External Secrets sync, seed public-safe
   registry and backup values, and prove post-root helper mechanics against
   disposable OpenBao/kind resources. It also proves disposable raft snapshot
-  shipping through a forced-command SSH receiver. It does not yet prove full
-  first install against a fresh public Proxmox cluster.
+  shipping through a forced-command SSH receiver and local edge hostname routing
+  through a disposable proxy. It does not yet prove full first install against a
+  fresh public Proxmox cluster.
 EOF

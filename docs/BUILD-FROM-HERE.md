@@ -17,6 +17,7 @@ make starter-doctor
 ./deploy-marduk-public.sh render-openbao starter/config/marduk.env.example /tmp/marduk-openbao-bootstrap
 ./deploy-marduk-public.sh openbao-first-install-dry-run
 make openbao-backup-proof
+make public-edge-proof
 make docker-build
 make run-docker
 ```
@@ -72,8 +73,8 @@ Before this repo can honestly say "clone and deploy," it needs:
    values through a mode-600 file, revoke root, and prove post-root helper
    mechanics now. It can also create a real disposable raft snapshot and ship it
    to a disposable forced-command SSH receiver. Real operator-owned secret
-   values, public edge, sanitized wrapper parity, and clean public Proxmox proof
-   are still pending.
+   values, real DNS or Cloudflare ownership, sanitized wrapper parity, and clean
+   public Proxmox proof are still pending.
 3. A documented external-gate matrix for firewall, DNS, public edge, backups, and
    observability.
 4. A clean-room proof from an anonymous clone and documented inputs.

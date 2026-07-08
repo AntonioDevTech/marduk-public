@@ -90,6 +90,9 @@ This does not yet prove:
 
 - a user-owned real backup host, firewall rule, host key, or retention policy
 - real operator-owned registry, backup, edge, preview, or signing secret values
-- public-edge verification in a public clean-room environment
+- local public-edge route shape; that is covered by the separate
+  `make public-edge-proof` command
+- a user-owned real DNS zone, Cloudflare account, tunnel, token scope, or public
+  hostname
 - full Terraform/Talos/GitOps deployment on a random Proxmox host
 - failover, disaster recovery, and public route checks on non-original hardware

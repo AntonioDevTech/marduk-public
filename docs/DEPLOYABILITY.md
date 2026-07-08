@@ -8,8 +8,8 @@ It is not yet a turnkey public installer.
 
 The private MARDUK operational repo has a proven deploy wrapper. This public repo
 does not yet include a sanitized version of that wrapper. It does include
-public-safe first-install OpenBao helper mechanics, but not the full public-edge
-first-install proof.
+public-safe first-install OpenBao helper mechanics and local edge route proof,
+but not a real public DNS or Cloudflare ownership proof.
 
 ## What Works Today
 
@@ -38,6 +38,8 @@ first-install proof.
   public-safe registry and backup values through a mode-600 file, revoke root,
   ship a real raft snapshot to a disposable forced-command backup receiver,
   verify post-root access, and remove the init JSON.
+- Disposable local edge proof that a pinned proxy routes the expected hostname to
+  the demo app and returns 404 for an unknown hostname.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
 
@@ -72,12 +74,14 @@ first-install proof.
 6. Prove a public-clean OpenBao backup path. DONE for disposable raft snapshot
    creation, SSH forced-command shipping, hash match, and arbitrary-command
    negative proof.
-7. Expand the public starter harness into real deploy orchestration.
-8. Add a live-tested first-install OpenBao path for users with no existing vault
+7. Prove a public-clean edge route shape. DONE for disposable local edge proxy,
+   expected host HTTP 200, healthz body `ok`, and unknown host HTTP 404.
+8. Expand the public starter harness into real deploy orchestration.
+9. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.
-9. Run an independent Proxmox proof on non-Antonio infrastructure if available.
-10. Summarize failover and disaster-recovery claims with public-safe evidence.
-11. Re-run secret scans and private-value denylist scans on the final public repo.
+10. Run an independent Proxmox proof on non-Antonio infrastructure if available.
+11. Summarize failover and disaster-recovery claims with public-safe evidence.
+12. Re-run secret scans and private-value denylist scans on the final public repo.
 
 Until those pass, the honest claim is:
 

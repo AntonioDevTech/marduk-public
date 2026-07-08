@@ -77,7 +77,8 @@ Honest state:
   auth config submission, real Kubernetes ServiceAccount login, policy scoping,
   External Secrets sync, public-safe registry and backup seed, and post-root
   access against disposable OpenBao/kind resources. It also proves a real
-  disposable raft snapshot can ship to a disposable forced-command SSH receiver.
+  disposable raft snapshot can ship to a disposable forced-command SSH receiver,
+  and proves local edge hostname routing through a disposable proxy.
   It is still not a full turnkey deployer until a clean-room Proxmox install is
   implemented and proven from user-supplied private inputs.
 EOF
