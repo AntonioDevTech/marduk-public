@@ -3,8 +3,8 @@
 Date: 2026-07-08
 Update: refreshed after the Phase 11 deployability status update, OpenBao
 first-install starter outline, Docker fallback test path, starter config doctor,
-public starter harness, generated deploy plan, and generated Terraform starter
-inputs.
+public starter harness, generated deploy plan, generated Terraform starter
+inputs, and generated OpenBao first-install bootstrap bundle.
 
 Scope:
 
@@ -30,11 +30,16 @@ Automated checks run:
 - `make public-plan`, result: PASS and renders a config-derived staged deploy
   plan.
 - `make starter-tfvars`, result: PASS and renders starter Terraform variables.
+- `make openbao-plan`, result: PASS and renders the public first-install gate
+  plan.
+- `make openbao-bootstrap`, result: PASS and renders ACL policies plus role
+  payloads to `/tmp/marduk-openbao-bootstrap`.
 - Negative starter-doctor check, result: PASS because the example config is
   rejected without `--allow-placeholders`.
 - Real-looking private config proof in `/tmp`, result: PASS for
   `verify-config`, `plan`, `render-terraform`, `terraform fmt -check` on the
-  generated tfvars, and expected `deploy` pause.
+  generated tfvars, `openbao-plan`, `render-openbao`, and expected `deploy`
+  pause.
 - `make docker-build`, result: PASS.
 - Local container health probe, result: `/healthz` returned HTTP 200.
 - `./deploy-marduk-public.sh doctor`, result: PASS.
@@ -42,6 +47,10 @@ Automated checks run:
   deploy path.
 - `./deploy-marduk-public.sh render-terraform`, result: PASS and prints HCL
   starter variables from the example config.
+- `./deploy-marduk-public.sh openbao-plan`, result: PASS and prints the
+  first-install custody gate plan.
+- `./deploy-marduk-public.sh render-openbao`, result: PASS and writes
+  non-secret OpenBao policy and role payload files.
 - `./deploy-marduk-public.sh deploy`, result: expected pause because public
   turnkey deploy is not implemented yet.
 - Published GitHub clean clone proof at
@@ -57,6 +66,15 @@ Automated checks run:
 - Public GitHub Actions for commit `ad072ed22853b667ebc4d2b155382d43b56de84d`,
   result: completed success in 47s,
   `https://github.com/AntonioDevTech/marduk-public/actions/runs/28935126147`.
+- Published GitHub OpenBao-bundle proof at
+  `bc285ddfa1b481c8de787bcfc187e451052cd688`, result: `make doctor`,
+  `make test`, `make starter-doctor`, `make public-plan`,
+  `make starter-tfvars`, `make openbao-plan`, `make openbao-bootstrap`,
+  `make docker-build`, clean-clone gitleaks, refined private denylist grep, and
+  container `/healthz` HTTP 200 all passed.
+- Public GitHub Actions for commit `bc285ddfa1b481c8de787bcfc187e451052cd688`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28937020279`.
 
 Manual boundary review:
 
@@ -74,6 +92,9 @@ Manual boundary review:
   secret values remain private user inputs.
 - Public generated Terraform variables are starter outputs only; real generated
   `terraform.tfvars` is ignored and belongs in a private operational repo.
+- Public generated OpenBao bootstrap files contain ACL policies and role
+  payloads only; real shares, root tokens, AppRole secret IDs, signing keys,
+  registry passwords, DNS tokens, and backup keys stay private.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 
