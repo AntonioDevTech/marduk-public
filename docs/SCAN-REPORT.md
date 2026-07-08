@@ -214,6 +214,25 @@ Automated checks run:
   `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
   `make docker-build`, `make openbao-kubernetes-login-proof`, `git diff --check`,
   gitleaks, refined private denylist grep, and cleanup checks all passed.
+- Published GitHub OpenBao ESO sync helper commit
+  `d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`,
+  `make openbao-eso-sync-proof`, `git diff --check`, standalone repo gitleaks,
+  refined private denylist grep, and cleanup checks all passed.
+- Public GitHub Actions for commit `d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2`,
+  result: completed success,
+  `https://github.com/AntonioDevTech/marduk-public/actions/runs/28964935158`.
+- Anonymous clean clone proof for
+  `d2b655d83cc31d7e37eb37da8d233ae7aa9f1ba2`, result: shell syntax,
+  `make doctor`, Docker-backed `make test`, `make starter-doctor`,
+  `make public-plan`, `make starter-tfvars`, `make openbao-plan`,
+  `make openbao-bootstrap`, `make openbao-first-install-dry-run`,
+  `make docker-build`, `make openbao-kubernetes-login-proof`,
+  `make openbao-eso-sync-proof`, `git diff --check`, gitleaks, refined private
+  denylist grep, and cleanup checks all passed.
 
 Manual boundary review:
 
