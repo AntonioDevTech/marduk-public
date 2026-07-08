@@ -106,6 +106,12 @@ Automated checks run:
   local file-storage vault on a temporary Docker port. Init output and unseal
   input were redirected to private temp files, never printed, and shredded.
   The disposable vault container and root-owned temp storage were removed.
+- Disposable OpenBao bootstrap-apply proof against `openbao/openbao:2.5.5`,
+  result: rendered the non-secret bundle, initialized and unsealed a fresh local
+  vault, ran `apply-bootstrap`, verified KV mount, Kubernetes auth, AppRole auth,
+  four ACL policies, four roles, ran `revoke-root`, confirmed root lookup
+  returned HTTP 403, removed the init JSON, shredded temp custody files, and
+  removed the disposable container/storage.
 
 Manual boundary review:
 
@@ -129,8 +135,9 @@ Manual boundary review:
 - Public OpenBao first-install helper dry-runs safely and refuses live init
   unless a human passes the explicit custody-warning flag.
 - Disposable live-helper proof covered init/unseal/shred mechanics only. It did
-  not seed real secrets, create durable AppRole credentials, or replace the
-  need for a clean public Proxmox first-install proof.
+  not seed real secrets, create durable AppRole secret IDs, configure Kubernetes
+  auth with real cluster trust material, or replace the need for a clean public
+  Proxmox first-install proof.
 - Public deploy harness is non-destructive and refuses to claim full deploy.
 - Clean clone proof covers the public starter only, not full Proxmox deployment.
 

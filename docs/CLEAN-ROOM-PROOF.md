@@ -64,14 +64,23 @@ This is the proof required before the public repo can honestly say
    starter/scripts/openbao-first-install.sh status ./marduk.env
    starter/scripts/openbao-first-install.sh init ./marduk.env --i-understand-this-prints-tier0-shares
    starter/scripts/openbao-first-install.sh unseal ./marduk.env
+   starter/scripts/openbao-first-install.sh apply-bootstrap ./marduk.env starter/security/openbao-bootstrap
    ```
 
    Save all printed unseal shares to private custody before continuing. Do not
    paste them into chat, Git, issues, screenshots, or public logs.
 
-12. Seed registry, backup, edge, preview, and signing secrets.
-13. Revoke root, shred the init JSON, and verify OpenBao still serves ESO.
-14. Prove GitOps sync, signed admission, public route, observability, backup,
+12. Configure Kubernetes auth with private cluster trust material, then create
+    and privately save AppRole secret IDs.
+13. Seed registry, backup, edge, preview, and signing secrets.
+14. Revoke root and remove the init JSON:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
+   ```
+
+15. Verify OpenBao still serves ESO.
+16. Prove GitOps sync, signed admission, public route, observability, backup,
     and disaster-recovery checks.
 
 ## Passing Standard

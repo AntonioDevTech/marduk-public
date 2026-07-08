@@ -51,6 +51,11 @@ contact OpenBao. The live helper refuses to initialize a vault unless a human
 passes the explicit confirmation flag documented in
 `starter/security/openbao-first-install.md`.
 
+After init and unseal, the helper can apply the generated non-secret bundle and
+revoke root. The config still must not contain Kubernetes auth reviewer tokens,
+AppRole secret IDs, signing keys, registry passwords, DNS tokens, backup keys,
+or other secret values.
+
 ## What Belongs In The Config
 
 - Proxmox endpoint, node, storage, and bridge names.

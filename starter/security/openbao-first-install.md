@@ -66,10 +66,21 @@ payloads/approle-ci-signing.json
    starter/scripts/openbao-first-install.sh status ./marduk.env
    ```
 
-7. Enable a KV v2 mount for platform secrets.
-8. Enable Kubernetes auth for External Secrets.
-9. Enable AppRole auth for human/admin and CI claim tickets.
-10. Create least-privilege policies:
+7. Apply the non-secret bootstrap bundle:
+
+   ```bash
+   starter/scripts/openbao-first-install.sh apply-bootstrap ./marduk.env starter/security/openbao-bootstrap
+   ```
+
+   This enables the KV mount, enables Kubernetes and AppRole auth, applies the
+   generated policies, and creates the generated roles. It does not configure
+   Kubernetes auth with private cluster credentials, does not create AppRole
+   secret IDs, and does not seed real secret values.
+
+8. Configure Kubernetes auth with a private token reviewer JWT, Kubernetes host,
+   and CA bundle from your cluster.
+9. Create and privately save the required AppRole secret IDs.
+10. Verify the least-privilege policy shape:
    - External Secrets reads only runtime secret prefixes.
    - Snapshot job can only create raft snapshots.
    - CI signing role reads only the signing-key path.
@@ -83,10 +94,10 @@ payloads/approle-ci-signing.json
    - signing key and password
 12. Verify External Secrets syncs every expected Kubernetes Secret.
 13. Create and verify the first off-cluster raft snapshot.
-14. Revoke root and shred the init file:
+14. Revoke root and remove the init file:
 
    ```bash
-   starter/scripts/openbao-first-install.sh shred-init ./marduk.env
+   starter/scripts/openbao-first-install.sh revoke-root ./marduk.env
    ```
 
 ## Human Gates

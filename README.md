@@ -58,7 +58,7 @@ and enough architecture to build your own version without exposing mine.
 | Node kill under load preserves the demo app | Proven privately |
 | Clean private rebuild under 30 minutes | Proven privately |
 | Random-user public clone deploys the full platform | Not proven yet |
-| Fresh first install with no existing vault snapshot | Dry-run helper packaged, not live-proven publicly |
+| Fresh first install with no existing vault snapshot | Helper mechanics proven against disposable OpenBao, not full public cluster |
 
 Latest honest rebuild wording:
 
@@ -178,7 +178,8 @@ The starter includes:
 - Talos cluster and node patch examples.
 - Argo CD app-of-apps bootstrap example.
 - Kubernetes demo app manifests.
-- Security notes plus OpenBao first-install policy, role, and ceremony dry-run helpers.
+- Security notes plus OpenBao first-install policy, role, dry-run, bootstrap-apply,
+  and root-revoke helpers.
 
 You still must supply your own private values: network plan, endpoints, DNS,
 registry, vault, signing identity, and recovery process.

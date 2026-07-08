@@ -29,6 +29,8 @@ OpenBao ceremony.
 - Public-safe external gate and failover/DR proof matrices.
 - Public-safe OpenBao first-install pattern, non-secret bootstrap bundle, and
   dry-run ceremony helper.
+- Disposable OpenBao proof that the helper can initialize, unseal, apply the
+  generated non-secret policies/roles, revoke root, and remove the init JSON.
 - Clean anonymous clone of the public repo passes starter checks and local
   container health proof.
 
@@ -39,7 +41,8 @@ OpenBao ceremony.
 - Real Talos secrets and kubeconfig custody.
 - Private Git host or GitHub/GitLab equivalent.
 - Registry and signing identity.
-- OpenBao first-install custody, policies, AppRoles, and initial secrets.
+- OpenBao first-install custody, Kubernetes auth config, AppRole secret IDs, and
+  initial secrets.
 - Backup target and snapshot shipping path.
 - External DNS/public edge model.
 - Out-of-band observability.
@@ -53,14 +56,16 @@ OpenBao ceremony.
    starter checks, not full Proxmox deploy.
 3. Render concrete deploy-plan and Terraform starter inputs from user-supplied
    config. DONE for starter inputs, not Terraform apply.
-4. Render OpenBao first-install policy and role payload bundle. DONE for
-   non-secret bundle and dry-run ceremony helper, not live vault ceremony.
-5. Expand the public starter harness into real deploy orchestration.
-6. Add a live-tested first-install OpenBao path for users with no existing vault
+4. Render OpenBao first-install policy and role payload bundle. DONE.
+5. Prove OpenBao helper mechanics against a disposable vault. DONE for
+   init/unseal/apply generated bundle/root revoke, not full Kubernetes ESO
+   integration or real secret seeding.
+6. Expand the public starter harness into real deploy orchestration.
+7. Add a live-tested first-install OpenBao path for users with no existing vault
    snapshot.
-7. Run an independent Proxmox proof on non-Antonio infrastructure if available.
-8. Summarize failover and disaster-recovery claims with public-safe evidence.
-9. Re-run secret scans and private-value denylist scans on the final public repo.
+8. Run an independent Proxmox proof on non-Antonio infrastructure if available.
+9. Summarize failover and disaster-recovery claims with public-safe evidence.
+10. Re-run secret scans and private-value denylist scans on the final public repo.
 
 Until those pass, the honest claim is:
 

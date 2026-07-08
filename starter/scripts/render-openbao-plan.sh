@@ -41,12 +41,13 @@ Expected private first-install order:
   4. Initialize 3 Shamir shares with threshold 2.
   5. Save all shares to password manager plus paper/offline custody.
   6. Unseal with any 2 shares.
-  7. Enable KV v2, Kubernetes auth, and AppRole auth.
-  8. Apply the rendered ACL policies and role payloads.
-  9. Enter real secret values through mode-600 files or stdin, never shell args.
-  10. Verify External Secrets, signed-image admission, backup shipping, and public edge.
-  11. Create the first off-cluster raft snapshot.
-  12. Revoke root and shred temporary init material.
+  7. Apply the rendered non-secret bundle with apply-bootstrap.
+  8. Configure Kubernetes auth with private cluster trust material.
+  9. Create and privately save AppRole secret IDs.
+  10. Enter real secret values through mode-600 files or stdin, never shell args.
+  11. Verify External Secrets, signed-image admission, backup shipping, and public edge.
+  12. Create the first off-cluster raft snapshot.
+  13. Revoke root with revoke-root.
 
 Manual gates that stay human-owned:
   - Save unseal shares.
@@ -56,6 +57,6 @@ Manual gates that stay human-owned:
 
 Honest state:
   This public repo can render the non-secret OpenBao policy and role skeleton
-  and dry-run the first-install ceremony. It does not yet prove live init
-  against a fresh public cluster.
+  and prove helper mechanics against disposable OpenBao. It does not yet prove
+  full first install against a fresh public cluster.
 EOF

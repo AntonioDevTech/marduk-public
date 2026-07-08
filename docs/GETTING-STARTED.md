@@ -85,6 +85,9 @@ To adapt it:
 8. Read `starter/security/openbao-first-install.md` before running any live
    OpenBao init. The live init command intentionally requires an explicit
    confirmation flag because it prints tier-0 unseal shares for you to save.
+   The helper can also apply the generated non-secret bundle and revoke root,
+   but you still own Kubernetes auth config, AppRole secret IDs, and real secret
+   values.
 9. Generate your own Talos secrets. Never reuse anyone else's.
 10. Create your own registry, signing key, vault, and DNS records.
 11. Run a secret scanner and a private-value grep before publishing anything.

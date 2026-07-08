@@ -57,8 +57,9 @@ Expected private deploy order:
   6. Seed Cilium and Argo CD.
   7. Dry-run the OpenBao first-install ceremony and review every human gate.
   8. Perform the live OpenBao first-install ceremony and save custody shares offline.
-  9. Seed runtime secrets through OpenBao and External Secrets.
-  10. Prove firewall, DNS, public route, observability, backup, admission, failover, and DR gates.
+  9. Apply the generated OpenBao bootstrap bundle, configure private auth, and revoke root.
+  10. Seed runtime secrets through OpenBao and External Secrets.
+  11. Prove firewall, DNS, public route, observability, backup, admission, failover, and DR gates.
 
 Manual gates that stay human-owned:
   - OpenBao custody shares and any root-of-trust ceremony.
@@ -69,7 +70,7 @@ Manual gates that stay human-owned:
 
 Honest state:
   This public repo now validates config, renders starter Terraform inputs, and
-  dry-runs the OpenBao first-install ceremony.
+  proves OpenBao helper mechanics against disposable OpenBao.
   It is still not a full turnkey deployer until a clean-room Proxmox install is
   implemented and proven from user-supplied private inputs.
 EOF
