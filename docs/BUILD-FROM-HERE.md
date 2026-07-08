@@ -29,8 +29,8 @@ installed.
 ## Platform Build Path
 
 The platform path is intentionally a starter today, because real infrastructure
-values must be private and the sanitized public deploy wrapper has not been
-published yet.
+values must be private. The public-safe wrapper exists for local proof, but it
+does not yet orchestrate a real Proxmox/Talos/GitOps install.
 
 Recommended order:
 
@@ -57,14 +57,15 @@ Recommended order:
 
 The private MARDUK estate has a one-command wrapper that orchestrates Terraform,
 Talos, GitOps, OpenBao restore, external gate checks, and final verification.
-This public repo does not yet include a sanitized equivalent.
+This public repo has a public-safe wrapper for disposable proofs, not the full
+sanitized infrastructure deploy wrapper.
 
 Before this repo can honestly say "clone and deploy," it needs:
 
-1. A sanitized deploy wrapper with all estate-specific values moved into example
-   config files. The public starter harness now exposes `doctor`,
+1. Real infrastructure orchestration with all estate-specific values moved into
+   documented config files. The public harness exposes `doctor`,
    `verify-config`, `plan`, `render-terraform`, `openbao-plan`,
-   `render-openbao`, and `public-proof`; real infrastructure orchestration is
+   `render-openbao`, and `public-proof`; actual Proxmox/Talos apply logic is
    still pending.
 2. A live-tested first-install OpenBao path for users with no existing snapshot
    or custody. The public starter can render the non-secret policy and role
@@ -75,11 +76,9 @@ Before this repo can honestly say "clone and deploy," it needs:
    values through a mode-600 file, revoke root, and prove post-root helper
    mechanics now. It can also create a real disposable raft snapshot and ship it
    to a disposable forced-command SSH receiver. Real operator-owned secret
-   values, real DNS or Cloudflare ownership, sanitized wrapper parity, and clean
-   public Proxmox proof are still pending.
-3. A documented external-gate matrix for firewall, DNS, public edge, backups, and
-   observability.
-4. A clean-room proof from an anonymous clone and documented inputs.
+   values, real DNS or Cloudflare ownership, real infrastructure orchestration,
+   and clean public Proxmox proof are still pending.
+3. A second-hypervisor proof from an anonymous clone and documented inputs.
 
 ## Why The Public Repo Is Not The Operational Repo
 

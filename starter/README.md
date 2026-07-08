@@ -1,20 +1,20 @@
 # Starter Blueprint
 
-This directory contains sanitized starter files for building a MARDUK-like
-platform in your own lab.
+This directory is the public-safe starting point for building a MARDUK-like
+platform in your own private repo.
 
-It is not a turn-key installer. Real infrastructure requires real private
-values, and those should live in your own private operational repo.
+It is not a turnkey installer. Real infrastructure needs real private values,
+and those values belong in your private operational repo.
 
-## Directory Map
+## ICM Shape
 
 ```text
-terraform/proxmox/  VM layer template for three Talos nodes
 config/             Sourceable public config contract
-scripts/            Config doctor and generated artifact helpers
+terraform/proxmox/  Three-node Proxmox/Talos VM template
 talos/              Talos patch examples
 kubernetes/         GitOps bootstrap and demo workload examples
-security/           Policy and secret-management notes
+security/           OpenBao, signing, policy, and network notes
+scripts/            Doctors, renderers, and disposable proof helpers
 ```
 
 ## First Commands In A Private Copy
@@ -26,7 +26,16 @@ starter/scripts/render-terraform-tfvars.sh ./marduk.env starter/terraform/proxmo
 ./deploy-marduk-public.sh plan ./marduk.env
 ```
 
+## What You Add
+
+- Your Proxmox endpoint and storage choices.
+- Your VLAN or subnet plan.
+- Your Talos secrets and cluster endpoint.
+- Your Git repo, registry, DNS, and edge provider.
+- Your OpenBao custody and backup destination.
+- Your signing identity and admission policy trust root.
+
 ## Safety Rule
 
-Do not put real secrets, private IPs, private hostnames, or recovery notes in a
-public repo. Keep those in a private operational repo.
+Do not put real secrets, private IPs, private hostnames, custody notes, or
+recovery values in a public repo. Keep those in a private operational repo.

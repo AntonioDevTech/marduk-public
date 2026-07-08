@@ -7,9 +7,9 @@ This repository is public, cloneable, and useful as a starter.
 It is not yet a turnkey public installer.
 
 The private MARDUK operational repo has a proven deploy wrapper. This public repo
-does not yet include a sanitized version of that wrapper. It does include
-public-safe first-install OpenBao helper mechanics and local edge route proof,
-but not a real public DNS or Cloudflare ownership proof.
+includes a public-safe proof wrapper, but not a real infrastructure deploy
+wrapper. It includes public-safe first-install OpenBao helper mechanics and local
+edge route proof, but not a real public DNS or Cloudflare ownership proof.
 
 ## What Works Today
 
@@ -41,8 +41,8 @@ but not a real public DNS or Cloudflare ownership proof.
   verify post-root access, and remove the init JSON.
 - Disposable local edge proof that a pinned proxy routes the expected hostname to
   the demo app and returns 404 for an unknown hostname.
-- Clean anonymous clone of the public repo passes starter checks and local
-  container health proof.
+- Clean anonymous clone of the public repo passes `./deploy-marduk-public.sh
+  public-proof`, scans, and cleanup checks.
 
 ## What A User Must Still Build Privately
 
@@ -62,8 +62,8 @@ but not a real public DNS or Cloudflare ownership proof.
 
 1. Publish a sanitized operational package with estate-specific values moved to
    documented example config files. The first public config contract now exists.
-2. Prove public starter checks from a clean anonymous clone. DONE for local
-   starter checks, not full Proxmox deploy.
+2. Prove public starter checks from a clean anonymous clone. DONE for
+   `public-proof`, not full Proxmox deploy.
 3. Render concrete deploy-plan and Terraform starter inputs from user-supplied
    config. DONE for starter inputs, not Terraform apply.
 4. Render OpenBao first-install policy and role payload bundle. DONE.
@@ -82,8 +82,8 @@ but not a real public DNS or Cloudflare ownership proof.
    starter checks, OpenBao/Kubernetes/ESO/runtime seed/backup/edge disposable
    proofs, then prints the honest real-infrastructure boundary.
 9. Expand the public starter harness into real infrastructure orchestration.
-10. Add a live-tested first-install OpenBao path for users with no existing vault
-   snapshot.
+10. Add a live-tested real first-install OpenBao path for users with no existing
+   vault snapshot.
 11. Run an independent Proxmox proof on non-Antonio infrastructure if available.
 12. Summarize failover and disaster-recovery claims with public-safe evidence.
 13. Re-run secret scans and private-value denylist scans on the final public repo.

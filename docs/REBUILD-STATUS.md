@@ -20,6 +20,9 @@ deploy the whole platform unchanged."
 - External Secrets can resync all expected runtime secrets.
 - Admission policy still denies unsigned images after the rebuild.
 - The public demo route returned HTTP 200 after recovery.
+- A node stop/restart failover test preserved the control plane and recovered
+  the node.
+- A live OpenBao canary restore drill proved snapshot rollback with cleanup.
 
 ## Latest Timing
 
@@ -29,9 +32,12 @@ deploy the whole platform unchanged."
 | Clean rerun after that fix | Rebuilt and green | 33m45s | Found and fixed the staged default-deny anchor bug |
 | Codex-driven Phase 11 wrapper proof | Rebuilt and green | 9m38s from safe prep start | Proved the fixed private wrapper end to end |
 | Antonio manual Phase 11 wrapper proof | Rebuilt and green | 8m50s from safe prep start | Proved the operator path manually |
+| Private proof after public ladder | Rebuilt and green | 8m46s destroy-to-PASS | Proved the current wrapper after public packaging work |
+| Failover and DR proof | Platform stayed green after recovery | Event proof, not rebuild timing | Proved node recovery and OpenBao canary restore |
 
 The private-estate under-30 proof is now satisfied by the Phase 11 wrapper
-proofs. The public deployability proof is separate and still pending.
+proofs. The public `public-proof` ladder is also proven, but the real public
+Proxmox deployability proof is separate and still pending.
 
 ## Public Wording
 
