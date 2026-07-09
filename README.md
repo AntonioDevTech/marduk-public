@@ -27,8 +27,9 @@ repo:
 
 ### What this repo is not
 
-This public repo is not a turnkey installer for my private operational
-environment.
+This public repo is safe to share and includes a local proof command, but a full
+Proxmox install still requires a private config file, user-owned secrets,
+DNS/firewall setup, and a second-hardware proof.
 
 It does not claim multi-host HA, zero-risk operation, production cloud
 replacement, or unrestricted autonomous operation.
@@ -98,10 +99,10 @@ would need to do the private operator work in this order:
     secret sync, routing, observability, backup, and recovery.
 
 The private MARDUK implementation has been rebuilt from destroyed VMs to final
-verified green in under 10 minutes with explicit human custody gates. This
-public repo should only be called a full turnkey Proxmox installer after the
-same full path is packaged, documented, and proven from a clean clone on
-independent hardware with user-owned inputs.
+verified green in under 10 minutes with explicit human custody gates. A full
+public Proxmox install claim should wait until the same path is packaged,
+documented, and proven from a clean clone on independent hardware with
+user-owned inputs.
 
 ## Why This Exists
 
