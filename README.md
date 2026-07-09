@@ -80,6 +80,11 @@ configuration, exercises disposable OpenBao and Kubernetes proofs, ships a
 disposable backup, and proves local edge routing. It does not create real
 Proxmox VMs, take over DNS, configure a firewall, or ask for secrets.
 
+Public runbook:
+[`docs/marduk-public-proxmox-deploy-runbook.pdf`](docs/marduk-public-proxmox-deploy-runbook.pdf)
+walks through the same order with public-safe stop points, evidence rules, and
+human-owned gates.
+
 To fully deploy your own MARDUK-style platform from this public starter, you
 would need to do the private operator work in this order:
 
