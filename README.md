@@ -49,7 +49,24 @@ box is still one fate domain.
 
 ## Can I Clone This And Deploy The Full Platform Today?
 
-Not yet.
+Not yet - and that is intentional.
+
+This public repo is a safe starter and proof harness. It shows the platform
+shape, validates the public examples, and proves several controls with
+disposable local resources. It does not pretend to know your real infrastructure
+or ask you to publish values that should stay private.
+
+The gap is not the Kubernetes YAML. The gap is the environment-specific trust
+work that every real operator must own:
+
+- Proxmox endpoint, node, storage, bridge, VLAN, gateway, and IP plan.
+- Terraform state location and change-control process.
+- Fresh Talos secrets, kubeconfig custody, and cluster bootstrap material.
+- Git host, container registry, signing identity, and image trust root.
+- OpenBao first-install or restore ceremony, unseal custody, and runtime
+  secrets.
+- DNS, firewall, public edge, backup target, and observability routing.
+- A second independent Proxmox proof before claiming broad public deployability.
 
 You can clone this public repo and run a real public-safe local proof command:
 
@@ -57,15 +74,34 @@ You can clone this public repo and run a real public-safe local proof command:
 ./deploy-marduk-public.sh public-proof
 ```
 
-That command validates the starter, builds and tests the demo, renders
+That command validates the starter, builds and tests the demo, renders example
 configuration, exercises disposable OpenBao and Kubernetes proofs, ships a
 disposable backup, and proves local edge routing. It does not create real
-Proxmox VMs, take over your DNS, configure your firewall, or ask for secrets.
+Proxmox VMs, take over DNS, configure a firewall, or ask for secrets.
 
-The private MARDUK estate has been rebuilt from destroyed VMs to final verified
-green in under 10 minutes with explicit human custody gates. A full public
-Proxmox install still needs private config, user-owned secrets, DNS/firewall
-setup, and a second, unrelated Proxmox proof with user-owned inputs.
+To fully deploy your own MARDUK-style platform from this public starter, you
+would need to do the private operator work in this order:
+
+1. Clone the public repo and run `./deploy-marduk-public.sh public-proof`.
+2. Copy `starter/` into a private operational workspace.
+3. Create a private `marduk.env` with your own topology, with no secret values
+   committed to Git.
+4. Run the starter doctor and render the deployment plan, Terraform variables,
+   and OpenBao first-install bundle.
+5. Review the rendered plan before touching real infrastructure.
+6. Build the Proxmox VM substrate with Terraform using your private inputs.
+7. Bootstrap Talos and Kubernetes with fresh operator-owned secrets.
+8. Seed GitOps so the platform reconciles from Git instead of manual edits.
+9. Initialize or restore OpenBao through a human custody gate, then connect
+   External Secrets for runtime values.
+10. Prove the final controls: GitOps convergence, signed-image admission,
+    secret sync, routing, observability, backup, and recovery.
+
+The private MARDUK implementation has been rebuilt from destroyed VMs to final
+verified green in under 10 minutes with explicit human custody gates. This
+public repo should only be called a full turnkey Proxmox installer after the
+same full path is packaged, documented, and proven from a clean clone on
+independent hardware with user-owned inputs.
 
 ## Why This Exists
 
